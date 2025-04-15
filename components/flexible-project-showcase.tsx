@@ -1,36 +1,13 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { MarkdownRenderer } from "@/components/markdown-renderer"
-import Image from "next/image"
 import Link from "next/link"
-import { trackEvent, EventCategory } from "@/lib/analytics"
-
-interface Project {
-  id: number
-  title: string
-  slug: string
-  content: string
-  imageUrl: string
-  software?: string
-  imageRatio?: "square" | "landscape" | "portrait"
-}
-
-interface Subcategory {
-  id: number
-  name: string
-  slug: string
-}
-
-interface Category {
-  id: number
-  name: string
-  slug: string
-}
-
-interface ProjectShowcaseProps {
-  projectSlug: string
-}
+import type { Project } from "@/types/project"
+import type { Category } from "@/types/category"
+import type { Subcategory } from "@/types/subcategory"
+import type { ProjectShowcaseProps } from "@/types/project-showcase"
+import { RelatedProjectCard } from "@/components/related-project-card"
+import { MarkdownRenderer } from "@/components/markdown-renderer"
 
 export function FlexibleProjectShowcase({ projectSlug }: ProjectShowcaseProps) {
   const [project, setProject] = useState<Project | null>(null)
@@ -78,7 +55,8 @@ export function FlexibleProjectShowcase({ projectSlug }: ProjectShowcaseProps) {
   }
 
   return (
-    <div className="container mx-auto py-12 px-4 max-w-4xl">
+    <div className="container mx-auto py-12 px-4 max-w-7xl">
+      {/* Changed from max-w-5xl to max-w-7xl */}
       {/* Breadcrumbs */}
       {category && subcategory && (
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
@@ -97,15 +75,12 @@ export function FlexibleProjectShowcase({ projectSlug }: ProjectShowcaseProps) {
           <span className="text-foreground">{project.title}</span>
         </div>
       )}
-
       {/* Project Title */}
       <h1 className="text-3xl font-bold mb-8">{project.title}</h1>
-
       {/* Project Content - Using our enhanced markdown renderer that supports HTML */}
       <div className="prose prose-invert max-w-none">
         <MarkdownRenderer content={project.content} />
       </div>
-
       {/* Related Projects */}
       {relatedProjects.length > 0 && (
         <div className="mt-16">
@@ -126,42 +101,10 @@ export function FlexibleProjectShowcase({ projectSlug }: ProjectShowcaseProps) {
   )
 }
 
-function RelatedProjectCard({
-  project,
-  categorySlug,
-  subcategorySlug,
-}: { project: Project; categorySlug: string; subcategorySlug: string }) {
-  return (
-    <Link
-      href={`/${categorySlug}/${subcategorySlug}/${project.slug}`}
-      className="block bg-card rounded-lg border border-border hover:border-primary transition-colors overflow-hidden group"
-      onClick={() => trackEvent(EventCategory.PROJECT, "click_related", project.title)}
-    >
-      <div className="relative w-full h-48 overflow-hidden">
-        <Image
-          src={project.imageUrl || "/placeholder.svg"}
-          alt={project.title}
-          fill
-          className={`object-cover transition-transform group-hover:scale-105 ${
-            project.imageRatio === "portrait" ? "object-top" : "object-center"
-          }`}
-        />
-      </div>
-      <div className="p-4">
-        <h3 className="text-lg font-semibold mb-1">{project.title}</h3>
-        {project.software && (
-          <div className="mt-2 inline-block px-2 py-1 bg-secondary text-secondary-foreground text-xs rounded-full">
-            {project.software}
-          </div>
-        )}
-      </div>
-    </Link>
-  )
-}
-
 function ProjectSkeleton() {
   return (
-    <div className="container mx-auto py-12 px-4 max-w-4xl">
+    <div className="container mx-auto py-12 px-4 max-w-7xl">
+      {/* Updated this to match */}
       <div className="h-4 w-64 bg-muted/30 rounded animate-pulse mb-6"></div>
       <div className="h-10 w-3/4 bg-muted/30 rounded animate-pulse mb-8"></div>
       <div className="space-y-4">

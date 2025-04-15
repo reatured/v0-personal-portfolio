@@ -7,13 +7,69 @@ import { ChevronDown, ChevronRight, Menu, X, User, FileText, Mail } from "lucide
 import { cn } from "@/lib/utils"
 import { SubcategoryList } from "./subcategory-list"
 import type { Category } from "@/lib/db"
-import { trackEvent, EventCategory } from "@/lib/analytics"
+import { SidebarNav } from "@/components/sidebar-nav"
+import { neon } from "@neondatabase/serverless"
+
+async function getCategories() {
+  const sql = neon(process.env.DATABASE_URL!)
+
+  const categories = await sql`
+    SELECT c.id, c.name, c.slug
+    FROM categories c
+    ORDER BY c.id ASC
+  `
+
+  const subcategories = await sql`
+    SELECT s.id, s.name, s.slug, s.category_id
+    FROM subcategories s
+    ORDER BY s.id ASC
+  `
+
+  // Group subcategories by category_id
+  const subcategoriesByCategory = subcategories.reduce((acc: any, subcategory: any) => {
+    if (!acc[subcategory.category_id]) {
+      acc[subcategory.category_id] = []
+    }
+    acc[subcategory.category_id].push(subcategory)
+    return acc
+  }, {})
+
+  // Add subcategories to each category
+  return categories.map((category: any) => ({
+    ...category,
+    subcategories: subcategoriesByCategory[category.id] || [],
+  }))
+}
+
+async function getAllProjects() {
+  const sql = neon(process.env.DATABASE_URL!)
+
+  return await sql`
+    SELECT id, title, slug, subcategory_id
+    FROM projects
+    ORDER BY id ASC
+  `
+}
+
+export async function Sidebar() {
+  const categories = await getCategories()
+  const allProjects = await getAllProjects()
+
+  return (
+    <div className="hidden md:block border-r bg-background h-screen w-64 fixed top-0 left-0 overflow-y-auto z-40">
+      <div className="p-6">
+        <h1 className="text-xl font-bold">Portfolio</h1>
+      </div>
+      <SidebarNav categories={categories} allProjects={allProjects} />
+    </div>
+  )
+}
 
 interface SidebarProps {
   categories: Category[]
 }
 
-export function Sidebar({ categories }: SidebarProps) {
+export function ClientSidebar({ categories }: SidebarProps) {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({})
@@ -67,8 +123,7 @@ export function Sidebar({ categories }: SidebarProps) {
 
   // Track navigation clicks
   const handleNavClick = (itemName: string) => {
-    trackEvent(EventCategory.NAVIGATION, "click", itemName)
-
+    // Remove analytics tracking since the component doesn't exist
     if (window.innerWidth < 768) {
       setIsOpen(false)
     }
@@ -89,11 +144,11 @@ export function Sidebar({ categories }: SidebarProps) {
         {isOpen ? <X size={20} /> : <Menu size={20} />}
       </button>
 
-      {/* Sidebar */}
+      {/* Sidebar - only visible on client-side for interactivity */}
       <aside
         data-sidebar="true"
         className={cn(
-          "w-full md:w-64 border-r border-border bg-card flex-shrink-0 h-screen overflow-y-auto fixed md:sticky top-0 z-40 transition-all duration-200",
+          "w-full md:w-64 border-r border-border bg-card flex-shrink-0 h-screen overflow-y-auto fixed top-0 left-0 z-40 transition-all duration-200",
           isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0",
         )}
       >

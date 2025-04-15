@@ -2,10 +2,46 @@ import { getLatestProjects } from "@/lib/db"
 import Link from "next/link"
 import Image from "next/image"
 import { FeaturedProject } from "@/components/featured-project"
+import { neon } from "@neondatabase/serverless"
+
+async function getProjectWithDetails(projectId: number) {
+  const sql = neon(process.env.DATABASE_URL!)
+
+  const [project] = await sql`
+    SELECT 
+      p.id, 
+      p.title, 
+      p.slug, 
+      p.content, 
+      p.image_url as "imageUrl", 
+      p.software,
+      p.image_ratio as "imageRatio",
+      s.id as "subcategory_id",
+      s.name as "subcategory_name",
+      s.slug as "subcategory_slug",
+      c.slug as "category_slug"
+    FROM 
+      projects p
+    JOIN 
+      subcategories s ON p.subcategory_id = s.id
+    JOIN 
+      categories c ON s.category_id = c.id
+    WHERE 
+      p.id = ${projectId}
+  `
+
+  return project
+}
 
 export default async function LatestPage() {
-  // Get all latest projects, not just limited to 3
-  const latestProjects = await getLatestProjects(10)
+  // Get the latest projects
+  const initialLatestProjects = await getLatestProjects(9)
+
+  // Get the Ugly Face AR Filters project with full details
+  const uglyFaceProject = await getProjectWithDetails(20)
+
+  // Add the Ugly Face AR Filters project to the beginning of the array
+  const latestProjects = [uglyFaceProject, ...initialLatestProjects]
 
   // Split into featured and regular projects
   const featuredProject = latestProjects[0]
@@ -58,7 +94,10 @@ export default async function LatestPage() {
                     </div>
                   )}
 
-                  <Link href={`/project/${project.slug}`} className="text-primary hover:underline ml-auto">
+                  <Link
+                    href={`/${project.category_slug}/${project.subcategory_slug}/${project.slug}`}
+                    className="text-primary hover:underline ml-auto"
+                  >
                     View Project
                   </Link>
                 </div>

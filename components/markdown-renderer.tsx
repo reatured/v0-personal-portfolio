@@ -40,18 +40,19 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
 
           if (parentIsDiv) {
             // For images inside divs (like our grid), use regular img tag to preserve layout
-            return <img {...props} className={props.className || "rounded-md"} />
+            return <img {...props} className={props.className || "rounded-md w-full h-auto"} />
           }
 
-          // For standalone images, use Next.js Image component
+          // For standalone images, use Next.js Image component with increased size
           return (
-            <div className="relative w-full h-auto min-h-[300px] my-6">
+            <div className="relative w-full h-auto min-h-[600px] my-10">
+              {/* Increased min-height from 500px to 600px and margins from my-8 to my-10 */}
               <Image
                 src={props.src || ""}
                 alt={props.alt || ""}
                 fill
                 className="object-contain"
-                sizes="(max-width: 768px) 100vw, 800px"
+                sizes="(max-width: 768px) 100vw, 1600px" // Increased from 1200px to 1600px
               />
             </div>
           )

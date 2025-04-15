@@ -1,28 +1,19 @@
-import { NextResponse } from "next/server"
+import { type NextRequest, NextResponse } from "next/server"
 import nodemailer from "nodemailer"
 
-// Define the expected request body structure
-type ContactFormData = {
-  name: string
-  email: string
-  subject: string
-  message: string
-}
-
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    // Parse the request body
-    const body = (await request.json()) as ContactFormData
+    const { name, email, subject, message } = await request.json()
 
-    // Validate the required fields
-    if (!body.name || !body.email || !body.subject || !body.message) {
-      return NextResponse.json({ error: "Name, email, subject, and message are required" }, { status: 400 })
+    // Validate input
+    if (!name || !email || !subject || !message) {
+      return NextResponse.json({ message: "Missing required fields" }, { status: 400 })
     }
 
-    // Create a transporter using SMTP
+    // Create a transporter
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT) || 587,
+      port: Number(process.env.SMTP_PORT),
       secure: process.env.SMTP_SECURE === "true",
       auth: {
         user: process.env.SMTP_USER,
@@ -30,40 +21,34 @@ export async function POST(request: Request) {
       },
     })
 
-    // Set up email data
+    // Email content
     const mailOptions = {
-      from: `"Portfolio Contact Form" <${process.env.SMTP_USER}>`,
-      to: process.env.CONTACT_EMAIL, // Your email address where you want to receive messages
-      replyTo: body.email,
-      subject: `Portfolio Contact: ${body.subject}`,
+      from: process.env.SMTP_USER,
+      to: process.env.CONTACT_EMAIL,
+      subject: `Portfolio Contact: ${subject}`,
       text: `
-Name: ${body.name}
-Email: ${body.email}
-
-Message:
-${body.message}
+        Name: ${name}
+        Email: ${email}
+        
+        Message:
+        ${message}
       `,
       html: `
-<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-  <h2 style="color: #333;">New Contact Form Submission</h2>
-  <p><strong>Name:</strong> ${body.name}</p>
-  <p><strong>Email:</strong> ${body.email}</p>
-  <p><strong>Subject:</strong> ${body.subject}</p>
-  <h3 style="color: #555;">Message:</h3>
-  <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px;">
-    ${body.message.replace(/\n/g, "<br>")}
-  </div>
-</div>
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Subject:</strong> ${subject}</p>
+        <h3>Message:</h3>
+        <p>${message.replace(/\n/g, "<br>")}</p>
       `,
     }
 
-    // Send the email
+    // Send email
     await transporter.sendMail(mailOptions)
 
-    // Return success response
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ message: "Email sent successfully" }, { status: 200 })
   } catch (error) {
     console.error("Error sending email:", error)
-    return NextResponse.json({ error: "Failed to send email" }, { status: 500 })
+    return NextResponse.json({ message: "Failed to send email" }, { status: 500 })
   }
 }

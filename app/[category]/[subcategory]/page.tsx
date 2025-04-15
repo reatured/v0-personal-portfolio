@@ -38,12 +38,13 @@ export default async function SubcategoryPage({
         <Link href={`/${params.category}`} className="text-muted-foreground hover:text-foreground">
           {category.name}
         </Link>
-        <h1 className="text-3xl font-bold mt-2 mb-6">{subcategory.name}</h1>
 
-        {/* TabGroup for subcategories */}
-        <div className="mb-8">
+        {/* TabGroup moved above the title */}
+        <div className="mb-4 mt-4">
           <TabGroup items={tabItems} label={`${category.name} subcategories`} />
         </div>
+
+        <h1 className="text-3xl font-bold mt-6">{subcategory.name}</h1>
 
         <p className="text-lg mt-4">{subcategory.description}</p>
       </div>

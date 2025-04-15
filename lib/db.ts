@@ -1,4 +1,5 @@
 import sql from "./db-connection"
+import { neon } from "@neondatabase/serverless"
 
 // Type definitions
 export type Project = {
@@ -187,22 +188,33 @@ export async function getBreadcrumbsForProject(projectSlug: string) {
   }
 }
 
-export async function getLatestProjects(limit = 3): Promise<Project[]> {
-  const projects = await sql<Project[]>`
+export async function getLatestProjects(limit = 10) {
+  const sql = neon(process.env.DATABASE_URL!)
+
+  const projects = await sql`
     SELECT 
-      id, 
-      subcategory_id as "subcategoryId", 
-      title, 
-      slug, 
-      content, 
-      image_url as "imageUrl", 
-      software, 
-      image_ratio as "imageRatio"
-    FROM projects
-    WHERE subcategory_id = 10  /* Assuming subcategory_id 10 is for Latest projects */
-    ORDER BY id DESC
+      p.id, 
+      p.title, 
+      p.slug, 
+      p.content, 
+      p.image_url as "imageUrl", 
+      p.software,
+      p.image_ratio as "imageRatio",
+      s.id as "subcategory_id",
+      s.name as "subcategory_name",
+      s.slug as "subcategory_slug",
+      c.slug as "category_slug"
+    FROM 
+      projects p
+    JOIN 
+      subcategories s ON p.subcategory_id = s.id
+    JOIN 
+      categories c ON s.category_id = c.id
+    ORDER BY 
+      p.id DESC
     LIMIT ${limit}
   `
+
   return projects
 }
 

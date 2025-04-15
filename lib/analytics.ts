@@ -1,39 +1,14 @@
-import { track } from "@vercel/analytics"
+// Simple analytics placeholder
+export enum EventCategory {
+  NAVIGATION = "navigation",
+  INTERACTION = "interaction",
+  FORM = "form",
+}
 
-// Define event categories for better organization
-export const EventCategory = {
-  NAVIGATION: "navigation",
-  PROJECT: "project",
-  CONTACT: "contact",
-  RESUME: "resume",
-  SOCIAL: "social",
-} as const
-
-// Type for event categories
-type EventCategoryType = (typeof EventCategory)[keyof typeof EventCategory]
-
-/**
- * Track a custom event
- * @param category Event category
- * @param action Action name
- * @param label Optional label for additional context
- * @param value Optional numeric value
- */
-export function trackEvent(category: EventCategoryType, action: string, label?: string, value?: number) {
-  // Construct event name as category:action
-  const eventName = `${category}:${action}`
-
-  // Construct properties object
-  const properties: Record<string, any> = {}
-
-  if (label) {
-    properties.label = label
+export function trackEvent(category: EventCategory, action: string, label: string) {
+  // This is a placeholder for actual analytics implementation
+  // In a production environment, you would integrate with a real analytics service
+  if (process.env.NODE_ENV === "development") {
+    console.log(`[Analytics] ${category}: ${action} - ${label}`)
   }
-
-  if (value !== undefined) {
-    properties.value = value
-  }
-
-  // Track the event
-  track(eventName, properties)
 }
