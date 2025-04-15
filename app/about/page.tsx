@@ -18,7 +18,7 @@ export default function AboutPage() {
               />
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-4 bg-black bg-opacity-70 backdrop-blur-sm p-4 rounded-lg">
               <div>
                 <h3 className="text-lg font-semibold mb-2">Contact</h3>
                 <p className="text-muted-foreground">lingyi@newschool.edu</p>
@@ -39,7 +39,7 @@ export default function AboutPage() {
         </div>
 
         <div className="md:col-span-2 space-y-8">
-          <section>
+          <section className="bg-black bg-opacity-70 backdrop-blur-sm p-6 rounded-lg">
             <h2 className="text-2xl font-bold mb-4">Biography</h2>
             <div className="space-y-4 text-muted-foreground">
               <p>
@@ -61,7 +61,7 @@ export default function AboutPage() {
             </div>
           </section>
 
-          <section>
+          <section className="bg-black bg-opacity-70 backdrop-blur-sm p-6 rounded-lg">
             <h2 className="text-2xl font-bold mb-4">Education</h2>
             <div className="space-y-4">
               <div>
@@ -83,7 +83,7 @@ export default function AboutPage() {
             </div>
           </section>
 
-          <section>
+          <section className="bg-black bg-opacity-70 backdrop-blur-sm p-6 rounded-lg">
             <h2 className="text-2xl font-bold mb-4">Skills</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
@@ -109,7 +109,7 @@ export default function AboutPage() {
             </div>
           </section>
 
-          <section>
+          <section className="bg-black bg-opacity-70 backdrop-blur-sm p-6 rounded-lg">
             <h2 className="text-2xl font-bold mb-4">Experience Highlights</h2>
             <div className="space-y-4 text-muted-foreground">
               <p>

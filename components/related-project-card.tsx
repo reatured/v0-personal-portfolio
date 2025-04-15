@@ -25,7 +25,7 @@ export function RelatedProjectCard({ project, categorySlug, subcategorySlug, onC
   return (
     <Link
       href={`/${categorySlug}/${subcategorySlug}/${project.slug}`}
-      className="block bg-card rounded-lg border border-border hover:border-primary transition-colors overflow-hidden group"
+      className="block bg-black bg-opacity-70 backdrop-blur-sm rounded-lg border border-border hover:border-primary transition-colors overflow-hidden group"
       onClick={onClick ? (e) => onClick(e, categorySlug, subcategorySlug, project.slug) : undefined}
     >
       <div className="relative w-full h-48 overflow-hidden">

@@ -11,7 +11,7 @@ export function FeaturedProject({ project }: FeaturedProjectProps) {
   const description = project.description || "No description available"
 
   return (
-    <div className="bg-card rounded-lg border border-border overflow-hidden">
+    <div className="bg-black bg-opacity-70 backdrop-blur-sm rounded-lg border border-border overflow-hidden">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
         <div className="relative w-full h-full min-h-[300px]">
           <Image

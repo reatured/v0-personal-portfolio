@@ -82,7 +82,7 @@ export function Sidebar({ categories }: SidebarProps) {
         key="main-sidebar"
         data-sidebar="true"
         className={cn(
-          "w-full md:w-72 border-r border-border bg-card flex-shrink-0 h-screen overflow-y-auto fixed md:sticky top-0 z-40 transition-all duration-200",
+          "w-full md:w-72 border-r border-border bg-card bg-opacity-80 backdrop-blur-md flex-shrink-0 h-screen overflow-y-auto fixed md:sticky top-0 z-40 transition-all duration-200",
           isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0",
         )}
       >

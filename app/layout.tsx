@@ -8,6 +8,7 @@ import { getAllCategories } from "@/lib/db"
 import { Analytics } from "@vercel/analytics/react"
 import { SkipToContent } from "@/components/skip-to-content"
 import { SidebarProvider } from "@/components/sidebar-context"
+import Image from "next/image"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -30,6 +31,10 @@ export default async function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} forcedTheme="dark">
           <SidebarProvider>
             <SkipToContent />
+            {/* Background image wrapper */}
+            <div className="background-wrapper">
+              <Image src="/background.jpg" alt="Dark room with teal light" fill priority className="background-image" />
+            </div>
             <div className="flex min-h-screen flex-col md:flex-row">
               <Sidebar categories={categories} />
               <main id="main-content" className="flex-1 overflow-auto">

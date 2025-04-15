@@ -14,12 +14,14 @@ export default async function Home() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div className="space-y-6 text-white">
           <div className="text-xs font-semibold uppercase tracking-wider text-gray-400">About Me</div>
-          <p className="text-gray-300">
-            I am an experienced software engineer specializing in Unity3D and C# with a strong background in developing
-            real-time 3D graphics, cross-platform applications, and XR (AR/VR) experiences. I'm passionate about
-            advancing XR technologies and creating immersive experiences for cutting-edge platforms like Meta Quest,
-            Apple Vision Pro, and HoloLens.
-          </p>
+          <div className="bg-black bg-opacity-70 backdrop-blur-sm p-6 rounded-lg">
+            <p className="text-gray-300">
+              I am an experienced software engineer specializing in Unity3D and C# with a strong background in
+              developing real-time 3D graphics, cross-platform applications, and XR (AR/VR) experiences. I'm passionate
+              about advancing XR technologies and creating immersive experiences for cutting-edge platforms like Meta
+              Quest, Apple Vision Pro, and HoloLens.
+            </p>
+          </div>
 
           <div className="relative w-full overflow-hidden rounded-lg">
             <Image
@@ -32,18 +34,20 @@ export default async function Home() {
           </div>
           <div className="flex flex-col gap-4"></div>
           <div className="text-xs font-semibold uppercase tracking-wider text-gray-400">Education</div>
-          <ul className="list-disc space-y-2 pl-5">
-            <li className="text-gray-300">MFA in Design and Technology at Parsons School of Design (2021-2023)</li>
-            <li className="text-gray-300">
-              MA in Design and Development of Digital Games at Columbia University (2019-2021)
-            </li>
-            <li className="text-gray-300">
-              BS in Agricultural and Environmental Education at University of California, Davis (2015-2019)
-            </li>
-            <li className="text-gray-300">
-              Professional Certificate in AR-VR Development and 3D Graphics at New York University (Nov 2021)
-            </li>
-          </ul>
+          <div className="bg-black bg-opacity-70 backdrop-blur-sm p-6 rounded-lg">
+            <ul className="list-disc space-y-2 pl-5">
+              <li className="text-gray-300">MFA in Design and Technology at Parsons School of Design (2021-2023)</li>
+              <li className="text-gray-300">
+                MA in Design and Development of Digital Games at Columbia University (2019-2021)
+              </li>
+              <li className="text-gray-300">
+                BS in Agricultural and Environmental Education at University of California, Davis (2015-2019)
+              </li>
+              <li className="text-gray-300">
+                Professional Certificate in AR-VR Development and 3D Graphics at New York University (Nov 2021)
+              </li>
+            </ul>
+          </div>
         </div>
         <div className="space-y-6 text-white">
           <div className="text-xs font-semibold uppercase tracking-wider text-gray-400">Latest Projects</div>
@@ -52,7 +56,7 @@ export default async function Home() {
               <Link
                 key={project.id}
                 href={`/project/${project.slug}`}
-                className="block rounded-lg border border-border bg-card p-6 hover:border-primary transition-colors"
+                className="block rounded-lg border border-border bg-black bg-opacity-70 backdrop-blur-sm p-6 hover:border-primary transition-colors"
               >
                 <div className="flex items-center gap-4">
                   <div className="relative w-16 h-16 flex-shrink-0 overflow-hidden rounded-md">
@@ -76,7 +80,7 @@ export default async function Home() {
               </Link>
             ))}
 
-            <div className="rounded-lg border border-border bg-card p-6">
+            <div className="rounded-lg border border-border bg-black bg-opacity-70 backdrop-blur-sm p-6">
               <h3 className="text-xl font-semibold mb-2">Featured Project: Planner Webapp</h3>
               <p className="text-gray-300 mb-4">
                 A task management web application built with React that enables users to organize and track daily
@@ -86,7 +90,7 @@ export default async function Home() {
               <div className="text-sm text-gray-400">Completed March 2025</div>
             </div>
 
-            <div className="rounded-lg border border-border bg-card p-6">
+            <div className="rounded-lg border border-border bg-black bg-opacity-70 backdrop-blur-sm p-6">
               <h3 className="text-xl font-semibold mb-2">Featured Project: Roblox Fashion Collaboration</h3>
               <p className="text-gray-300 mb-4">
                 An official online fashion show event as a collaboration between Parsons Fashion Design and Roblox.
@@ -107,7 +111,7 @@ export default async function Home() {
             <Link
               key={project.id}
               href={`/project/${project.slug}`}
-              className="block bg-card rounded-lg border border-border hover:border-primary transition-colors overflow-hidden group"
+              className="block bg-black bg-opacity-70 backdrop-blur-sm rounded-lg border border-border hover:border-primary transition-colors overflow-hidden group"
             >
               <div className="relative w-full h-48 overflow-hidden">
                 <Image
