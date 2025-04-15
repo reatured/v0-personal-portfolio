@@ -46,14 +46,28 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
           // For standalone images, use Next.js Image component with increased size
           return (
             <div className="relative w-full h-auto min-h-[600px] my-10">
-              {/* Increased min-height from 500px to 600px and margins from my-8 to my-10 */}
               <Image
                 src={props.src || ""}
                 alt={props.alt || ""}
                 fill
                 className="object-contain"
-                sizes="(max-width: 768px) 100vw, 1600px" // Increased from 1200px to 1600px
+                sizes="(max-width: 768px) 100vw, 1600px"
               />
+            </div>
+          )
+        },
+        // Add proper handling for div elements with specific classes
+        div({ node, className, children, ...props }) {
+          if (className?.includes("image-grid")) {
+            return (
+              <div className="image-grid" {...props}>
+                {children}
+              </div>
+            )
+          }
+          return (
+            <div className={className} {...props}>
+              {children}
             </div>
           )
         },

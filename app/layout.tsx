@@ -23,10 +23,10 @@ export default async function RootLayout({
   const categories = await getAllCategories()
 
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} antialiased`}>
+    <html lang="en" suppressHydrationWarning className="dark">
+      <body className={`${inter.className} antialiased min-h-screen bg-background`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} forcedTheme="dark">
-          <div className="flex min-h-screen">
+          <div className="flex min-h-screen flex-col md:flex-row">
             <Sidebar categories={categories} />
             <main className="flex-1 overflow-auto">{children}</main>
           </div>
