@@ -27,7 +27,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning className="dark">
-      <body className={`${inter.className} antialiased min-h-screen bg-background`}>
+      <body suppressHydrationWarning className={`${inter.className} antialiased min-h-screen bg-background`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} forcedTheme="dark">
           <SidebarProvider>
             <SkipToContent />
@@ -48,6 +48,9 @@ export default async function RootLayout({
     </html>
   )
 }
+
+
+import './globals.css'
 
 
 import './globals.css'

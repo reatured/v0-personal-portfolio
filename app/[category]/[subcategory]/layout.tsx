@@ -26,10 +26,12 @@ export default async function SubcategoryLayout({
   }))
 
   return (
-    <div className="container mx-auto py-12 px-4">
-      {/* TabGroup moved above the title */}
-      <div className="mt-4">
-        <TabGroup items={tabItems} label={`${category.name} subcategories`} />
+    <div className="container mx-auto px-4 py-8">
+      <div>
+        <h1 className="text-xl font-bold mb-4">{category.name}</h1>
+        <div className="mt-2">
+          <TabGroup items={tabItems} label={`${category.name} subcategories`} />
+        </div>
       </div>
 
       {children}

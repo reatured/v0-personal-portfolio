@@ -2,6 +2,7 @@ import type React from "react"
 import { getCategoryBySlug } from "@/lib/db"
 import { notFound } from "next/navigation"
 import Link from "next/link"
+import { Suspense } from "react"
 
 export default async function CategoryLayout({
   children,
@@ -17,24 +18,13 @@ export default async function CategoryLayout({
   }
 
   return (
+    <div className="container mx-auto px-4 py-8">
 
-      <div >
-        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-          <Link href="/" className="hover:text-foreground">
-            Home
-          </Link>
-          <span>/</span>
-
-        </div>
-
-        <h1 className="text-3xl font-bold mb-6">{category.name}</h1>
-      </div>
-  \
-      <Suspense fallback=
-  ;<CategoryLoadingState />
-  >
-  children
-  </Suspense>
+      
+      <Suspense fallback={<CategoryLoadingState />}>
+        {children}
+      </Suspense>
+    </div>
   )
 }
 

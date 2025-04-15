@@ -65,13 +65,13 @@
     "vue-router": "latest",
     "nodemailer": "latest",
     "@vercel/analytics": "latest",
-    "react-markdown": "latest",
-    "remark-gfm": "latest",
-    "rehype-raw": "latest",
     "fs": "latest",
     "path": "latest",
     "gray-matter": "latest",
-    "@neondatabase/serverless": "latest"
+    "@neondatabase/serverless": "latest",
+    "react-markdown": "latest",
+    "remark-gfm": "latest",
+    "rehype-raw": "latest"
   },
   "devDependencies": {
     "@types/node": "^22",
