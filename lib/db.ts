@@ -21,6 +21,7 @@ export type Subcategory = {
   description: string
   imageUrl: string
   imageRatio?: "square" | "landscape" | "portrait"
+  description: string
 }
 
 export type Category = {

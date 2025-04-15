@@ -18,22 +18,12 @@ export function FeaturedProject({ project }: FeaturedProjectProps) {
   return (
     <div className="bg-card rounded-lg border border-border overflow-hidden">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-        <div className={`relative w-full ${
-          project.imageRatio === "portrait" 
-            ? "aspect-[3/4]" 
-            : project.imageRatio === "square" 
-              ? "aspect-square" 
-              : "aspect-[16/9]"
-        }`}>
+        <div className="relative w-full h-full min-h-[300px]">
           <Image
             src={project.imageUrl || "/placeholder.svg"}
             alt={project.title}
             fill
-            className={`object-cover ${
-              project.imageRatio === "portrait" 
-                ? "object-top" 
-                : "object-center"
-            }`}
+            className={`object-cover ${project.imageRatio === "portrait" ? "object-top" : "object-center"}`}
           />
         </div>
         <div className="p-8 flex flex-col">

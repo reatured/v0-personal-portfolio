@@ -16,19 +16,6 @@ interface SidebarProps {
 export function Sidebar({ categories }: SidebarProps) {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
-  const [expandedSubcategories, setExpandedSubcategories] = useState<Record<string, boolean>>({})
-
-  // Initialize expanded subcategories based on current path
-  useEffect(() => {
-    const pathParts = pathname.split("/").filter(Boolean)
-    if (pathParts.length > 1) {
-      const subcategorySlug = pathParts[1]
-      setExpandedSubcategories((prev) => ({
-        ...prev,
-        [subcategorySlug]: true,
-      }))
-    }
-  }, [pathname])
 
   // Close mobile menu when clicking anywhere on the page
   useEffect(() => {
@@ -86,7 +73,7 @@ export function Sidebar({ categories }: SidebarProps) {
       <aside
         data-sidebar="true"
         className={cn(
-          "w-full md:w-64 border-r border-border bg-card flex-shrink-0 h-screen overflow-y-auto fixed md:sticky top-0 z-40 transition-all duration-200",
+          "w-full md:w-72 border-r border-border bg-card flex-shrink-0 h-screen overflow-y-auto fixed md:sticky top-0 z-40 transition-all duration-200",
           isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0",
         )}
       >
@@ -97,13 +84,13 @@ export function Sidebar({ categories }: SidebarProps) {
 
           {/* Projects Navigation */}
           <div className="text-xs uppercase text-muted-foreground font-semibold tracking-wider mb-2 px-2">Projects</div>
-          <nav className="space-y-1">
+          <nav className="space-y-1 overflow-y-auto flex-grow">
             {categories.map((category) => {
               const isCategoryActive = pathname.startsWith(`/${category.slug}`)
 
               return (
-                <div key={category.slug} className="space-y-1">
-                  {/* Category link - always visible */}
+                <div key={category.slug} className="space-y-1 mb-3">
+                  {/* Category link */}
                   <Link
                     href={`/${category.slug}`}
                     className={cn(
@@ -115,8 +102,8 @@ export function Sidebar({ categories }: SidebarProps) {
                     {category.name}
                   </Link>
 
-                  {/* Subcategories - always visible */}
-                  <div className="ml-4 space-y-1 border-l border-border pl-2">
+                  {/* Subcategories with projects */}
+                  <div className="ml-2 space-y-1">
                     <SubcategoryList categorySlug={category.slug} />
                   </div>
                 </div>
@@ -136,9 +123,6 @@ export function Sidebar({ categories }: SidebarProps) {
               </Link>
             </div>
           </nav>
-
-          {/* Spacer to push personal links to bottom */}
-          <div className="flex-grow"></div>
 
           {/* Personal Pages at bottom */}
           <div className="mt-6 pt-6 border-t border-border space-y-1">

@@ -49,7 +49,7 @@ export default async function LatestPage() {
               </div>
               <div className="p-6 flex flex-col flex-grow">
                 <h2 className="text-xl font-semibold mb-2">{project.title}</h2>
-                <p className="text-muted-foreground mb-4 line-clamp-3">{description}</p>
+                <p className="text-muted-foreground mb-4 line-clamp-3">{project.description}</p>
 
                 <div className="mt-auto flex items-center justify-between">
                   {project.software && (

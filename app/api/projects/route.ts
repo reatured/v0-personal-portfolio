@@ -1,27 +1,19 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { neon } from "@neondatabase/serverless"
+import { getProjectsBySubcategory } from "@/lib/db"
+import { NextResponse } from "next/server"
 
-export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams
-  const subcategoryId = searchParams.get("subcategoryId")
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url)
+  const subcategorySlug = searchParams.get("subcategorySlug")
 
-  if (!subcategoryId) {
-    return NextResponse.json({ error: "Subcategory ID is required" }, { status: 400 })
+  if (!subcategorySlug) {
+    return NextResponse.json({ error: "Subcategory slug is required" }, { status: 400 })
   }
 
   try {
-    const sql = neon(process.env.DATABASE_URL!)
-
-    const projects = await sql`
-      SELECT id, title, slug, subcategory_id
-      FROM projects
-      WHERE subcategory_id = ${Number.parseInt(subcategoryId)}
-      ORDER BY id ASC
-    `
-
+    const projects = await getProjectsBySubcategory(subcategorySlug)
     return NextResponse.json(projects)
   } catch (error) {
-    console.error("Database error:", error)
+    console.error("Error fetching projects:", error)
     return NextResponse.json({ error: "Failed to fetch projects" }, { status: 500 })
   }
 }
