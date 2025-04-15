@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
-import { ChevronDown, ChevronRight, Menu, X, User, FileText, Mail } from "lucide-react"
+import { Menu, X, User, FileText, Mail } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { SubcategoryList } from "./subcategory-list"
 import type { Category } from "@/lib/db"
@@ -16,16 +16,16 @@ interface SidebarProps {
 export function Sidebar({ categories }: SidebarProps) {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
-  const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({})
+  const [expandedSubcategories, setExpandedSubcategories] = useState<Record<string, boolean>>({})
 
-  // Initialize expanded categories based on current path
+  // Initialize expanded subcategories based on current path
   useEffect(() => {
     const pathParts = pathname.split("/").filter(Boolean)
-    if (pathParts.length > 0) {
-      const categorySlug = pathParts[0]
-      setExpandedCategories((prev) => ({
+    if (pathParts.length > 1) {
+      const subcategorySlug = pathParts[1]
+      setExpandedSubcategories((prev) => ({
         ...prev,
-        [categorySlug]: true,
+        [subcategorySlug]: true,
       }))
     }
   }, [pathname])
@@ -57,13 +57,6 @@ export function Sidebar({ categories }: SidebarProps) {
       document.removeEventListener("closeMobileMenu", handleCloseMobileMenu)
     }
   }, [isOpen])
-
-  const toggleCategory = (slug: string) => {
-    setExpandedCategories((prev) => ({
-      ...prev,
-      [slug]: !prev[slug],
-    }))
-  }
 
   // Track navigation clicks
   const handleNavClick = (itemName: string) => {
@@ -106,38 +99,26 @@ export function Sidebar({ categories }: SidebarProps) {
           <div className="text-xs uppercase text-muted-foreground font-semibold tracking-wider mb-2 px-2">Projects</div>
           <nav className="space-y-1">
             {categories.map((category) => {
-              const isExpanded = expandedCategories[category.slug]
               const isCategoryActive = pathname.startsWith(`/${category.slug}`)
 
               return (
                 <div key={category.slug} className="space-y-1">
-                  <button
-                    onClick={() => toggleCategory(category.slug)}
+                  {/* Category link - always visible */}
+                  <Link
+                    href={`/${category.slug}`}
                     className={cn(
                       "flex items-center justify-between w-full px-2 py-2 text-sm rounded-md",
                       isCategoryActive ? "bg-accent text-accent-foreground" : "hover:bg-accent/50",
                     )}
+                    onClick={() => handleNavClick(category.name)}
                   >
-                    <Link
-                      href={`/${category.slug}`}
-                      className="flex-grow text-left"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        if (window.innerWidth < 768) {
-                          setIsOpen(false)
-                        }
-                      }}
-                    >
-                      {category.name}
-                    </Link>
-                    {isExpanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
-                  </button>
+                    {category.name}
+                  </Link>
 
-                  {isExpanded && (
-                    <div className="ml-4 space-y-1 border-l border-border pl-2">
-                      <SubcategoryList categorySlug={category.slug} />
-                    </div>
-                  )}
+                  {/* Subcategories - always visible */}
+                  <div className="ml-4 space-y-1 border-l border-border pl-2">
+                    <SubcategoryList categorySlug={category.slug} />
+                  </div>
                 </div>
               )
             })}
@@ -149,11 +130,7 @@ export function Sidebar({ categories }: SidebarProps) {
                   "flex items-center px-2 py-2 text-sm rounded-md",
                   pathname === "/latest" ? "bg-accent text-accent-foreground" : "hover:bg-accent/50",
                 )}
-                onClick={() => {
-                  if (window.innerWidth < 768) {
-                    setIsOpen(false)
-                  }
-                }}
+                onClick={() => handleNavClick("latest")}
               >
                 <span className="flex-grow">Latest</span>
               </Link>
