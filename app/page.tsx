@@ -1,11 +1,12 @@
 import Image from "next/image"
 import Link from "next/link"
 import { getLatestProjects } from "@/lib/db"
-import { getAllProjects } from "@/lib/db" // We'll add this function
+import { getAllProjects } from "@/lib/db"
+import { YouTubeEmbed } from "@/components/youtube-embed"
 
 export default async function Home() {
   const latestProjects = await getLatestProjects(3)
-  const allProjects = await getAllProjects() // Fetch all projects
+  const allProjects = await getAllProjects()
 
   return (
     <div className="container mx-auto py-12 px-4">
@@ -52,33 +53,49 @@ export default async function Home() {
         <div className="space-y-6 text-white">
           <div className="text-xs font-semibold uppercase tracking-wider text-gray-400">Latest Projects</div>
           <div className="space-y-4">
-            {latestProjects.map((project) => (
-              <Link
-                key={project.id}
-                href={`/project/${project.slug}`}
-                className="block rounded-lg border border-border bg-black bg-opacity-70 backdrop-blur-sm p-6 hover:border-primary transition-colors"
-              >
-                <div className="flex items-center gap-4">
-                  <div className="relative w-16 h-16 flex-shrink-0 overflow-hidden rounded-md">
-                    <Image
-                      src={project.imageUrl || "/placeholder.svg"}
-                      alt={project.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-1">{project.title}</h3>
-                    <p className="text-gray-300 line-clamp-2">{project.description}</p>
-                    {project.software && (
-                      <div className="mt-2 inline-block px-2 py-1 bg-secondary text-secondary-foreground text-xs rounded-full">
-                        {project.software}
+            {latestProjects.map((project) => {
+              const hasYouTubeVideo =
+                project.youtubeId !== undefined && project.youtubeId !== null && project.youtubeId !== ""
+
+              return (
+                <Link
+                  key={project.id}
+                  href={`/project/${project.slug}`}
+                  className="block rounded-lg border border-border bg-black bg-opacity-70 backdrop-blur-sm p-6 hover:border-primary transition-colors"
+                >
+                  <div className="flex items-center gap-4">
+                    {hasYouTubeVideo ? (
+                      <div className="relative w-16 h-16 flex-shrink-0 overflow-hidden rounded-md">
+                        <YouTubeEmbed
+                          videoId={project.youtubeId as string}
+                          title={project.title}
+                          className="absolute top-0 left-0 h-full w-full pt-0"
+                          autoplay={true}
+                        />
+                      </div>
+                    ) : (
+                      <div className="relative w-16 h-16 flex-shrink-0 overflow-hidden rounded-md">
+                        <Image
+                          src={project.imageUrl || "/placeholder.svg"}
+                          alt={project.title}
+                          fill
+                          className="object-cover"
+                        />
                       </div>
                     )}
+                    <div>
+                      <h3 className="text-xl font-semibold mb-1">{project.title}</h3>
+                      <p className="text-gray-300 line-clamp-2">{project.description}</p>
+                      {project.software && (
+                        <div className="mt-2 inline-block px-2 py-1 bg-secondary text-secondary-foreground text-xs rounded-full">
+                          {project.software}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              )
+            })}
 
             <div className="rounded-lg border border-border bg-black bg-opacity-70 backdrop-blur-sm p-6">
               <h3 className="text-xl font-semibold mb-2">Featured Project: Planner Webapp</h3>
@@ -107,33 +124,49 @@ export default async function Home() {
       <div className="mt-20">
         <h2 className="text-3xl font-bold mb-8">All Projects</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {allProjects.map((project) => (
-            <Link
-              key={project.id}
-              href={`/project/${project.slug}`}
-              className="block bg-black bg-opacity-70 backdrop-blur-sm rounded-lg border border-border hover:border-primary transition-colors overflow-hidden group"
-            >
-              <div className="relative w-full h-48 overflow-hidden">
-                <Image
-                  src={project.imageUrl || "/placeholder.svg"}
-                  alt={project.title}
-                  fill
-                  className={`object-cover transition-transform group-hover:scale-105 ${
-                    project.imageRatio === "portrait" ? "object-top" : "object-center"
-                  }`}
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                <p className="text-muted-foreground line-clamp-2">{project.description}</p>
-                {project.software && (
-                  <div className="mt-4 inline-block px-3 py-1 bg-secondary text-secondary-foreground text-xs rounded-full">
-                    {project.software}
-                  </div>
-                )}
-              </div>
-            </Link>
-          ))}
+          {allProjects.map((project) => {
+            const hasYouTubeVideo =
+              project.youtubeId !== undefined && project.youtubeId !== null && project.youtubeId !== ""
+
+            return (
+              <Link
+                key={project.id}
+                href={`/project/${project.slug}`}
+                className="block bg-black bg-opacity-70 backdrop-blur-sm rounded-lg border border-border hover:border-primary transition-colors overflow-hidden group"
+              >
+                <div className="relative w-full h-48 overflow-hidden">
+                  {hasYouTubeVideo ? (
+                    <div className="absolute inset-0 overflow-hidden">
+                      <YouTubeEmbed
+                        videoId={project.youtubeId as string}
+                        title={project.title}
+                        className="absolute top-0 left-0 h-full w-full pt-0"
+                        autoplay={true}
+                      />
+                    </div>
+                  ) : (
+                    <Image
+                      src={project.imageUrl || "/placeholder.svg"}
+                      alt={project.title}
+                      fill
+                      className={`object-cover transition-transform group-hover:scale-105 ${
+                        project.imageRatio === "portrait" ? "object-top" : "object-center"
+                      }`}
+                    />
+                  )}
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
+                  <p className="text-muted-foreground line-clamp-2">{project.description}</p>
+                  {project.software && (
+                    <div className="mt-4 inline-block px-3 py-1 bg-secondary text-secondary-foreground text-xs rounded-full">
+                      {project.software}
+                    </div>
+                  )}
+                </div>
+              </Link>
+            )
+          })}
         </div>
       </div>
     </div>

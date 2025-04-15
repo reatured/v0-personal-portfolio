@@ -5,6 +5,7 @@ import type React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import type { Project } from "@/lib/db"
+import { YouTubeEmbed } from "./youtube-embed"
 
 interface RelatedProjectCardProps {
   project: Project
@@ -22,6 +23,9 @@ export function RelatedProjectCard({ project, categorySlug, subcategorySlug, onC
   // Use only the description field, no content extraction
   const description = project.description || "No description available"
 
+  // Check if project has a YouTube video ID
+  const hasYouTubeVideo = project.youtubeId !== undefined && project.youtubeId !== null && project.youtubeId !== ""
+
   return (
     <Link
       href={`/${categorySlug}/${subcategorySlug}/${project.slug}`}
@@ -29,14 +33,22 @@ export function RelatedProjectCard({ project, categorySlug, subcategorySlug, onC
       onClick={onClick ? (e) => onClick(e, categorySlug, subcategorySlug, project.slug) : undefined}
     >
       <div className="relative w-full h-48 overflow-hidden">
-        <Image
-          src={project.imageUrl || "/placeholder.svg"}
-          alt={project.title}
-          fill
-          className={`object-cover transition-transform group-hover:scale-105 ${
-            project.imageRatio === "portrait" ? "object-top" : "object-center"
-          }`}
-        />
+        {hasYouTubeVideo ? (
+          <YouTubeEmbed
+            videoId={project.youtubeId as string}
+            title={project.title}
+            className="absolute top-0 left-0 h-48 pt-0"
+          />
+        ) : (
+          <Image
+            src={project.imageUrl || "/placeholder.svg"}
+            alt={project.title}
+            fill
+            className={`object-cover transition-transform group-hover:scale-105 ${
+              project.imageRatio === "portrait" ? "object-top" : "object-center"
+            }`}
+          />
+        )}
       </div>
       <div className="p-6">
         <h3 className="text-xl font-semibold mb-2">{project.title}</h3>

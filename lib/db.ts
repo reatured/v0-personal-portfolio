@@ -11,6 +11,7 @@ export type Project = {
   software?: string
   imageRatio?: "square" | "landscape" | "portrait"
   description: string
+  youtubeId?: string // Add this field
 }
 
 export type Subcategory = {
@@ -88,7 +89,8 @@ export async function getProjectsBySubcategory(subcategorySlug: string): Promise
         p.image_url as "imageUrl", 
         p.software, 
         p.image_ratio as "imageRatio",
-        p.description
+        p.description,
+        p.youtube_id as "youtubeId"
       FROM projects p
       JOIN subcategories s ON p.subcategory_id = s.id
       WHERE s.slug = ${subcategorySlug}
@@ -156,7 +158,8 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
         image_url as "imageUrl", 
         software, 
         image_ratio as "imageRatio",
-        description
+        description,
+        youtube_id as "youtubeId"
       FROM projects
       WHERE slug = ${slug}
       LIMIT 1
@@ -247,7 +250,8 @@ export async function getLatestProjects(limit = 3): Promise<Project[]> {
         image_url as "imageUrl", 
         software, 
         image_ratio as "imageRatio",
-        description
+        description,
+        youtube_id as "youtubeId"
       FROM projects
       ORDER BY id DESC
       LIMIT ${limit}
@@ -271,7 +275,8 @@ export async function getTopProjectsBySubcategory(subcategoryId: number, limit =
         image_url as "imageUrl", 
         software, 
         image_ratio as "imageRatio",
-        description
+        description,
+        youtube_id as "youtubeId"
       FROM projects
       WHERE subcategory_id = ${subcategoryId}
       ORDER BY id
@@ -300,7 +305,8 @@ export async function getRelatedProjects(
         image_url as "imageUrl", 
         software, 
         image_ratio as "imageRatio",
-        description
+        description,
+        youtube_id as "youtubeId"
       FROM projects
       WHERE 
         subcategory_id = ${subcategoryId} AND
@@ -327,7 +333,8 @@ export async function getAllProjects(): Promise<Project[]> {
         image_url as "imageUrl", 
         software, 
         image_ratio as "imageRatio",
-        description
+        description,
+        youtube_id as "youtubeId"
       FROM projects
       ORDER BY id DESC
     `
