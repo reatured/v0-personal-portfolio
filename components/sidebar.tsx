@@ -1,7 +1,8 @@
 "use client"
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import React from "react"
+
+import { useRouter, usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
 import { Menu, X, User, FileText, Mail } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -14,6 +15,7 @@ interface SidebarProps {
 }
 
 export function Sidebar({ categories }: SidebarProps) {
+  const router = useRouter()
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -43,16 +45,22 @@ export function Sidebar({ categories }: SidebarProps) {
       document.removeEventListener("click", handleDocumentClick)
       document.removeEventListener("closeMobileMenu", handleCloseMobileMenu)
     }
-  }, [isOpen])
+  }, [isOpen]) // Only depend on isOpen state
 
-  // Track navigation clicks
-  const handleNavClick = (itemName: string) => {
-    trackEvent(EventCategory.NAVIGATION, "click", itemName)
+  // Track navigation clicks and handle client-side navigation
+  const handleNavClick = React.useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string, itemName: string) => {
+      e.preventDefault()
+      trackEvent(EventCategory.NAVIGATION, "click", itemName)
 
-    if (window.innerWidth < 768) {
-      setIsOpen(false)
-    }
-  }
+      router.push(href)
+
+      if (window.innerWidth < 768) {
+        setIsOpen(false)
+      }
+    },
+    [router],
+  )
 
   return (
     <>
@@ -71,6 +79,7 @@ export function Sidebar({ categories }: SidebarProps) {
 
       {/* Sidebar */}
       <aside
+        key="main-sidebar"
         data-sidebar="true"
         className={cn(
           "w-full md:w-72 border-r border-border bg-card flex-shrink-0 h-screen overflow-y-auto fixed md:sticky top-0 z-40 transition-all duration-200",
@@ -78,9 +87,13 @@ export function Sidebar({ categories }: SidebarProps) {
         )}
       >
         <div className="p-6 pt-16 md:pt-6 flex flex-col h-full">
-          <Link href="/" className="flex items-center gap-2 font-bold text-xl mb-8">
+          <a
+            href="/"
+            className="flex items-center gap-2 font-bold text-xl mb-8"
+            onClick={(e) => handleNavClick(e, "/", "home")}
+          >
             Lingyi Zhou
-          </Link>
+          </a>
 
           {/* Projects Navigation */}
           <div className="text-xs uppercase text-muted-foreground font-semibold tracking-wider mb-2 px-2">Projects</div>
@@ -91,16 +104,16 @@ export function Sidebar({ categories }: SidebarProps) {
               return (
                 <div key={category.slug} className="space-y-1 mb-3">
                   {/* Category link */}
-                  <Link
+                  <a
                     href={`/${category.slug}`}
+                    onClick={(e) => handleNavClick(e, `/${category.slug}`, category.name)}
                     className={cn(
                       "flex items-center justify-between w-full px-2 py-2 text-sm rounded-md",
                       isCategoryActive ? "bg-accent text-accent-foreground" : "hover:bg-accent/50",
                     )}
-                    onClick={() => handleNavClick(category.name)}
                   >
                     {category.name}
-                  </Link>
+                  </a>
 
                   {/* Subcategories with projects */}
                   <div className="ml-2 space-y-1">
@@ -111,54 +124,54 @@ export function Sidebar({ categories }: SidebarProps) {
             })}
 
             <div className="mt-2">
-              <Link
+              <a
                 href="/latest"
+                onClick={(e) => handleNavClick(e, "/latest", "latest")}
                 className={cn(
                   "flex items-center px-2 py-2 text-sm rounded-md",
                   pathname === "/latest" ? "bg-accent text-accent-foreground" : "hover:bg-accent/50",
                 )}
-                onClick={() => handleNavClick("latest")}
               >
                 <span className="flex-grow">Latest</span>
-              </Link>
+              </a>
             </div>
           </nav>
 
           {/* Personal Pages at bottom */}
           <div className="mt-6 pt-6 border-t border-border space-y-1">
-            <Link
+            <a
               href="/about"
+              onClick={(e) => handleNavClick(e, "/about", "about")}
               className={cn(
                 "flex items-center gap-2 px-2 py-2 text-sm rounded-md",
                 pathname === "/about" ? "bg-accent text-accent-foreground" : "hover:bg-accent/50",
               )}
-              onClick={() => handleNavClick("about")}
             >
               <User size={16} />
               <span>About Me</span>
-            </Link>
-            <Link
+            </a>
+            <a
               href="/resume"
+              onClick={(e) => handleNavClick(e, "/resume", "resume")}
               className={cn(
                 "flex items-center gap-2 px-2 py-2 text-sm rounded-md",
                 pathname === "/resume" ? "bg-accent text-accent-foreground" : "hover:bg-accent/50",
               )}
-              onClick={() => handleNavClick("resume")}
             >
               <FileText size={16} />
               <span>Resume</span>
-            </Link>
-            <Link
+            </a>
+            <a
               href="/contact"
+              onClick={(e) => handleNavClick(e, "/contact", "contact")}
               className={cn(
                 "flex items-center gap-2 px-2 py-2 text-sm rounded-md",
                 pathname === "/contact" ? "bg-accent text-accent-foreground" : "hover:bg-accent/50",
               )}
-              onClick={() => handleNavClick("contact")}
             >
               <Mail size={16} />
               <span>Contact Me</span>
-            </Link>
+            </a>
           </div>
         </div>
       </aside>

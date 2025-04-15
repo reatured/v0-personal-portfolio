@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { getBreadcrumbsForProject, getRelatedProjects } from "@/lib/db"
+import { getProjectMarkdown } from "@/lib/markdown"
 
 export async function GET(request: Request, { params }: { params: { slug: string } }) {
   const slug = params.slug
@@ -21,11 +22,15 @@ export async function GET(request: Request, { params }: { params: { slug: string
     // Get related projects from the same subcategory
     const relatedProjects = await getRelatedProjects(project.id, subcategory.id, 3)
 
+    // Try to get content from file system
+    const { exists, content: fileContent } = await getProjectMarkdown(category.slug, subcategory.slug, slug)
+
     return NextResponse.json({
       project,
       category,
       subcategory,
       relatedProjects,
+      fileContent: exists ? fileContent : null,
     })
   } catch (error) {
     console.error("Error fetching project:", error)

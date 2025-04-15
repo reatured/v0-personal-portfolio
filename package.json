@@ -63,14 +63,15 @@
     "svelte": "latest",
     "vue": "latest",
     "vue-router": "latest",
-    "fs": "latest",
-    "path": "latest",
-    "@neondatabase/serverless": "latest",
     "nodemailer": "latest",
     "@vercel/analytics": "latest",
     "react-markdown": "latest",
     "remark-gfm": "latest",
-    "rehype-raw": "latest"
+    "rehype-raw": "latest",
+    "fs": "latest",
+    "path": "latest",
+    "gray-matter": "latest",
+    "@neondatabase/serverless": "latest"
   },
   "devDependencies": {
     "@types/node": "^22",

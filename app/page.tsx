@@ -65,7 +65,7 @@ export default async function Home() {
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold mb-1">{project.title}</h3>
-                    <p className="text-gray-300 line-clamp-2">{project.content.split("\n")[0].replace("# ", "")}</p>
+                    <p className="text-gray-300 line-clamp-2">{project.description}</p>
                     {project.software && (
                       <div className="mt-2 inline-block px-2 py-1 bg-secondary text-secondary-foreground text-xs rounded-full">
                         {project.software}
@@ -121,7 +121,7 @@ export default async function Home() {
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                <p className="text-muted-foreground line-clamp-2">{project.content.split("\n")[0].replace("# ", "")}</p>
+                <p className="text-muted-foreground line-clamp-2">{project.description}</p>
                 {project.software && (
                   <div className="mt-4 inline-block px-3 py-1 bg-secondary text-secondary-foreground text-xs rounded-full">
                     {project.software}

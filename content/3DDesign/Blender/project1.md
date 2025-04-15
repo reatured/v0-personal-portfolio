@@ -1,28 +1,50 @@
+---
+title: Modelling with Google Map Data
+description: Large scale wall poster designed by combining two different Google Map datasets and implementing 3D model data in Blender.
+imageUrl: https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525087584-R170PYIBR5ZM4ETLW1GA/Cologne5.jpeg
+imageRatio: landscape
+software: Blender
+---
+
 # Modelling with Google Map Data
 
-## Overview
 Large scale wall poster designed by combining two different Google Map datasets and implementing 3D model data in Blender.
 
-## Process
-1. **Data Collection**: Gathered geographical data from Google Maps API
-2. **Data Processing**: Converted the raw data into a format usable in Blender
-3. **3D Modeling**: Created the 3D representation of the map in Blender
-4. **Texturing**: Applied realistic textures to the model
-5. **Rendering**: Rendered the final image for printing
+## Project Details
 
-## Challenges
-One of the main challenges was aligning the different datasets accurately. I solved this by creating a custom script to normalize the coordinate systems between the datasets.
+For this project, I implemented 3D model data in two different styles into Blender. By adding various lighting techniques and effects, I was able to create astonishing visual representations of different cities.
 
-## Tools Used
-- Blender 2.93
-- Google Maps API
-- Python for data processing
-- Adobe Photoshop for post-processing
+The process involved:
+- Extracting and combining data from two different Google Map datasets
+- Importing the data into Blender and creating 3D models
+- Applying two distinct visual styles to showcase the cities' unique characteristics
+- Experimenting with lighting, shadows, and atmospheric effects to enhance depth and realism
+- Rendering high-quality images suitable for large-scale wall posters
 
-## Result
-The final poster measures 36" x 24" and shows a detailed 3D representation of the city with accurate building heights and terrain features.
+The result is a series of striking cityscapes that blend cartographic accuracy with artistic interpretation, creating visually captivating representations of urban environments.
 
-![Project Image](https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525087584-R170PYIBR5ZM4ETLW1GA/Cologne5.jpeg?format=1000w)
-\`\`\`
+<div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+  <div class="relative">
+    <img src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525087584-R170PYIBR5ZM4ETLW1GA/Cologne5.jpeg" alt="Cologne cityscape" class="w-full h-auto object-cover" />
+  </div>
+  <div class="relative">
+    <img src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525087574-P1VGAPTQFKTL7X07366B/Macau5.jpeg" alt="Macau cityscape" class="w-full h-auto object-cover" />
+  </div>
+  <div class="relative">
+    <img src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525088175-V7S5CZZAWOEFLVM9GZLJ/New-York18.jpeg" alt="New York cityscape" class="w-full h-auto object-cover" />
+  </div>
+  <div class="relative">
+    <img src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525088261-NA2SZD6GO0YRTGOPJ16I/San-Francisco4.jpeg" alt="San Francisco cityscape" class="w-full h-auto object-cover" />
+  </div>
+</div>
 
-Now, let's update the project page to use markdown files for content:
+### Featured Cities
+
+The project showcases four distinct cities, each with its unique urban layout and architectural character:
+
+- **Cologne:** Highlighting the city's blend of historic architecture and modern development along the Rhine River.
+- **Macau:** Capturing the dense urban landscape and the iconic casinos that define this former Portuguese colony.
+- **New York:** Emphasizing the grid-like street pattern and the towering skyscrapers of Manhattan.
+- **San Francisco:** Illustrating the city's famous hills, bay, and diverse neighborhood layouts.
+
+Each cityscape is rendered with attention to detail, showcasing the unique topography, street patterns, and architectural features that make these urban environments distinct and recognizable.

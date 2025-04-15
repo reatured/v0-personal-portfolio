@@ -11,9 +11,12 @@ export async function GET(request: Request) {
 
   try {
     const subcategories = await getSubcategoriesByCategory(categorySlug)
+
+    // Ensure we're returning a proper JSON response
     return NextResponse.json(subcategories)
   } catch (error) {
     console.error("Error fetching subcategories:", error)
+    // Return a proper error response
     return NextResponse.json({ error: "Failed to fetch subcategories" }, { status: 500 })
   }
 }

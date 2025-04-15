@@ -1,3 +1,7 @@
+"use client"
+
+import type React from "react"
+
 import Image from "next/image"
 import Link from "next/link"
 import type { Project } from "@/lib/db"
@@ -6,21 +10,23 @@ interface RelatedProjectCardProps {
   project: Project
   categorySlug: string
   subcategorySlug: string
+  onClick?: (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    categorySlug: string,
+    subcategorySlug: string,
+    projectSlug: string,
+  ) => void
 }
 
-export function RelatedProjectCard({ project, categorySlug, subcategorySlug }: RelatedProjectCardProps) {
-  // Get the first paragraph of content for the description
-  const description = project.content
-    .split("\n")
-    .slice(0, 2)
-    .join(" ")
-    .replace(/^#+\s+|^\*\*|\*\*$|^-\s+/gm, "")
-    .trim()
+export function RelatedProjectCard({ project, categorySlug, subcategorySlug, onClick }: RelatedProjectCardProps) {
+  // Use only the description field, no content extraction
+  const description = project.description || "No description available"
 
   return (
     <Link
       href={`/${categorySlug}/${subcategorySlug}/${project.slug}`}
       className="block bg-card rounded-lg border border-border hover:border-primary transition-colors overflow-hidden group"
+      onClick={onClick ? (e) => onClick(e, categorySlug, subcategorySlug, project.slug) : undefined}
     >
       <div className="relative w-full h-48 overflow-hidden">
         <Image

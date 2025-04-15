@@ -51,7 +51,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
 
           if (parentIsDiv) {
             // For images inside divs (like our grid), use regular img tag to preserve layout
-            return <img {...props} className={props.className || "rounded-md w-full h-auto"} />
+            return <img {...props} className={`rounded-lg ${props.className || "w-full h-auto"}`} />
           }
 
           // For standalone images, use Next.js Image component with increased size
@@ -61,7 +61,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
                 src={props.src || ""}
                 alt={props.alt || ""}
                 fill
-                className="object-contain"
+                className="object-contain rounded-lg"
                 sizes="(max-width: 768px) 100vw, 1600px"
               />
             </div>
@@ -71,7 +71,14 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
         div({ node, className, children, ...props }) {
           if (className?.includes("image-grid")) {
             return (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6" {...props}>
+              <div className="image-grid" {...props}>
+                {children}
+              </div>
+            )
+          }
+          if (className?.includes("grid-4x1")) {
+            return (
+              <div className="grid-4x1" {...props}>
                 {children}
               </div>
             )

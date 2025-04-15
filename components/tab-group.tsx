@@ -1,6 +1,8 @@
 "use client"
 
-import Link from "next/link"
+import type React from "react"
+
+import { useRouter } from "next/navigation"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { ChevronLeft, ChevronRight } from "lucide-react"
@@ -18,6 +20,7 @@ interface TabGroupProps {
 }
 
 export function TabGroup({ items, label }: TabGroupProps) {
+  const router = useRouter()
   const pathname = usePathname()
   const [scrollPosition, setScrollPosition] = useState(0)
   const tabsRef = useRef<HTMLDivElement>(null)
@@ -44,6 +47,11 @@ export function TabGroup({ items, label }: TabGroupProps) {
   // Find the active tab
   const activeTab = items.find((item) => pathname === item.href)
 
+  const handleTabClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
+    router.push(href)
+  }
+
   return (
     <div className="relative w-full">
       <div className="flex items-center">
@@ -64,9 +72,10 @@ export function TabGroup({ items, label }: TabGroupProps) {
             const isActive = pathname === item.href
 
             return (
-              <Link
+              <a
                 key={item.slug}
                 href={item.href}
+                onClick={(e) => handleTabClick(e, item.href)}
                 className={cn(
                   "whitespace-nowrap px-3 py-1.5 text-sm rounded-md transition-colors",
                   isActive ? "bg-primary text-primary-foreground" : "bg-card hover:bg-accent",
@@ -74,7 +83,7 @@ export function TabGroup({ items, label }: TabGroupProps) {
                 aria-current={isActive ? "page" : undefined}
               >
                 {item.name}
-              </Link>
+              </a>
             )
           })}
         </div>

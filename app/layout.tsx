@@ -6,6 +6,8 @@ import { Sidebar } from "@/components/sidebar"
 import { ThemeProvider } from "@/components/theme-provider"
 import { getAllCategories } from "@/lib/db"
 import { Analytics } from "@vercel/analytics/react"
+import { SkipToContent } from "@/components/skip-to-content"
+import { SidebarProvider } from "@/components/sidebar-context"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -26,10 +28,15 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning className="dark">
       <body className={`${inter.className} antialiased min-h-screen bg-background`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} forcedTheme="dark">
-          <div className="flex min-h-screen flex-col md:flex-row">
-            <Sidebar categories={categories} />
-            <main className="flex-1 overflow-auto">{children}</main>
-          </div>
+          <SidebarProvider>
+            <SkipToContent />
+            <div className="flex min-h-screen flex-col md:flex-row">
+              <Sidebar categories={categories} />
+              <main id="main-content" className="flex-1 overflow-auto">
+                {children}
+              </main>
+            </div>
+          </SidebarProvider>
           <Analytics />
         </ThemeProvider>
       </body>

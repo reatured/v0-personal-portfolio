@@ -26,14 +26,6 @@ export default async function LatestPage() {
       {/* Regular Projects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {regularProjects.map((project) => {
-          // Get the first paragraph of content for the description
-          const description = project.content
-            .split("\n")
-            .slice(1, 3)
-            .join(" ")
-            .replace(/^#+\s+|^\*\*|\*\*$|^-\s+/gm, "")
-            .trim()
-
           return (
             <div
               key={project.id}

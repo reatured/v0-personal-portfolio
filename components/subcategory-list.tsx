@@ -1,94 +1,88 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import type React from "react"
+
+import { useEffect, useState, useCallback } from "react"
+import { useRouter, usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import type { Subcategory, Project } from "@/lib/db"
+import type { Subcategory } from "@/lib/db"
+import { useSidebar } from "./sidebar-context"
 
 interface SubcategoryListProps {
   categorySlug: string
 }
 
 export function SubcategoryList({ categorySlug }: SubcategoryListProps) {
+  const router = useRouter()
   const pathname = usePathname()
+  const { expandedSubcategories, subcategoryProjects, toggleSubcategory, isSubcategoryLoading } = useSidebar()
   const [subcategories, setSubcategories] = useState<Subcategory[]>([])
-  const [subcategoryProjects, setSubcategoryProjects] = useState<Record<number, Project[]>>({})
-  const [expandedSubcategories, setExpandedSubcategories] = useState<Record<number, boolean>>({})
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [fetchAttempted, setFetchAttempted] = useState(false)
 
+  // Memoize the navigation handler to prevent it from changing on every render
+  const handleNavigation = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      e.preventDefault()
+      router.push(href)
+
+      if (window.innerWidth < 768) {
+        // Close mobile menu if needed
+        const event = new CustomEvent("closeMobileMenu")
+        document.dispatchEvent(event)
+      }
+    },
+    [router],
+  )
+
+  // Separate the initial path check from the data fetching
+  const initializeExpandedState = useCallback(
+    (subcategories: Subcategory[]) => {
+      const pathParts = pathname.split("/").filter(Boolean)
+      if (pathParts.length > 1) {
+        const currentSubcategorySlug = pathParts[1]
+        const currentSubcategory = subcategories.find((sub) => sub.slug === currentSubcategorySlug)
+
+        if (currentSubcategory) {
+          toggleSubcategory(currentSubcategory.id, currentSubcategorySlug)
+        }
+      }
+    },
+    [pathname, toggleSubcategory],
+  )
+
+  // Fetch subcategories only once when the component mounts or categorySlug changes
   useEffect(() => {
+    if (!categorySlug || fetchAttempted) return
+
     async function fetchSubcategories() {
       try {
         setIsLoading(true)
-        const response = await fetch(`/api/subcategories?categorySlug=${categorySlug}`)
+        setError(null)
+
+        const response = await fetch(`/api/subcategories?categorySlug=${encodeURIComponent(categorySlug)}`)
 
         if (!response.ok) {
-          throw new Error("Failed to fetch subcategories")
+          throw new Error(`Server responded with ${response.status}: ${response.statusText}`)
         }
 
         const data = await response.json()
         setSubcategories(data)
 
-        // Initialize expanded state based on current path
-        const pathParts = pathname.split("/").filter(Boolean)
-        if (pathParts.length > 1) {
-          const currentSubcategorySlug = pathParts[1]
-          const currentSubcategory = data.find((sub: Subcategory) => sub.slug === currentSubcategorySlug)
-
-          if (currentSubcategory) {
-            setExpandedSubcategories((prev) => ({
-              ...prev,
-              [currentSubcategory.id]: true,
-            }))
-
-            // Fetch projects for the expanded subcategory
-            fetchProjectsForSubcategory(currentSubcategory.id, currentSubcategorySlug)
-          }
-        }
+        // Initialize expanded state after fetching data
+        initializeExpandedState(data)
       } catch (err) {
         console.error("Error fetching subcategories:", err)
-        setError("Failed to load subcategories")
+        setError(`Failed to load subcategories: ${err instanceof Error ? err.message : String(err)}`)
       } finally {
         setIsLoading(false)
+        setFetchAttempted(true)
       }
     }
 
     fetchSubcategories()
-  }, [categorySlug, pathname])
-
-  const fetchProjectsForSubcategory = async (subcategoryId: number, subcategorySlug: string) => {
-    try {
-      const response = await fetch(`/api/projects?subcategorySlug=${subcategorySlug}`)
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch projects")
-      }
-
-      const projects = await response.json()
-      setSubcategoryProjects((prev) => ({
-        ...prev,
-        [subcategoryId]: projects,
-      }))
-    } catch (err) {
-      console.error("Error fetching projects:", err)
-    }
-  }
-
-  const toggleSubcategory = (subcategoryId: number, subcategorySlug: string) => {
-    const newExpandedState = !expandedSubcategories[subcategoryId]
-
-    setExpandedSubcategories((prev) => ({
-      ...prev,
-      [subcategoryId]: newExpandedState,
-    }))
-
-    // Fetch projects if expanding and we don't have them yet
-    if (newExpandedState && !subcategoryProjects[subcategoryId]) {
-      fetchProjectsForSubcategory(subcategoryId, subcategorySlug)
-    }
-  }
+  }, [categorySlug, fetchAttempted, initializeExpandedState])
 
   if (isLoading) {
     return (
@@ -101,7 +95,19 @@ export function SubcategoryList({ categorySlug }: SubcategoryListProps) {
   }
 
   if (error) {
-    return <div className="text-sm text-red-500 px-2">{error}</div>
+    return (
+      <div className="text-sm text-red-500 px-2">
+        {error}
+        <button
+          onClick={() => {
+            setFetchAttempted(false) // Reset fetch attempted to try again
+          }}
+          className="block mt-2 text-xs bg-secondary px-2 py-1 rounded hover:bg-secondary/80"
+        >
+          Retry
+        </button>
+      </div>
+    )
   }
 
   if (subcategories.length === 0) {
@@ -114,6 +120,7 @@ export function SubcategoryList({ categorySlug }: SubcategoryListProps) {
         const isSubcategoryActive = pathname.startsWith(`/${categorySlug}/${subcategory.slug}`)
         const isExpanded = expandedSubcategories[subcategory.id] || false
         const projects = subcategoryProjects[subcategory.id] || []
+        const isLoading = isSubcategoryLoading[subcategory.id] || false
 
         return (
           <div key={subcategory.slug} className="mb-2">
@@ -125,50 +132,45 @@ export function SubcategoryList({ categorySlug }: SubcategoryListProps) {
               >
                 {isExpanded ? "−" : "+"}
               </button>
-              <Link
+              <a
                 href={`/${categorySlug}/${subcategory.slug}`}
+                onClick={(e) => handleNavigation(e, `/${categorySlug}/${subcategory.slug}`)}
                 className={cn(
                   "flex-grow px-2 py-1.5 text-sm rounded-md",
                   isSubcategoryActive ? "bg-accent text-accent-foreground" : "hover:bg-accent/50",
                 )}
-                onClick={() => {
-                  if (window.innerWidth < 768) {
-                    // Close mobile menu if needed
-                    const event = new CustomEvent("closeMobileMenu")
-                    document.dispatchEvent(event)
-                  }
-                }}
               >
                 {subcategory.name}
-              </Link>
+              </a>
             </div>
 
             {/* Projects list */}
             {isExpanded && (
               <div className="ml-5 mt-1 space-y-1 border-l border-border pl-2">
-                {projects.length > 0 ? (
+                {isLoading ? (
+                  <div className="px-2 py-1">
+                    <div className="h-4 w-3/4 bg-muted/30 rounded animate-pulse mb-1"></div>
+                    <div className="h-4 w-1/2 bg-muted/30 rounded animate-pulse"></div>
+                  </div>
+                ) : projects.length > 0 ? (
                   projects.map((project) => {
                     const isProjectActive = pathname === `/${categorySlug}/${subcategory.slug}/${project.slug}`
+                    const projectHref = `/${categorySlug}/${subcategory.slug}/${project.slug}`
 
                     return (
-                      <Link
+                      <a
                         key={project.slug}
-                        href={`/${categorySlug}/${subcategory.slug}/${project.slug}`}
+                        href={projectHref}
+                        onClick={(e) => handleNavigation(e, projectHref)}
                         className={cn(
                           "block px-2 py-1 text-xs rounded-md",
                           isProjectActive
                             ? "bg-accent/80 text-accent-foreground"
                             : "hover:bg-accent/30 text-muted-foreground",
                         )}
-                        onClick={() => {
-                          if (window.innerWidth < 768) {
-                            const event = new CustomEvent("closeMobileMenu")
-                            document.dispatchEvent(event)
-                          }
-                        }}
                       >
                         {project.title}
-                      </Link>
+                      </a>
                     )
                   })
                 ) : (

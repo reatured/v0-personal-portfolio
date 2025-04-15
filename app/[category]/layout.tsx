@@ -1,0 +1,57 @@
+import type React from "react"
+import { getCategoryBySlug } from "@/lib/db"
+import { notFound } from "next/navigation"
+import Link from "next/link"
+import { Suspense } from "react"
+
+export default async function CategoryLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode
+  params: { category: string }
+}) {
+  const category = await getCategoryBySlug(params.category)
+
+  if (!category) {
+    notFound()
+  }
+
+  return (
+    <div className="container mx-auto py-12 px-4">
+      <div className="mb-8">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+          <Link href="/" className="hover:text-foreground">
+            Home
+          </Link>
+          <span>/</span>
+          <span className="text-foreground">{category.name}</span>
+        </div>
+
+        <h1 className="text-3xl font-bold mb-6">{category.name}</h1>
+      </div>
+
+      <Suspense fallback={<CategoryLoadingState />}>{children}</Suspense>
+    </div>
+  )
+}
+
+function CategoryLoadingState() {
+  return (
+    <div className="space-y-8">
+      <div className="h-8 w-1/2 bg-muted/30 rounded animate-pulse"></div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[...Array(6)].map((_, i) => (
+          <div key={i} className="bg-card rounded-lg border border-border overflow-hidden">
+            <div className="h-48 bg-muted/30 animate-pulse"></div>
+            <div className="p-6 space-y-3">
+              <div className="h-6 w-3/4 bg-muted/30 rounded animate-pulse"></div>
+              <div className="h-4 w-full bg-muted/30 rounded animate-pulse"></div>
+              <div className="h-4 w-5/6 bg-muted/30 rounded animate-pulse"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}

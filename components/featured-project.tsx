@@ -7,13 +7,8 @@ interface FeaturedProjectProps {
 }
 
 export function FeaturedProject({ project }: FeaturedProjectProps) {
-  // Get the first paragraph of content for the description
-  const description = project.content
-    .split("\n")
-    .slice(1, 4)
-    .join(" ")
-    .replace(/^#+\s+|^\*\*|\*\*$|^-\s+/gm, "")
-    .trim()
+  // Use the description field directly
+  const description = project.description || "No description available"
 
   return (
     <div className="bg-card rounded-lg border border-border overflow-hidden">
@@ -35,7 +30,7 @@ export function FeaturedProject({ project }: FeaturedProjectProps) {
             )}
             <h2 className="text-2xl font-bold">{project.title}</h2>
           </div>
-          <p className="text-muted-foreground mb-6 line-clamp-6">{project.description}</p>
+          <p className="text-muted-foreground mb-6 line-clamp-6">{description}</p>
           <Link
             href={`/project/${project.slug}`}
             className="mt-auto inline-flex items-center justify-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"

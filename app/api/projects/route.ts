@@ -11,9 +11,12 @@ export async function GET(request: Request) {
 
   try {
     const projects = await getProjectsBySubcategory(subcategorySlug)
+
+    // Ensure we're returning a proper JSON response
     return NextResponse.json(projects)
   } catch (error) {
     console.error("Error fetching projects:", error)
+    // Return a proper error response
     return NextResponse.json({ error: "Failed to fetch projects" }, { status: 500 })
   }
 }

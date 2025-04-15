@@ -1,20 +1,29 @@
 "use client"
 
+import type React from "react"
+
 import { useState, useEffect } from "react"
-import Link from "next/link"
+import { useRouter } from "next/navigation"
 import type { Project, Category, Subcategory } from "@/lib/db"
 import { RelatedProjectCard } from "@/components/related-project-card"
 import { MarkdownRenderer } from "@/components/markdown-renderer"
+import Image from "next/image"
 
 interface ProjectShowcaseProps {
   projectSlug: string
 }
 
+interface ProjectData {
+  project: Project
+  category: Category
+  subcategory: Subcategory
+  relatedProjects: Project[]
+  fileContent?: string | null
+}
+
 export function FlexibleProjectShowcase({ projectSlug }: ProjectShowcaseProps) {
-  const [project, setProject] = useState<Project | null>(null)
-  const [relatedProjects, setRelatedProjects] = useState<Project[]>([])
-  const [category, setCategory] = useState<Category | null>(null)
-  const [subcategory, setSubcategory] = useState<Subcategory | null>(null)
+  const router = useRouter()
+  const [projectData, setProjectData] = useState<ProjectData | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -30,10 +39,7 @@ export function FlexibleProjectShowcase({ projectSlug }: ProjectShowcaseProps) {
         }
 
         const data = await response.json()
-        setProject(data.project)
-        setCategory(data.category)
-        setSubcategory(data.subcategory)
-        setRelatedProjects(data.relatedProjects || [])
+        setProjectData(data)
       } catch (err) {
         console.error("Error fetching project:", err)
         setError("Failed to load project")
@@ -47,40 +53,51 @@ export function FlexibleProjectShowcase({ projectSlug }: ProjectShowcaseProps) {
     }
   }, [projectSlug])
 
+  // Handle navigation to a related project
+  const handleRelatedProjectClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    categorySlug: string,
+    subcategorySlug: string,
+    projectSlug: string,
+  ) => {
+    e.preventDefault()
+    router.push(`/${categorySlug}/${subcategorySlug}/${projectSlug}`)
+  }
+
   if (loading) {
     return <ProjectSkeleton />
   }
 
-  if (error || !project) {
+  if (error || !projectData) {
     return <div className="text-center py-12 text-red-500">{error || "Project not found"}</div>
   }
 
+  const { project, category, subcategory, relatedProjects, fileContent } = projectData
+
+  // Use file content if available, otherwise use database content
+  const content = fileContent || project.content
+
   return (
-    <div className="container mx-auto py-12 px-4 max-w-7xl">
-      {/* Breadcrumbs */}
-      {category && subcategory && (
-        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-          <Link href="/" className="hover:text-foreground">
-            Home
-          </Link>
-          <span>/</span>
-          <Link href={`/${category.slug}`} className="hover:text-foreground">
-            {category.name}
-          </Link>
-          <span>/</span>
-          <Link href={`/${category.slug}/${subcategory.slug}`} className="hover:text-foreground">
-            {subcategory.name}
-          </Link>
-          <span>/</span>
-          <span className="text-foreground">{project.title}</span>
-        </div>
-      )}
+    <>
       {/* Project Title */}
       <h1 className="text-3xl font-bold mb-8">{project.title}</h1>
-      {/* Project Content - Using our enhanced markdown renderer that supports HTML */}
-      <div className="prose prose-invert max-w-none">
-        <MarkdownRenderer content={project.content} />
+
+      {/* Project Image */}
+      <div className="relative w-full h-[500px] mb-8 overflow-hidden rounded-lg">
+        <Image
+          src={project.imageUrl || "/placeholder.svg"}
+          alt={project.title}
+          fill
+          className={`object-cover ${project.imageRatio === "portrait" ? "object-top" : "object-center"}`}
+          priority
+        />
       </div>
+
+      {/* Project Content */}
+      <div className="prose prose-invert max-w-none">
+        <MarkdownRenderer content={content} />
+      </div>
+
       {/* Related Projects */}
       {relatedProjects.length > 0 && (
         <div className="mt-16">
@@ -92,22 +109,22 @@ export function FlexibleProjectShowcase({ projectSlug }: ProjectShowcaseProps) {
                 project={relatedProject}
                 categorySlug={category?.slug || ""}
                 subcategorySlug={subcategory?.slug || ""}
+                onClick={handleRelatedProjectClick}
               />
             ))}
           </div>
         </div>
       )}
-    </div>
+    </>
   )
 }
 
 function ProjectSkeleton() {
   return (
-    <div className="container mx-auto py-12 px-4 max-w-7xl">
-      <div className="h-4 w-64 bg-muted/30 rounded animate-pulse mb-6"></div>
-      <div className="h-10 w-3/4 bg-muted/30 rounded animate-pulse mb-8"></div>
-      <div className="space-y-4">
-        <div className="h-64 w-full bg-muted/30 rounded animate-pulse"></div>
+    <div className="space-y-4">
+      <div className="h-8 w-3/4 bg-muted/30 rounded animate-pulse"></div>
+      <div className="relative w-full h-[500px] mb-8 overflow-hidden rounded-lg bg-muted/30 animate-pulse"></div>
+      <div className="space-y-2">
         <div className="h-4 w-full bg-muted/30 rounded animate-pulse"></div>
         <div className="h-4 w-5/6 bg-muted/30 rounded animate-pulse"></div>
         <div className="h-4 w-4/6 bg-muted/30 rounded animate-pulse"></div>
