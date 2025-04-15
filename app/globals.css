@@ -135,20 +135,24 @@
 }
 
 .image-grid > div,
-.grid-4x1 > div,
-.grid-2x2 > div {
+.grid-4x1 > div {
   @apply h-full;
 }
 
+/* Modified for 2x2 grid to preserve A1 portrait aspect ratio */
+.grid-2x2 > div {
+  @apply relative;
+  aspect-ratio: 1 / 1.414; /* Correct A1 paper ratio (√2:1) */
+}
+
 .image-grid img,
-.grid-4x1 img,
-.grid-2x2 img {
+.grid-4x1 img {
   @apply w-full h-full object-cover rounded-lg;
 }
 
-/* Remove rounded corners for grid-2x2 images to create seamless appearance */
+/* Modified for 2x2 grid images to preserve original aspect ratio */
 .grid-2x2 img {
-  @apply rounded-none;
+  @apply w-full h-full object-contain rounded-lg;
 }
 
 .markdown-content table {

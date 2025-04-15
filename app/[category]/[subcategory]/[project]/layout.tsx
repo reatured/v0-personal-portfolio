@@ -1,6 +1,5 @@
 import type React from "react"
 import { getBreadcrumbsForProject, getProjectsBySubcategory } from "@/lib/db"
-import Link from "next/link"
 import { notFound } from "next/navigation"
 import { TabGroup } from "@/components/tab-group"
 import { Suspense } from "react"
@@ -32,22 +31,6 @@ export default async function ProjectLayout({
 
   return (
     <>
-      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-        <Link href="/" className="hover:text-foreground">
-          Home
-        </Link>
-        <span>/</span>
-        <Link href={`/${category.slug}`} className="hover:text-foreground">
-          {category.name}
-        </Link>
-        <span>/</span>
-        <Link href={`/${category.slug}/${subcategory.slug}`} className="hover:text-foreground">
-          {subcategory.name}
-        </Link>
-        <span>/</span>
-        <span className="text-foreground">{params.project}</span>
-      </div>
-
       {/* TabGroup moved above the title */}
       <div className="mb-6">
         <TabGroup items={tabItems} label={`${subcategory.name} projects`} />

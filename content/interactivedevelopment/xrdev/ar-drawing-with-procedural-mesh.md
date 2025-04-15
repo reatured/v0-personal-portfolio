@@ -59,5 +59,5 @@ Made as an asset in Lens Studio during the Internship at Snap Inc. This is an in
 
 \`\`\`
 
-```typescriptreact file="content/InteractiveDevelopment/GameDev/ar-drawing-with-procedural-mesh.md" isDeleted="true"
+\`\`\`typescriptreact file="content/InteractiveDevelopment/GameDev/ar-drawing-with-procedural-mesh.md" isDeleted="true"
 ...deleted...

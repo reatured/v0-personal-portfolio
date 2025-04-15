@@ -30,12 +30,12 @@ export default async function ProjectPage({
     <>
       <h1 className="text-3xl font-bold mb-8">{projectTitle}</h1>
 
-      <div className="relative w-full h-[500px] mb-8 overflow-hidden rounded-lg">
+      <div className="relative w-full h-[700px] mb-4 overflow-hidden rounded-lg">
         <Image
           src={projectImageUrl || "/placeholder.svg"}
           alt={projectTitle}
           fill
-          className={`object-cover ${projectImageRatio === "portrait" ? "object-top" : "object-center"}`}
+          className={`object-cover object-center `}
           priority
         />
       </div>

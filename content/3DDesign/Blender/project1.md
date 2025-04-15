@@ -23,20 +23,37 @@ The process involved:
 
 The result is a series of striking cityscapes that blend cartographic accuracy with artistic interpretation, creating visually captivating representations of urban environments.
 
-<div class="grid-2x2">
-  <div>
-    <img src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525087584-R170PYIBR5ZM4ETLW1GA/Cologne5.jpeg" alt="Cologne cityscape" />
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
+  <div class="relative">
+    <img 
+      src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525087584-R170PYIBR5ZM4ETLW1GA/Cologne5.jpeg" 
+      alt="Cologne cityscape"
+      class="w-full h-auto object-contain rounded-lg" 
+    />
   </div>
-  <div>
-    <img src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525087574-P1VGAPTQFKTL7X07366B/Macau5.jpeg" alt="Macau cityscape" />
+  <div class="relative">
+    <img 
+      src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525087574-P1VGAPTQFKTL7X07366B/Macau5.jpeg" 
+      alt="Macau cityscape"
+      class="w-full h-auto object-contain rounded-lg" 
+    />
   </div>
-  <div>
-    <img src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525088175-V7S5CZZAWOEFLVM9GZLJ/New-York18.jpeg" alt="New York cityscape" />
+  <div class="relative">
+    <img 
+      src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525088175-V7S5CZZAWOEFLVM9GZLJ/New-York18.jpeg" 
+      alt="New York cityscape"
+      class="w-full h-auto object-contain rounded-lg" 
+    />
   </div>
-  <div>
-    <img src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525088261-NA2SZD6GO0YRTGOPJ16I/San-Francisco4.jpeg" alt="San Francisco cityscape" />
+  <div class="relative">
+    <img 
+      src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525088261-NA2SZD6GO0YRTGOPJ16I/San-Francisco4.jpeg" 
+      alt="San Francisco cityscape"
+      class="w-full h-auto object-contain rounded-lg" 
+    />
   </div>
 </div>
+
 
 ### Featured Cities
 

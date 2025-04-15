@@ -2,7 +2,6 @@ import type React from "react"
 import { getCategoryBySlug, getSubcategoriesByCategory } from "@/lib/db"
 import { notFound } from "next/navigation"
 import { TabGroup } from "@/components/tab-group"
-import Link from "next/link"
 
 export default async function SubcategoryLayout({
   children,
@@ -28,15 +27,9 @@ export default async function SubcategoryLayout({
 
   return (
     <div className="container mx-auto py-12 px-4">
-      <div className="mb-8">
-        <Link href={`/${params.category}`} className="text-muted-foreground hover:text-foreground">
-          {category.name}
-        </Link>
-
-        {/* TabGroup moved above the title */}
-        <div className="mb-4 mt-4">
-          <TabGroup items={tabItems} label={`${category.name} subcategories`} />
-        </div>
+      {/* TabGroup moved above the title */}
+      <div className="mt-4">
+        <TabGroup items={tabItems} label={`${category.name} subcategories`} />
       </div>
 
       {children}
