@@ -1,0 +1,41 @@
+import type React from "react"
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+import "./globals.css"
+import { Sidebar } from "@/components/sidebar"
+import { ThemeProvider } from "@/components/theme-provider"
+import { getAllCategories } from "@/lib/db"
+import { Analytics } from "@vercel/analytics/react"
+
+const inter = Inter({ subsets: ["latin"] })
+
+export const metadata: Metadata = {
+  title: "Lingyi Zhou Portfolio",
+  description: "My personal portfolio showcasing my projects",
+    generator: 'v0.dev'
+}
+
+export default async function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
+  const categories = await getAllCategories()
+
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} antialiased`}>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} forcedTheme="dark">
+          <div className="flex min-h-screen">
+            <Sidebar categories={categories} />
+            <main className="flex-1 overflow-auto">{children}</main>
+          </div>
+          <Analytics />
+        </ThemeProvider>
+      </body>
+    </html>
+  )
+}
+
+
+import './globals.css'
