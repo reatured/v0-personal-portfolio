@@ -1,63 +1,46 @@
-import Link from "next/link"
 import Image from "next/image"
-import { cn } from "@/lib/utils"
+import Link from "next/link"
+import type { Project } from "@/lib/db"
 
 interface RelatedProjectCardProps {
-  project: {
-    id: number
-    title: string
-    slug: string
-    imageUrl?: string
-    imageRatio?: string
-    software?: string
-    content?: string
-  }
+  project: Project
   categorySlug: string
   subcategorySlug: string
-  className?: string
 }
 
-export function RelatedProjectCard({ project, categorySlug, subcategorySlug, className }: RelatedProjectCardProps) {
-  // Extract a brief description from the content
+export function RelatedProjectCard({ project, categorySlug, subcategorySlug }: RelatedProjectCardProps) {
+  // Get the first paragraph of content for the description
   const description = project.content
-    ? project.content
-        .split("\n")
-        .slice(1, 2)
-        .join(" ")
-        .replace(/^#+\s+|^\*\*|\*\*$|^-\s+/gm, "")
-        .trim()
-        .substring(0, 100) + (project.content.length > 100 ? "..." : "")
-    : ""
+    .split("\n")
+    .slice(0, 2)
+    .join(" ")
+    .replace(/^#+\s+|^\*\*|\*\*$|^-\s+/gm, "")
+    .trim()
 
   return (
-    <div className={cn("bg-card rounded-lg border border-border overflow-hidden flex flex-col h-full", className)}>
-      <div className="relative w-full pt-[60%] overflow-hidden">
+    <Link
+      href={`/${categorySlug}/${subcategorySlug}/${project.slug}`}
+      className="block bg-card rounded-lg border border-border hover:border-primary transition-colors overflow-hidden group"
+    >
+      <div className="relative w-full h-48 overflow-hidden">
         <Image
-          src={project.imageUrl || "/placeholder.svg?height=400&width=600&query=project"}
+          src={project.imageUrl || "/placeholder.svg"}
           alt={project.title}
           fill
-          className={`object-cover ${project.imageRatio === "portrait" ? "object-top" : "object-center"}`}
+          className={`object-cover transition-transform group-hover:scale-105 ${
+            project.imageRatio === "portrait" ? "object-top" : "object-center"
+          }`}
         />
       </div>
-      <div className="p-4 flex flex-col flex-grow">
-        <h3 className="text-lg font-semibold mb-2">{project.title}</h3>
-        {description && <p className="text-muted-foreground text-sm mb-3 line-clamp-2">{description}</p>}
-
-        <div className="mt-auto flex items-center justify-between">
-          {project.software && (
-            <div className="inline-block px-2 py-1 bg-secondary text-secondary-foreground text-xs rounded-full">
-              {project.software}
-            </div>
-          )}
-
-          <Link
-            href={`/${categorySlug}/${subcategorySlug}/${project.slug}`}
-            className="text-primary hover:underline ml-auto text-sm"
-          >
-            View Project
-          </Link>
-        </div>
+      <div className="p-6">
+        <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
+        <p className="text-muted-foreground line-clamp-2">{description}</p>
+        {project.software && (
+          <div className="mt-4 inline-block px-3 py-1 bg-secondary text-secondary-foreground text-xs rounded-full">
+            {project.software}
+          </div>
+        )}
       </div>
-    </div>
+    </Link>
   )
 }

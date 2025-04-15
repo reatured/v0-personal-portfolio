@@ -2,12 +2,13 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import type { Project } from "@/types/project"
-import type { Category } from "@/types/category"
-import type { Subcategory } from "@/types/subcategory"
-import type { ProjectShowcaseProps } from "@/types/project-showcase"
+import type { Project, Category, Subcategory } from "@/lib/db"
 import { RelatedProjectCard } from "@/components/related-project-card"
 import { MarkdownRenderer } from "@/components/markdown-renderer"
+
+interface ProjectShowcaseProps {
+  projectSlug: string
+}
 
 export function FlexibleProjectShowcase({ projectSlug }: ProjectShowcaseProps) {
   const [project, setProject] = useState<Project | null>(null)
@@ -56,7 +57,6 @@ export function FlexibleProjectShowcase({ projectSlug }: ProjectShowcaseProps) {
 
   return (
     <div className="container mx-auto py-12 px-4 max-w-7xl">
-      {/* Changed from max-w-5xl to max-w-7xl */}
       {/* Breadcrumbs */}
       {category && subcategory && (
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
@@ -104,7 +104,6 @@ export function FlexibleProjectShowcase({ projectSlug }: ProjectShowcaseProps) {
 function ProjectSkeleton() {
   return (
     <div className="container mx-auto py-12 px-4 max-w-7xl">
-      {/* Updated this to match */}
       <div className="h-4 w-64 bg-muted/30 rounded animate-pulse mb-6"></div>
       <div className="h-10 w-3/4 bg-muted/30 rounded animate-pulse mb-8"></div>
       <div className="space-y-4">

@@ -1,9 +1,11 @@
 import Image from "next/image"
 import Link from "next/link"
 import { getLatestProjects } from "@/lib/db"
+import { getAllProjects } from "@/lib/db" // We'll add this function
 
 export default async function Home() {
   const latestProjects = await getLatestProjects(3)
+  const allProjects = await getAllProjects() // Fetch all projects
 
   return (
     <div className="container mx-auto py-12 px-4">
@@ -94,6 +96,40 @@ export default async function Home() {
               <div className="text-sm text-gray-400">Jan 2023 - May 2023</div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* All Projects Section */}
+      <div className="mt-20">
+        <h2 className="text-3xl font-bold mb-8">All Projects</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {allProjects.map((project) => (
+            <Link
+              key={project.id}
+              href={`/project/${project.slug}`}
+              className="block bg-card rounded-lg border border-border hover:border-primary transition-colors overflow-hidden group"
+            >
+              <div className="relative w-full h-48 overflow-hidden">
+                <Image
+                  src={project.imageUrl || "/placeholder.svg"}
+                  alt={project.title}
+                  fill
+                  className={`object-cover transition-transform group-hover:scale-105 ${
+                    project.imageRatio === "portrait" ? "object-top" : "object-center"
+                  }`}
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
+                <p className="text-muted-foreground line-clamp-2">{project.content.split("\n")[0].replace("# ", "")}</p>
+                {project.software && (
+                  <div className="mt-4 inline-block px-3 py-1 bg-secondary text-secondary-foreground text-xs rounded-full">
+                    {project.software}
+                  </div>
+                )}
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </div>

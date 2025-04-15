@@ -1,8 +1,8 @@
-import { type NextRequest, NextResponse } from "next/server"
-import { neon } from "@neondatabase/serverless"
+import { getSubcategoriesByCategory } from "@/lib/db"
+import { NextResponse } from "next/server"
 
-export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url)
   const categorySlug = searchParams.get("categorySlug")
 
   if (!categorySlug) {
@@ -10,19 +10,10 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const sql = neon(process.env.DATABASE_URL!)
-
-    const subcategories = await sql`
-      SELECT s.id, s.name, s.slug, s.category_id
-      FROM subcategories s
-      JOIN categories c ON s.category_id = c.id
-      WHERE c.slug = ${categorySlug}
-      ORDER BY s.id ASC
-    `
-
+    const subcategories = await getSubcategoriesByCategory(categorySlug)
     return NextResponse.json(subcategories)
   } catch (error) {
-    console.error("Database error:", error)
+    console.error("Error fetching subcategories:", error)
     return NextResponse.json({ error: "Failed to fetch subcategories" }, { status: 500 })
   }
 }

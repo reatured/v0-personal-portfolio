@@ -52,8 +52,6 @@ export default async function ProjectPage({
         <div className="mb-6">
           <TabGroup items={tabItems} label={`${subcategory.name} projects`} />
         </div>
-
-        <h1 className="text-3xl font-bold mb-6">{project.title}</h1>
       </div>
 
       <div className="relative w-full h-[500px] mb-8 overflow-hidden rounded-lg">
