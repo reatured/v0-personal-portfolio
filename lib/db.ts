@@ -10,6 +10,7 @@ export type Project = {
   imageUrl: string
   software?: string
   imageRatio?: "square" | "landscape" | "portrait"
+  description: string
 }
 
 export type Subcategory = {

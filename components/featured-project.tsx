@@ -18,12 +18,22 @@ export function FeaturedProject({ project }: FeaturedProjectProps) {
   return (
     <div className="bg-card rounded-lg border border-border overflow-hidden">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-        <div className="relative w-full h-full min-h-[300px]">
+        <div className={`relative w-full ${
+          project.imageRatio === "portrait" 
+            ? "aspect-[3/4]" 
+            : project.imageRatio === "square" 
+              ? "aspect-square" 
+              : "aspect-[16/9]"
+        }`}>
           <Image
             src={project.imageUrl || "/placeholder.svg"}
             alt={project.title}
             fill
-            className={`object-cover ${project.imageRatio === "portrait" ? "object-top" : "object-center"}`}
+            className={`object-cover ${
+              project.imageRatio === "portrait" 
+                ? "object-top" 
+                : "object-center"
+            }`}
           />
         </div>
         <div className="p-8 flex flex-col">
@@ -35,7 +45,7 @@ export function FeaturedProject({ project }: FeaturedProjectProps) {
             )}
             <h2 className="text-2xl font-bold">{project.title}</h2>
           </div>
-          <p className="text-muted-foreground mb-6 line-clamp-6">{description}</p>
+          <p className="text-muted-foreground mb-6 line-clamp-6">{project.description}</p>
           <Link
             href={`/project/${project.slug}`}
             className="mt-auto inline-flex items-center justify-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
