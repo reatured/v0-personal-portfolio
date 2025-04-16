@@ -8,8 +8,6 @@ software: Cinema 4D
 
 # Generative Art
 
-# Generative Art
-
 ## Overview
 Procedural generative art created with Cinema 4D.
 

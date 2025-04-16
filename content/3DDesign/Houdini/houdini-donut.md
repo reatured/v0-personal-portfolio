@@ -8,8 +8,6 @@ software: Houdini
 
 # Donut
 
-# Donut
-
 ## Overview
 Procedural modelling, rendered with motion blur.
 

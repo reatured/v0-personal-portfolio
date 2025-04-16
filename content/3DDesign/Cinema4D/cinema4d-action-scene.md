@@ -8,8 +8,6 @@ software: Cinema 4D
 
 # Action Scene
 
-# Action Scene
-
 ## Overview
 A dramatic slow-motion scene featuring a girl skillfully dodging a bullet.
 

@@ -8,8 +8,7 @@ software: Creative Coding
 
 # Ugly Face Generator
 
-# Ugly Face Generator
-
+## Overview
 Clicking on the pic to generator new faces. The slider is for the thickness of the drawing.
 
 <div class="aspect-w-16 aspect-h-9 my-8">
@@ -17,7 +16,6 @@ Clicking on the pic to generator new faces. The slider is for the thickness of t
 </div>
 
 ## Design Process
-
 I started with this sketch of face drew by one line using pen in Adobe AI;
 
 Then I just keep adding interesting things that I thought would be fun. Things that I put in this generator:

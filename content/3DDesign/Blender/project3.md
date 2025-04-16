@@ -8,8 +8,6 @@ software: Blender
 
 # Teddy Bear
 
-# Teddy Bear
-
 ## Overview
 Hair modelling with particle system based on real teddy bear toy.
 

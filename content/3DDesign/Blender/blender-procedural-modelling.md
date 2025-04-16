@@ -8,8 +8,6 @@ software: Blender
 
 # Procedural Modelling
 
-# Procedural Modelling
-
 ## Overview
 Procedural modelling using graph nodes in Blender.
 

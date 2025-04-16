@@ -8,8 +8,6 @@ software: Blender
 
 # Chess Pieces Used in Virtual Reality
 
-# Chess Pieces Used in Virtual Reality
-
 ## Overview
 Implementation of chess pieces in Unity for a VR chess game.
 

@@ -8,8 +8,6 @@ software: Houdini
 
 # Fluid Simulation
 
-# Fluid Simulation
-
 ## Overview
 Fluid simulation animation created in Houdini.
 
