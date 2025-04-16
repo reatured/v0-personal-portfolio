@@ -1,10 +1,14 @@
 ---
 title: AR Drawing with Procedural Mesh
 description: Made as an asset in Lens Studio during the Internship at Snap Inc. This is an individual project that I made in Lens Studio. This AR lens allows you to draw with your hand in the air in real time.
-imageUrl: https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/71389fcd-1d82-4b3a-91b8-afeda8c163db/Random+Color.gif?format=750w
+imageUrl: https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/14562d63-ecce-4124-bd38-e3baf10e9682/Creation+1+Compressed.gif?format=500w
 imageRatio: landscape
-software: Lens Studio
+software: XR Development
 ---
+
+# AR Drawing with Procedural Mesh
+
+# AR Drawing with Procedural Mesh
 
 Made as an asset in Lens Studio during the Internship at Snap Inc. This is an individual project that I made in Lens Studio. This AR lens allows you to draw with your hand in the air in real time.
 
@@ -56,8 +60,3 @@ Made as an asset in Lens Studio during the Internship at Snap Inc. This is an in
 
 ## Scan the Snap code using Snapchat to play on your phone:
 ![Snap Code](https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/cb19c35a-9044-4a6f-a0fb-3dcc4f47f8e4/snapcode.png?format=1500w)
-
-\`\`\`
-
-\`\`\`typescriptreact file="content/InteractiveDevelopment/GameDev/ar-drawing-with-procedural-mesh.md" isDeleted="true"
-...deleted...
