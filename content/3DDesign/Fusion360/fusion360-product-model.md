@@ -8,8 +8,6 @@ software: Fusion 360
 
 # Product Model
 
-# Product Model
-
 ## Overview
 Shelf Bracket Modelling to Product Production.
 

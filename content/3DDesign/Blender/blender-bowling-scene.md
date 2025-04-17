@@ -7,9 +7,6 @@ software: Blender
 ---
 
 # Bowling Scene
-
-# Bowling Scene
-
 ## Overview
 Modelled and rendered a bowling scene in Blender.
 
