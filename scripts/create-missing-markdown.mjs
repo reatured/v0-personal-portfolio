@@ -92,4 +92,4 @@ ${project.content || '## Project Overview\n\nAdd your project overview here.\n\n
   }
 }
 
-createMissingMarkdownFiles(); 
+createMissingMarkdownFiles();

@@ -1,5 +1,7 @@
 "use client"
 import { useState } from "react"
+import type React from "react"
+
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import rehypeRaw from "rehype-raw"
@@ -7,6 +9,11 @@ import Image from "next/image"
 
 interface MarkdownRendererProps {
   content: string
+}
+
+// Update the ImageGrid2Column component to use a 2-column grid layout on desktop
+function ImageGrid2Column({ className, children }: { className?: string; children: React.ReactNode }) {
+  return <div className={`grid grid-cols-1 sm:grid-cols-2 gap-2 ${className || ""}`}>{children}</div>
 }
 
 export function MarkdownRenderer({ content }: MarkdownRendererProps) {
@@ -78,35 +85,37 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
                 return <img {...props} className={`rounded-lg ${props.className || "w-full h-auto"}`} />
               }
 
-              // For standalone images, use Next.js Image component with increased size
+              // For standalone images, use Next.js Image component without the wrapper div
               return (
-                <div className="relative w-full h-auto min-h-[600px] my-10">
-                  <Image
-                    src={props.src || ""}
-                    alt={props.alt || ""}
-                    fill
-                    className="object-contain rounded-lg"
-                    sizes="(max-width: 768px) 100vw, 1600px"
-                  />
-                </div>
+                <Image
+                  src={props.src || ""}
+                  alt={props.alt || ""}
+                  width={1200}
+                  height={850}
+                  className="rounded-lg my-10 w-full h-auto"
+                  sizes="(max-width: 768px) 100vw, 1600px"
+                />
               )
             },
             // Add proper handling for div elements with specific classes
             div({ node, className, children, ...props }) {
-              if (className?.includes("image-grid")) {
-                return (
-                  <div className="image-grid" {...props}>
-                    {children}
-                  </div>
-                )
+              // Handle special div classes
+              if (className?.includes("image-grid-2column")) {
+                return <ImageGrid2Column className={className}>{children}</ImageGrid2Column>
               }
-              if (className?.includes("grid-4x1")) {
-                return (
-                  <div className="grid-4x1" {...props}>
-                    {children}
-                  </div>
-                )
+
+              // For other divs, pass through the children directly if they contain images
+              const hasDirectImageChild = node?.children?.some(
+                (child) =>
+                  child.tagName === "img" ||
+                  (child.children && child.children.some((grandchild) => grandchild.tagName === "img")),
+              )
+
+              if (hasDirectImageChild) {
+                return <>{children}</>
               }
+
+              // Otherwise render as a normal div
               return (
                 <div className={className} {...props}>
                   {children}

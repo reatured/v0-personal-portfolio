@@ -6,6 +6,7 @@ imageRatio: portrait
 software: Blender
 ---
 
+
 # Modelling with Google Map Data
 
 Large scale A1 size wall poster designed by combining two different Google Map datasets and implementing 3D model data in Blender.
@@ -23,8 +24,19 @@ The process involved:
 
 The result is a series of striking cityscapes that blend cartographic accuracy with artistic interpretation, creating visually captivating representations of urban environments.
 
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
-  <div class="relative flex items-center justify-center overflow-visible">
+### Featured Cities
+
+The project showcases four distinct cities, each with its unique urban layout and architectural character:
+
+- **Cologne:** Highlighting the city's blend of historic architecture and modern development along the Rhine River.
+- **Macau:** Capturing the dense urban landscape and the iconic casinos that define this former Portuguese colony.
+- **New York:** Emphasizing the grid-like street pattern and the towering skyscrapers of Manhattan.
+- **San Francisco:** Illustrating the city's famous hills, bay, and diverse neighborhood layouts.
+
+Each cityscape is rendered with attention to detail, showcasing the unique topography, street patterns, and architectural features that make these urban environments distinct and recognizable.
+
+<div class="image-grid-2column">
+  <div class="relative flex items-center justify-top overflow-visible">
     <img 
       src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525087584-R170PYIBR5ZM4ETLW1GA/Cologne5.jpeg" 
       alt="Cologne cityscape"
@@ -52,47 +64,6 @@ The result is a series of striking cityscapes that blend cartographic accuracy w
       class="w-full h-auto object-contain rounded-lg re-image" 
     />
   </div>
-  
 </div>
-
-
-
-### Featured Cities
-
-The project showcases four distinct cities, each with its unique urban layout and architectural character:
-
-- **Cologne:** Highlighting the city's blend of historic architecture and modern development along the Rhine River.
-- **Macau:** Capturing the dense urban landscape and the iconic casinos that define this former Portuguese colony.
-- **New York:** Emphasizing the grid-like street pattern and the towering skyscrapers of Manhattan.
-- **San Francisco:** Illustrating the city's famous hills, bay, and diverse neighborhood layouts.
-
-Each cityscape is rendered with attention to detail, showcasing the unique topography, street patterns, and architectural features that make these urban environments distinct and recognizable.
 
 ### Printed Posters
-<div class="relative flex items-center justify-center overflow-visible">
-<h4 class="text-left text-white bg-blue-500">
-These prints are huge. <br>
-These prints are huge. <br>
-These prints are huge. <br>
-These prints are huge. <br>
-These prints are huge. <br>
-
-</h4>
-    <img 
-      src="https://github.com/reatured/public-assets/blob/main/3d-design/project1-a1posters/IMG_3514%202.JPG?raw=true" 
-      alt="San Francisco cityscape"
-      class="re-image" 
-    />
-</div>
-
-<style>
-.re-image,
-.markdown-content .re-image {
-  width: 100%; 
-  height: auto;
-  object-fit: fill;
-  border-radius: 0.75rem !important; /* Added !important to override */
-  overflow: hidden;
-}
-</style>
-

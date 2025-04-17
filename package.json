@@ -69,6 +69,7 @@
     "path": "latest",
     "gray-matter": "latest",
     "@neondatabase/serverless": "latest",
+    "url": "latest",
     "react-markdown": "latest",
     "remark-gfm": "latest",
     "rehype-raw": "latest"

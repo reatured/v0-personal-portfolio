@@ -63,4 +63,3 @@ Combining the two prototypes above, we get this rough stitching mechanism.
     <img src="/placeholder.svg?height=400&width=600&query=Unity%20teddy%20bear%20model%20with%20tear" alt="Teddy Bear Model with Tear" class="w-full h-auto object-contain rounded-lg" />
   </div>
 </div>
-

@@ -1,4 +1,5 @@
 import type React from "react"
+import { Suspense } from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
@@ -15,7 +16,7 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Lingyi Zhou Portfolio",
   description: "My personal portfolio showcasing my projects",
-    generator: 'v0.dev'
+  generator: "v0.dev",
 }
 
 export default async function RootLayout({
@@ -36,7 +37,13 @@ export default async function RootLayout({
               <Image src="/background.jpg" alt="Dark room with teal light" fill priority className="background-image" />
             </div>
             <div className="flex min-h-screen flex-col md:flex-row">
-              <Sidebar categories={categories} />
+              <Suspense
+                fallback={
+                  <div className="w-full md:w-72 border-r border-border bg-card bg-opacity-80 backdrop-blur-md flex-shrink-0 h-screen"></div>
+                }
+              >
+                <Sidebar categories={categories} />
+              </Suspense>
               <main id="main-content" className="flex-1 overflow-auto">
                 {children}
               </main>
@@ -48,9 +55,6 @@ export default async function RootLayout({
     </html>
   )
 }
-
-
-import './globals.css'
 
 
 import './globals.css'

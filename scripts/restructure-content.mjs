@@ -107,4 +107,4 @@ ${project.content || 'Content for this project will be added soon.'}
   }
 }
 
-restructureContent(); 
+restructureContent();
