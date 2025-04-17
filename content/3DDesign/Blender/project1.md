@@ -23,13 +23,13 @@ Different time zones is represented by different lighting throughout the day.
 <div class="image-grid-4column">
 <div class="relative flex items-center justify-center overflow-visible">
     <img 
-      src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525087574-P1VGAPTQFKTL7X07366B/Macau5.jpeg" 
+      src="https://github.com/reatured/public-assets/blob/main/3d-design/project1-a1posters/Macau57.jpg?raw=true" 
       alt="Macau cityscape"
       class="" 
     />
   <div class="relative flex items-center justify-top overflow-visible">
     <img 
-      src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525087584-R170PYIBR5ZM4ETLW1GA/Cologne5.jpeg" 
+      src="https://github.com/reatured/public-assets/blob/main/3d-design/project1-a1posters/Cologne58.jpg?raw=true" 
       alt="Cologne cityscape"
       class="" 
     />
@@ -38,14 +38,14 @@ Different time zones is represented by different lighting throughout the day.
   </div>
   <div class="relative flex items-center justify-center overflow-visible">
     <img 
-      src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525088175-V7S5CZZAWOEFLVM9GZLJ/New-York18.jpeg" 
+      src="https://github.com/reatured/public-assets/blob/main/3d-design/project1-a1posters/NewYork188.jpg?raw=true" 
       alt="New York cityscape"
       class="" 
     />
   </div>
   <div class="relative flex items-center justify-center overflow-visible">
     <img 
-      src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525088261-NA2SZD6GO0YRTGOPJ16I/San-Francisco4.jpeg" 
+      src="https://github.com/reatured/public-assets/blob/main/3d-design/project1-a1posters/SanFrancisco45.jpg?raw=true" 
       alt="San Francisco cityscape"
       class=""  
     />
