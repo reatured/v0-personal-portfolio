@@ -16,6 +16,14 @@ function ImageGrid2Column({ className, children }: { className?: string; childre
   return <div className={`grid grid-cols-1 sm:grid-cols-2 gap-2 ${className || ""}`}>{children}</div>
 }
 
+function ImageGrid3Column({ className, children }: { className?: string; children: React.ReactNode }) {
+  return <div className={`grid grid-cols-1 sm:grid-cols-3 gap-2 ${className || ""}`}>{children}</div>
+}
+
+function ImageGrid4Column({ className, children }: { className?: string; children: React.ReactNode }) {
+  return <div className={`grid grid-cols-1 sm:grid-cols-4 gap-2 ${className || ""}`}>{children}</div>
+}
+
 export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   const [error, setError] = useState<string | null>(null)
 
@@ -92,7 +100,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
                   alt={props.alt || ""}
                   width={1200}
                   height={850}
-                  className="rounded-lg my-10 w-full h-auto"
+                  className="rounded-lg w-full h-auto"
                   sizes="(max-width: 768px) 100vw, 1600px"
                 />
               )
@@ -102,6 +110,14 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
               // Handle special div classes
               if (className?.includes("image-grid-2column")) {
                 return <ImageGrid2Column className={className}>{children}</ImageGrid2Column>
+              }
+
+              if (className?.includes("image-grid-3column")) {
+                return <ImageGrid3Column className={className}>{children}</ImageGrid3Column>
+              }
+
+              if (className?.includes("image-grid-4column")) {
+                return <ImageGrid4Column className={className}>{children}</ImageGrid4Column>
               }
 
               // For other divs, pass through the children directly if they contain images

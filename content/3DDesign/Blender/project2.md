@@ -37,7 +37,7 @@ The toon shader was built using Blender's node system, combining key elements su
 - Animation tools
 
 ## Media Gallery
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-0 mb-0 pt-0 pb-0">
+<div class="image-grid-2column">
   <div class="relative flex items-center justify-center">
     <img 
       src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/a0fc2f8f-c051-45b2-be66-1af75ae39598/Wnad+Demo+GIF.gif?format=2500w" 
