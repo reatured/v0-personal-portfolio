@@ -8,8 +8,6 @@ software: Maya
 
 # Canon Animation
 
-# Canon Animation
-
 ## Overview
 Idling animation of a canon.
 

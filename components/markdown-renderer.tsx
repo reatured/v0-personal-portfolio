@@ -12,6 +12,10 @@ interface MarkdownRendererProps {
 }
 
 // Update the ImageGrid2Column component to use a 2-column grid layout on desktop
+function ImageGrid1Column({ className, children }: { className?: string; children: React.ReactNode }) {
+  return <div className={`grid grid-cols-1 sm:grid-cols-1 gap-2 ${className || ""}`}>{children}</div>
+}
+
 function ImageGrid2Column({ className, children }: { className?: string; children: React.ReactNode }) {
   return <div className={`grid grid-cols-1 sm:grid-cols-2 gap-2 ${className || ""}`}>{children}</div>
 }
@@ -108,6 +112,10 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             // Add proper handling for div elements with specific classes
             div({ node, className, children, ...props }) {
               // Handle special div classes
+              if (className?.includes("image-grid-1column")) {
+                return <ImageGrid1Column className={className}>{children}</ImageGrid1Column>
+              }
+
               if (className?.includes("image-grid-2column")) {
                 return <ImageGrid2Column className={className}>{children}</ImageGrid2Column>
               }

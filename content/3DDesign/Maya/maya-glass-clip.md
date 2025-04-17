@@ -8,8 +8,6 @@ software: Maya
 
 # Glass Clip
 
-# Glass Clip
-
 ## Overview
 Product design for home decoration hardware.
 

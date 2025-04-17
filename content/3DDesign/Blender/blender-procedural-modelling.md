@@ -25,3 +25,26 @@ This project explores the power of Blender's geometry nodes to create complex sh
 - Blender 3.0
 - Geometry Nodes
 - Cycles renderer
+
+<div class="image-grid-1column">
+    <img 
+      src="https://github.com/reatured/public-assets/blob/main/3d-design/project4-proceduralmodelling/rendered18.png?raw=true" 
+      alt="Printed Posters"
+      class=""  
+    />
+    <img 
+      src="https://github.com/reatured/public-assets/blob/main/3d-design/project4-proceduralmodelling/rendered28.png?raw=true" 
+      alt="Printed Posters"
+      class=""  
+    />
+    <img 
+      src="https://github.com/reatured/public-assets/blob/main/3d-design/project4-proceduralmodelling/rendered38.png?raw=true" 
+      alt="Printed Posters"
+      class=""  
+    />
+    <img 
+      src="https://github.com/reatured/public-assets/blob/main/3d-design/project4-proceduralmodelling/rendered4.png?raw=true" 
+      alt="Printed Posters"
+      class=""  
+    />
+</div>

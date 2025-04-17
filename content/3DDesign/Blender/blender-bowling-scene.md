@@ -1,7 +1,7 @@
 ---
 title: Bowling Scene
 description: A meticulously modeled and textured bowling scene created in Blender with realistic materials and lighting.
-imageUrl: https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1581452484247-CNUOZA0EX4P4CNGDUDKN/3.1+Bowling+Scene.png?format=750w
+imageUrl: https://github.com/reatured/public-assets/blob/main/3d-design/project6-bowlingscene/3.1BowlingScene6.png?raw=true
 imageRatio: square
 software: Blender
 ---
@@ -24,3 +24,9 @@ This scene focuses on realistic materials and lighting to create a convincing bo
 - Blender 2.9
 - Cycles renderer
 - PBR materials
+
+<img 
+      src="https://github.com/reatured/public-assets/blob/main/3d-design/project6-bowlingscene/3.1BowlingScene6.png?raw=true" 
+      alt="Printed Posters"
+      class=""  
+    />

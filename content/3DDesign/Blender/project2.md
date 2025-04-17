@@ -40,16 +40,16 @@ The toon shader was built using Blender's node system, combining key elements su
 <div class="image-grid-2column">
   <div class="relative flex items-center justify-center">
     <img 
-      src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/a0fc2f8f-c051-45b2-be66-1af75ae39598/Wnad+Demo+GIF.gif?format=2500w" 
+      src="https://github.com/reatured/public-assets/blob/main/3d-design/project2-magicwand/WandDemoGIF7.gif?raw=true" 
       alt="Wand Demo GIF"
-      class="w-full h-auto object-contain rounded-lg" 
+      class="" 
     />
   </div>
   <div class="relative flex items-center justify-center">
     <img 
-      src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/0b1c1a89-d066-4e5b-a24d-c52aef444a33/Cake+Demo+GIF.gif?format=2500w" 
+      src="https://github.com/reatured/public-assets/blob/main/3d-design/project2-magicwand/CakeDemoGIF7.gif?raw=true" 
       alt="Cake Demo GIF"
-      class="w-full h-auto object-contain rounded-lg" 
+      class="" 
     />
   </div>
   <div class="relative flex items-center justify-center">
