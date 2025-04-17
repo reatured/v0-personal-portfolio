@@ -65,7 +65,6 @@ The process involved:
 
 The result is a series of striking cityscapes that blend cartographic accuracy with artistic interpretation, creating visually captivating representations of urban environments.
 
-<br>
 
 # Featured Cities and Their Landmark Buildings
 
