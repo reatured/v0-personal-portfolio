@@ -8,7 +8,7 @@ software: Blender
 
 # Modelling with Google Map Data
 
-Large scale wall poster designed by combining two different Google Map datasets and implementing 3D model data in Blender.
+Large scale A1 size wall poster designed by combining two different Google Map datasets and implementing 3D model data in Blender.
 
 ## Project Details
 
@@ -24,35 +24,38 @@ The process involved:
 The result is a series of striking cityscapes that blend cartographic accuracy with artistic interpretation, creating visually captivating representations of urban environments.
 
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-6">
-  <div class="relative flex items-center justify-center">
+  <div class="relative flex items-center justify-center overflow-visible">
     <img 
       src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525087584-R170PYIBR5ZM4ETLW1GA/Cologne5.jpeg" 
       alt="Cologne cityscape"
-      class="w-full h-auto object-contain rounded-lg" 
+      class="w-full h-auto object-contain rounded-lg re-image" 
     />
   </div>
-  <div class="relative flex items-center justify-center">
+  <div class="relative flex items-center justify-center overflow-visible">
     <img 
       src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525087574-P1VGAPTQFKTL7X07366B/Macau5.jpeg" 
       alt="Macau cityscape"
-      class="w-full h-auto object-contain rounded-lg" 
+      class="w-full h-auto object-contain rounded-lg re-image" 
     />
   </div>
-  <div class="relative flex items-center justify-center">
+  <div class="relative flex items-center justify-center overflow-visible">
     <img 
       src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525088175-V7S5CZZAWOEFLVM9GZLJ/New-York18.jpeg" 
       alt="New York cityscape"
-      class="w-full h-auto object-contain rounded-lg" 
+      class="w-full h-auto object-contain rounded-lg re-image" 
     />
   </div>
-  <div class="relative flex items-center justify-center">
+  <div class="relative flex items-center justify-center overflow-visible">
     <img 
       src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1646525088261-NA2SZD6GO0YRTGOPJ16I/San-Francisco4.jpeg" 
       alt="San Francisco cityscape"
-      class="w-full h-auto object-contain rounded-lg" 
+      class="w-full h-auto object-contain rounded-lg re-image" 
     />
   </div>
+  
 </div>
+
+
 
 ### Featured Cities
 
@@ -64,3 +67,32 @@ The project showcases four distinct cities, each with its unique urban layout an
 - **San Francisco:** Illustrating the city's famous hills, bay, and diverse neighborhood layouts.
 
 Each cityscape is rendered with attention to detail, showcasing the unique topography, street patterns, and architectural features that make these urban environments distinct and recognizable.
+
+### Printed Posters
+<div class="relative flex items-center justify-center overflow-visible">
+<h4 class="text-left text-white bg-blue-500">
+These prints are huge. <br>
+These prints are huge. <br>
+These prints are huge. <br>
+These prints are huge. <br>
+These prints are huge. <br>
+
+</h4>
+    <img 
+      src="https://github.com/reatured/public-assets/blob/main/3d-design/project1-a1posters/IMG_3514%202.JPG?raw=true" 
+      alt="San Francisco cityscape"
+      class="re-image" 
+    />
+</div>
+
+<style>
+.re-image,
+.markdown-content .re-image {
+  width: 100%; 
+  height: auto;
+  object-fit: fill;
+  border-radius: 0.75rem !important; /* Added !important to override */
+  overflow: hidden;
+}
+</style>
+
