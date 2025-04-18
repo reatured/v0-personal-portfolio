@@ -9,26 +9,10 @@ export function ShopifyStatus() {
   const [message, setMessage] = useState("")
 
   useEffect(() => {
-    let isMounted = true
-
     async function checkConnection() {
       try {
-        const response = await fetch("/api/shopify/check-connection", {
-          // Add cache: 'no-store' to prevent caching
-          cache: "no-store",
-        })
-
-        if (!isMounted) return
-
-        if (!response.ok) {
-          setStatus("error")
-          setMessage("API response not OK")
-          return
-        }
-
+        const response = await fetch("/api/shopify/check-connection")
         const data = await response.json()
-
-        if (!isMounted) return
 
         if (data.success) {
           setStatus("connected")
@@ -37,18 +21,12 @@ export function ShopifyStatus() {
           setMessage(data.error || "Could not connect to Shopify")
         }
       } catch (error) {
-        if (!isMounted) return
-
         setStatus("error")
-        setMessage(error instanceof Error ? error.message : "Failed to check Shopify connection")
+        setMessage("Failed to check Shopify connection")
       }
     }
 
     checkConnection()
-
-    return () => {
-      isMounted = false
-    }
   }, [])
 
   if (status === "loading") {
