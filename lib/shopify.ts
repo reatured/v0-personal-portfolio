@@ -11,15 +11,28 @@ export async function shopifyFetch(
   },
   retries = 3,
 ) {
+  console.log("=== SHOPIFY FETCH START ===")
+
   // Check for required environment variables
   const domain = process.env.SHOPIFY_STORE_DOMAIN
   const accessToken = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN
 
-  if (!domain || !accessToken) {
-    console.error("Shopify API credentials are missing")
+  console.log(`SHOPIFY_STORE_DOMAIN exists: ${!!domain}`)
+  if (!domain) {
+    console.error("SHOPIFY_STORE_DOMAIN is missing")
     return {
       status: 500,
-      error: "Shopify API credentials are missing. Please check your environment variables.",
+      error: "Shopify store domain is missing. Please check your environment variables.",
+      body: { data: null },
+    }
+  }
+
+  console.log(`SHOPIFY_STOREFRONT_ACCESS_TOKEN exists: ${!!accessToken}`)
+  if (!accessToken) {
+    console.error("SHOPIFY_STOREFRONT_ACCESS_TOKEN is missing")
+    return {
+      status: 500,
+      error: "Shopify access token is missing. Please check your environment variables.",
       body: { data: null },
     }
   }
@@ -35,77 +48,120 @@ export async function shopifyFetch(
       }
 
       const endpoint = `https://${domain}/api/2023-10/graphql.json`
+      console.log(`Endpoint: ${endpoint}`)
 
       // Add timeout to the fetch request
       const controller = new AbortController()
-      const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+      const timeoutId = setTimeout(() => {
+        controller.abort()
+        console.log("Request timed out after 10 seconds")
+      }, 10000) // 10 second timeout
 
-      const result = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Shopify-Storefront-Access-Token": accessToken,
-        },
-        body: JSON.stringify({ query, variables }),
-        cache: "no-store",
-        signal: controller.signal,
-        next: { revalidate: 60 }, // Cache for 60 seconds
-      })
+      console.log("Preparing to fetch from Shopify...")
 
-      clearTimeout(timeoutId)
+      try {
+        console.log("Sending fetch request...")
+        const result = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Shopify-Storefront-Access-Token": accessToken,
+          },
+          body: JSON.stringify({ query, variables }),
+          cache: "no-store",
+          signal: controller.signal,
+        })
 
-      if (!result.ok) {
-        const errorText = await result.text()
-        console.error(`Shopify API error: ${result.status} ${errorText}`)
-        throw new Error(`API error: ${result.statusText} (${result.status})`)
-      }
+        clearTimeout(timeoutId)
+        console.log(`Response status: ${result.status}`)
 
-      const body = await result.json()
+        if (!result.ok) {
+          const errorText = await result.text()
+          console.error(`Shopify API error: ${result.status} ${errorText}`)
+          throw new Error(`API error: ${result.statusText} (${result.status})`)
+        }
 
-      if (body.errors) {
-        console.error("Shopify GraphQL errors:", body.errors)
+        console.log("Parsing JSON response...")
+        const body = await result.json()
+        console.log("JSON parsed successfully")
+
+        if (body.errors) {
+          console.error("Shopify GraphQL errors:", body.errors)
+          return {
+            status: 200,
+            error: body.errors[0]?.message || "GraphQL error",
+            body,
+          }
+        }
+
+        console.log("=== SHOPIFY FETCH SUCCESS ===")
         return {
-          status: 200,
-          error: body.errors[0]?.message || "GraphQL error",
+          status: result.status,
           body,
         }
-      }
-
-      return {
-        status: result.status,
-        body,
+      } catch (fetchError) {
+        clearTimeout(timeoutId)
+        throw fetchError // Re-throw to be caught by the outer try/catch
       }
     } catch (error) {
       lastError = error
 
       // Log detailed error information
-      console.error(`Shopify API request failed (attempt ${attempt + 1} of ${retries}):`, error)
+      console.error(`Shopify API request failed (attempt ${attempt + 1} of ${retries}):`)
+      if (error instanceof Error) {
+        console.error(`Error name: ${error.name}`)
+        console.error(`Error message: ${error.message}`)
+
+        // Check for specific error types
+        if (error.name === "AbortError") {
+          console.error("Request was aborted (likely due to timeout)")
+        } else if (error.message.includes("fetch")) {
+          console.error("Network error - could not reach the Shopify API endpoint")
+        }
+      } else {
+        console.error(`Unknown error type: ${typeof error}`)
+      }
 
       // Don't retry if we've reached the max retries
       if (attempt === retries - 1) {
+        console.log("Max retries reached, giving up.")
         break
       }
 
       // Wait before retrying (exponential backoff)
       const delay = Math.pow(2, attempt) * 500 // 500ms, 1s, 2s, etc.
+      console.log(`Waiting ${delay}ms before retry...`)
       await new Promise((resolve) => setTimeout(resolve, delay))
     }
   }
 
   // All retries failed
+  console.log("=== SHOPIFY FETCH FAILED AFTER ALL RETRIES ===")
+
+  // Provide more specific error messages based on the error
+  let errorMessage = "Failed to connect to Shopify API after multiple attempts"
+
+  if (lastError instanceof Error) {
+    if (lastError.name === "AbortError") {
+      errorMessage = "Connection to Shopify API timed out. Please check your network connection."
+    } else if (lastError.message.includes("fetch")) {
+      errorMessage =
+        "Network error connecting to Shopify. Please check your internet connection and Shopify store domain."
+    } else {
+      errorMessage = `Error connecting to Shopify: ${lastError.message}`
+    }
+  }
+
   return {
     status: 500,
-    error:
-      lastError instanceof Error
-        ? `Error connecting to Shopify: ${lastError.message}`
-        : "Failed to connect to Shopify API after multiple attempts",
+    error: errorMessage,
     body: { data: null },
   }
 }
 
 export async function getAllProducts() {
-  console.log("Fetching all products from Shopify...")
-  return shopifyFetch({
+  console.log("getAllProducts: Starting to fetch all products from Shopify...")
+  const result = await shopifyFetch({
     query: `
       query GetProducts {
         products(first: 20) {
@@ -136,11 +192,15 @@ export async function getAllProducts() {
       }
     `,
   })
+  console.log(`getAllProducts: Fetch completed with status ${result.status}`)
+  console.log(`getAllProducts: Error present: ${!!result.error}`)
+  console.log(`getAllProducts: Body exists: ${!!result.body}`)
+  return result
 }
 
 export async function getProductByHandle(handle: string) {
-  console.log(`Fetching product with handle: ${handle}`)
-  return shopifyFetch({
+  console.log(`getProductByHandle: Fetching product with handle: ${handle}`)
+  const result = await shopifyFetch({
     query: `
       query GetProductByHandle($handle: String!) {
         product(handle: $handle) {
@@ -187,11 +247,13 @@ export async function getProductByHandle(handle: string) {
       handle: handle,
     },
   })
+  console.log(`getProductByHandle: Fetch completed with status ${result.status}`)
+  return result
 }
 
 export async function getCollections() {
-  console.log("Fetching collections from Shopify...")
-  return shopifyFetch({
+  console.log("getCollections: Starting to fetch collections from Shopify...")
+  const result = await shopifyFetch({
     query: `
       query GetCollections {
         collections(first: 10) {
@@ -211,11 +273,13 @@ export async function getCollections() {
       }
     `,
   })
+  console.log(`getCollections: Fetch completed with status ${result.status}`)
+  return result
 }
 
 export async function getCollectionByHandle(handle: string) {
-  console.log(`Fetching collection with handle: ${handle}`)
-  return shopifyFetch({
+  console.log(`getCollectionByHandle: Fetching collection with handle: ${handle}`)
+  const result = await shopifyFetch({
     query: `
       query GetCollectionByHandle($handle: String!) {
         collection(handle: $handle) {
@@ -254,11 +318,13 @@ export async function getCollectionByHandle(handle: string) {
       handle: handle,
     },
   })
+  console.log(`getCollectionByHandle: Fetch completed with status ${result.status}`)
+  return result
 }
 
 export async function searchProducts(query: string) {
-  console.log(`Searching products with query: ${query}`)
-  return shopifyFetch({
+  console.log(`searchProducts: Searching products with query: ${query}`)
+  const result = await shopifyFetch({
     query: `
       query SearchProducts($query: String!) {
         products(first: 20, query: $query) {
@@ -291,4 +357,6 @@ export async function searchProducts(query: string) {
       query: query,
     },
   })
+  console.log(`searchProducts: Fetch completed with status ${result.status}`)
+  return result
 }

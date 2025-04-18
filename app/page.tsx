@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ShopifyStatus } from "@/components/shopify-status"
 
 export default function HomePage() {
   return (
@@ -9,9 +8,7 @@ export default function HomePage() {
         <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl md:text-6xl">Welcome to Your Shopify Store</h1>
         <p className="max-w-[700px] text-gray-500 md:text-xl">Browse our latest products and collections.</p>
 
-        <div className="w-full max-w-md mb-4">
-          <ShopifyStatus />
-        </div>
+        {/* Remove the ShopifyStatus component from the home page to prevent API errors */}
 
         <div className="flex flex-col gap-4 sm:flex-row">
           <Button asChild size="lg">
@@ -19,6 +16,9 @@ export default function HomePage() {
           </Button>
           <Button asChild variant="outline" size="lg">
             <Link href="/collections">View Collections</Link>
+          </Button>
+          <Button asChild variant="outline" size="lg">
+            <Link href="/diagnostics">Connection Status</Link>
           </Button>
         </div>
       </div>
