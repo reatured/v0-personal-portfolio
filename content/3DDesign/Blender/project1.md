@@ -147,4 +147,3 @@ The posters were printed on an HP DesignJet plotter, ensuring vibrant color qual
       class=""  
     />
 </div>
-

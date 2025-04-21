@@ -34,7 +34,13 @@ export default async function RootLayout({
             <SkipToContent />
             {/* Background image wrapper */}
             <div className="background-wrapper">
-              <Image src="https://github.com/reatured/public-assets/blob/main/background-image/upscalemedia-transformed.jpg?raw=true" alt="Dark room with teal light" fill priority className="background-image" />
+              <Image
+                src="https://github.com/reatured/public-assets/blob/main/background-image/upscalemedia-transformed.jpg?raw=true"
+                alt="Dark room with teal light"
+                fill
+                priority
+                className="background-image"
+              />
             </div>
             <div className="flex min-h-screen flex-col md:flex-row">
               <Suspense
@@ -56,5 +62,4 @@ export default async function RootLayout({
   )
 }
 
-
-import './globals.css'
+import "./globals.css"

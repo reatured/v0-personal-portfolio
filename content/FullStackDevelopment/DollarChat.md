@@ -17,7 +17,7 @@ DOLLARS is a real-time chat application built with Next.js, React, Tailwind CSS,
 
 ### 2.2 High-Level Architecture
 
-```mermaid
+\`\`\`mermaid
 DOLLARS Chat Architecture.download-icon {
             cursor: pointer;
             transform-origin: center;
@@ -30,7 +30,7 @@ DOLLARS Chat Architecture.download-icon {
           transform: translateY(-1.5px);
         }
         #mermaid-diagram-r20p{font-family:var(--font-geist-sans);font-size:12px;fill:#000000;}#mermaid-diagram-r20p .error-icon{fill:#552222;}#mermaid-diagram-r20p .error-text{fill:#552222;stroke:#552222;}#mermaid-diagram-r20p .edge-thickness-normal{stroke-width:1px;}#mermaid-diagram-r20p .edge-thickness-thick{stroke-width:3.5px;}#mermaid-diagram-r20p .edge-pattern-solid{stroke-dasharray:0;}#mermaid-diagram-r20p .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-diagram-r20p .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-diagram-r20p .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-diagram-r20p .marker{fill:#666;stroke:#666;}#mermaid-diagram-r20p .marker.cross{stroke:#666;}#mermaid-diagram-r20p svg{font-family:var(--font-geist-sans);font-size:12px;}#mermaid-diagram-r20p p{margin:0;}#mermaid-diagram-r20p .label{font-family:var(--font-geist-sans);color:#000000;}#mermaid-diagram-r20p .cluster-label text{fill:#333;}#mermaid-diagram-r20p .cluster-label span{color:#333;}#mermaid-diagram-r20p .cluster-label span p{background-color:transparent;}#mermaid-diagram-r20p .label text,#mermaid-diagram-r20p span{fill:#000000;color:#000000;}#mermaid-diagram-r20p .node rect,#mermaid-diagram-r20p .node circle,#mermaid-diagram-r20p .node ellipse,#mermaid-diagram-r20p .node polygon,#mermaid-diagram-r20p .node path{fill:#eee;stroke:#999;stroke-width:1px;}#mermaid-diagram-r20p .rough-node .label text,#mermaid-diagram-r20p .node .label text{text-anchor:middle;}#mermaid-diagram-r20p .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-diagram-r20p .node .label{text-align:center;}#mermaid-diagram-r20p .node.clickable{cursor:pointer;}#mermaid-diagram-r20p .arrowheadPath{fill:#333333;}#mermaid-diagram-r20p .edgePath .path{stroke:#666;stroke-width:2.0px;}#mermaid-diagram-r20p .flowchart-link{stroke:#666;fill:none;}#mermaid-diagram-r20p .edgeLabel{background-color:white;text-align:center;}#mermaid-diagram-r20p .edgeLabel p{background-color:white;}#mermaid-diagram-r20p .edgeLabel rect{opacity:0.5;background-color:white;fill:white;}#mermaid-diagram-r20p .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-diagram-r20p .cluster rect{fill:hsl(0, 0%, 98.9215686275%);stroke:#707070;stroke-width:1px;}#mermaid-diagram-r20p .cluster text{fill:#333;}#mermaid-diagram-r20p .cluster span{color:#333;}#mermaid-diagram-r20p div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:var(--font-geist-sans);font-size:12px;background:hsl(-160, 0%, 93.3333333333%);border:1px solid #707070;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-diagram-r20p .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#000000;}#mermaid-diagram-r20p .flowchart-link{stroke:hsl(var(--gray-400));stroke-width:1px;}#mermaid-diagram-r20p .marker,#mermaid-diagram-r20p marker,#mermaid-diagram-r20p marker *{fill:hsl(var(--gray-400))!important;stroke:hsl(var(--gray-400))!important;}#mermaid-diagram-r20p .label,#mermaid-diagram-r20p text,#mermaid-diagram-r20p text>tspan{fill:hsl(var(--black))!important;color:hsl(var(--black))!important;}#mermaid-diagram-r20p .background,#mermaid-diagram-r20p rect.relationshipLabelBox{fill:hsl(var(--white))!important;}#mermaid-diagram-r20p .entityBox,#mermaid-diagram-r20p .attributeBoxEven{fill:hsl(var(--gray-150))!important;}#mermaid-diagram-r20p .attributeBoxOdd{fill:hsl(var(--white))!important;}#mermaid-diagram-r20p .label-container,#mermaid-diagram-r20p rect.actor{fill:hsl(var(--white))!important;stroke:hsl(var(--gray-400))!important;}#mermaid-diagram-r20p line{stroke:hsl(var(--gray-400))!important;}#mermaid-diagram-r20p :root{--mermaid-font-family:var(--font-geist-sans);}Real-time SubscriptionREST API CallsDatabase ChangesAuthenticationPush NotificationsCache AssetsClient (Next.js App)SupabaseService Worker
-```
+\`\`\`
 
 ## 3. Features and Functionality
 
@@ -90,7 +90,7 @@ DOLLARS Chat Architecture.download-icon {
 
 ## 5. Component Structure
 
-```mermaid
+\`\`\`mermaid
 Component Structure.download-icon {
             cursor: pointer;
             transform-origin: center;
@@ -103,7 +103,7 @@ Component Structure.download-icon {
           transform: translateY(-1.5px);
         }
         #mermaid-diagram-r28j{font-family:var(--font-geist-sans);font-size:12px;fill:#000000;}#mermaid-diagram-r28j .error-icon{fill:#552222;}#mermaid-diagram-r28j .error-text{fill:#552222;stroke:#552222;}#mermaid-diagram-r28j .edge-thickness-normal{stroke-width:1px;}#mermaid-diagram-r28j .edge-thickness-thick{stroke-width:3.5px;}#mermaid-diagram-r28j .edge-pattern-solid{stroke-dasharray:0;}#mermaid-diagram-r28j .edge-thickness-invisible{stroke-width:0;fill:none;}#mermaid-diagram-r28j .edge-pattern-dashed{stroke-dasharray:3;}#mermaid-diagram-r28j .edge-pattern-dotted{stroke-dasharray:2;}#mermaid-diagram-r28j .marker{fill:#666;stroke:#666;}#mermaid-diagram-r28j .marker.cross{stroke:#666;}#mermaid-diagram-r28j svg{font-family:var(--font-geist-sans);font-size:12px;}#mermaid-diagram-r28j p{margin:0;}#mermaid-diagram-r28j .label{font-family:var(--font-geist-sans);color:#000000;}#mermaid-diagram-r28j .cluster-label text{fill:#333;}#mermaid-diagram-r28j .cluster-label span{color:#333;}#mermaid-diagram-r28j .cluster-label span p{background-color:transparent;}#mermaid-diagram-r28j .label text,#mermaid-diagram-r28j span{fill:#000000;color:#000000;}#mermaid-diagram-r28j .node rect,#mermaid-diagram-r28j .node circle,#mermaid-diagram-r28j .node ellipse,#mermaid-diagram-r28j .node polygon,#mermaid-diagram-r28j .node path{fill:#eee;stroke:#999;stroke-width:1px;}#mermaid-diagram-r28j .rough-node .label text,#mermaid-diagram-r28j .node .label text{text-anchor:middle;}#mermaid-diagram-r28j .node .katex path{fill:#000;stroke:#000;stroke-width:1px;}#mermaid-diagram-r28j .node .label{text-align:center;}#mermaid-diagram-r28j .node.clickable{cursor:pointer;}#mermaid-diagram-r28j .arrowheadPath{fill:#333333;}#mermaid-diagram-r28j .edgePath .path{stroke:#666;stroke-width:2.0px;}#mermaid-diagram-r28j .flowchart-link{stroke:#666;fill:none;}#mermaid-diagram-r28j .edgeLabel{background-color:white;text-align:center;}#mermaid-diagram-r28j .edgeLabel p{background-color:white;}#mermaid-diagram-r28j .edgeLabel rect{opacity:0.5;background-color:white;fill:white;}#mermaid-diagram-r28j .labelBkg{background-color:rgba(255, 255, 255, 0.5);}#mermaid-diagram-r28j .cluster rect{fill:hsl(0, 0%, 98.9215686275%);stroke:#707070;stroke-width:1px;}#mermaid-diagram-r28j .cluster text{fill:#333;}#mermaid-diagram-r28j .cluster span{color:#333;}#mermaid-diagram-r28j div.mermaidTooltip{position:absolute;text-align:center;max-width:200px;padding:2px;font-family:var(--font-geist-sans);font-size:12px;background:hsl(-160, 0%, 93.3333333333%);border:1px solid #707070;border-radius:2px;pointer-events:none;z-index:100;}#mermaid-diagram-r28j .flowchartTitleText{text-anchor:middle;font-size:18px;fill:#000000;}#mermaid-diagram-r28j .flowchart-link{stroke:hsl(var(--gray-400));stroke-width:1px;}#mermaid-diagram-r28j .marker,#mermaid-diagram-r28j marker,#mermaid-diagram-r28j marker *{fill:hsl(var(--gray-400))!important;stroke:hsl(var(--gray-400))!important;}#mermaid-diagram-r28j .label,#mermaid-diagram-r28j text,#mermaid-diagram-r28j text>tspan{fill:hsl(var(--black))!important;color:hsl(var(--black))!important;}#mermaid-diagram-r28j .background,#mermaid-diagram-r28j rect.relationshipLabelBox{fill:hsl(var(--white))!important;}#mermaid-diagram-r28j .entityBox,#mermaid-diagram-r28j .attributeBoxEven{fill:hsl(var(--gray-150))!important;}#mermaid-diagram-r28j .attributeBoxOdd{fill:hsl(var(--white))!important;}#mermaid-diagram-r28j .label-container,#mermaid-diagram-r28j rect.actor{fill:hsl(var(--white))!important;stroke:hsl(var(--gray-400))!important;}#mermaid-diagram-r28j line{stroke:hsl(var(--gray-400))!important;}#mermaid-diagram-r28j :root{--mermaid-font-family:var(--font-geist-sans);}AppChatInterfaceMessageListMessageInputFloatingMenuMessage ItemsSound ControlsAppStateRefresh
-```
+\`\`\`
 
 ### 5.1 Key Components
 
@@ -182,7 +182,7 @@ The application is configured as a Progressive Web App with:
 
 ### 8.1 Real-time Communication
 
-```typescript
+\`\`\`typescript
 // Subscribe to new messages
 const messagesSubscription = supabase
   .channel("v3_messages_channel")
@@ -193,7 +193,7 @@ const messagesSubscription = supabase
     }
   )
   .subscribe()
-```
+\`\`\`
 
 Real-time updates are implemented using Supabase's real-time capabilities, which leverage PostgreSQL's LISTEN/NOTIFY feature. When a new message is inserted into the database, all connected clients receive the update instantly.
 
