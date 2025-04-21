@@ -63,7 +63,7 @@ export default async function Home() {
                     videoId="TXhAasKKn2Y"
                     title="3D Design"
                     className="absolute top-0 left-0 h-full w-full pt-0"
-                    autoplay={false}
+                    autoplay={true}
                   />
                 </div>
                 <div className="flex flex-col ml-4 flex-grow">
