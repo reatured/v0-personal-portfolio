@@ -1,7 +1,7 @@
 ---
 title: DOLLARS Chat Application
 description: A real-time chat application built with Next.js, React, Tailwind CSS, and Supabase that provides a seamless, responsive chat experience with modern features.
-imageUrl: https://images.squarespace-cdn.com/content/5df7337598a1771a4a73ef26/1630450019654-9M9R9FB3ZX2HT422LH0W/Glass+Clip2.png?content-type=image%2Fpng
+imageUrl: https://github.com/reatured/public-assets/blob/main/Web%20Design/DOLLAR%20Chat%20Room/Dollar-chat-room.png?raw=true
 imageRatio: landscape
 software: Next.js, React, Tailwind CSS, Supabase
 ---
