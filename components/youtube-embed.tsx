@@ -25,9 +25,9 @@ export function YouTubeEmbed({
 
   // Build the YouTube URL with parameters
   const youtubeParams = new URLSearchParams({
-    rel: "0",
-    showinfo: "0",
-    modestbranding: "1",
+    rel: "0", // Disable related videos at the end
+    showinfo: "0", // Hide video title and uploader info
+    modestbranding: "1", // Hide YouTube logo
     controls: "0", // Hide video controls
     disablekb: "1", // Disable keyboard controls
     fs: "0", // Disable fullscreen button
@@ -36,6 +36,9 @@ export function YouTubeEmbed({
     ...(startAt > 0 && { start: startAt.toString() }),
     playsinline: "1", // Play inline on mobile devices
     vq: "small", // Set video quality to low
+    mute: "1", // Always mute by default
+    loop: "1", // Loop the video
+    playlist: videoId, // Required for looping a single video
   }).toString()
 
   // Only render the iframe on the client side to avoid hydration errors

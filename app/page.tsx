@@ -9,13 +9,16 @@ export default async function Home() {
   const allProjects = await getAllProjects()
 
   return (
-    <div className="container mx-auto py-12 px-4">
-      <h1 className="text-4xl font-bold mb-8">Welcome to My Portfolio</h1>
+    <div className="container mx-auto py-8 px-4">
+      <h1 className="text-4xl font-bold mb-6">Welcome to My Portfolio</h1>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        <div className="space-y-6 text-white">
-          <div className="text-xs font-semibold uppercase tracking-wider text-gray-400">About Me</div>
-          <div className="bg-black bg-opacity-70 backdrop-blur-sm p-6 rounded-lg">
+      <div className="grid grid-cols-1 gap-6">
+        {/* About Me Section */}
+        <div className="space-y-4 text-white">
+          <div className="flex items-center justify-between">
+            <div className="text-xs font-semibold uppercase tracking-wider text-gray-400">About Me</div>
+          </div>
+          <div className="bg-black bg-opacity-70 backdrop-blur-sm p-5 rounded-lg">
             <p className="text-gray-300">
               I am an experienced software engineer specializing in Unity3D and C# with a strong background in
               developing real-time 3D graphics, cross-platform applications, and XR (AR/VR) experiences. I'm passionate
@@ -23,118 +26,177 @@ export default async function Home() {
               Quest, Apple Vision Pro, and HoloLens.
             </p>
           </div>
-
-          <div className="relative w-full overflow-hidden rounded-lg">
-            <Image
-              src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/1576561306691-1NGKKJYVFK23LSYMH2PN/IMG_0777.jpeg?format=750w"
-              alt="3D Artwork"
-              width={750}
-              height={750}
-              className="object-contain"
-            />
-          </div>
-          <div className="flex flex-col gap-4"></div>
-          <div className="text-xs font-semibold uppercase tracking-wider text-gray-400">Education</div>
-          <div className="bg-black bg-opacity-70 backdrop-blur-sm p-6 rounded-lg">
-            <ul className="list-disc space-y-2 pl-5">
-              <li className="text-gray-300">MFA in Design and Technology at Parsons School of Design (2021-2023)</li>
-              <li className="text-gray-300">
-                MA in Design and Development of Digital Games at Columbia University (2019-2021)
-              </li>
-              <li className="text-gray-300">
-                BS in Agricultural and Environmental Education at University of California, Davis (2015-2019)
-              </li>
-              <li className="text-gray-300">
-                Professional Certificate in AR-VR Development and 3D Graphics at New York University (Nov 2021)
-              </li>
-            </ul>
-          </div>
         </div>
-        <div className="space-y-6 text-white">
-          <div className="text-xs font-semibold uppercase tracking-wider text-gray-400">Latest Projects</div>
-          <div className="space-y-4">
-            {latestProjects.map((project) => {
-              const hasYouTubeVideo =
-                project.youtubeId !== undefined && project.youtubeId !== null && project.youtubeId !== ""
 
-              return (
-                <Link
-                  key={project.id}
-                  href={`/project/${project.slug}`}
-                  className="block rounded-lg border border-border bg-black bg-opacity-70 backdrop-blur-sm p-6 hover:border-primary transition-colors"
-                >
-                  <div className="flex items-center gap-4">
-                    {hasYouTubeVideo ? (
-                      <div className="relative w-16 h-16 flex-shrink-0 overflow-hidden rounded-md">
-                        <YouTubeEmbed
-                          videoId={project.youtubeId as string}
-                          title={project.title}
-                          className="absolute top-0 left-0 h-full w-full pt-0"
-                          autoplay={true}
-                        />
-                      </div>
-                    ) : (
-                      <div className="relative w-16 h-16 flex-shrink-0 overflow-hidden rounded-md">
-                        <Image
-                          src={project.imageUrl || "/placeholder.svg"}
-                          alt={project.title}
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                    )}
-                    <div>
-                      <h3 className="text-xl font-semibold mb-1">{project.title}</h3>
-                      <p className="text-gray-300 line-clamp-2">{project.description}</p>
-                      {project.software && (
-                        <div className="mt-2 inline-block px-2 py-1 bg-secondary text-secondary-foreground text-xs rounded-full">
-                          {project.software}
-                        </div>
-                      )}
-                    </div>
+        {/* Professional Areas Section */}
+        <div className="space-y-5 text-white">
+          <div className="flex items-center justify-between">
+            <div className="text-xs font-semibold uppercase tracking-wider text-gray-400">Professional Areas</div>
+            <Link href="/professional-areas" className="text-sm text-primary hover:underline flex items-center gap-1">
+              View All Areas
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* 3D Design */}
+            <Link
+              href="/professional-area/3d-design"
+              className="rounded-lg border border-border bg-black bg-opacity-70 backdrop-blur-sm p-4 hover:border-primary transition-colors"
+            >
+              <div className="flex flex-row h-full">
+                <div className="relative w-1/3 h-auto overflow-hidden rounded-lg flex-shrink-0">
+                  <YouTubeEmbed
+                    videoId="TXhAasKKn2Y"
+                    title="3D Design"
+                    className="absolute top-0 left-0 h-full w-full pt-0"
+                    autoplay={false}
+                  />
+                </div>
+                <div className="flex flex-col ml-4 flex-grow">
+                  <h3 className="text-xl font-semibold mb-2 text-primary">3D Design</h3>
+                  <p className="text-gray-300 mb-2 text-sm flex-grow">
+                    Explore 3D modeling, animation, and visualization projects created with various tools including
+                    Blender, Cinema4D, and Maya.
+                  </p>
+                  <div className="mt-auto flex items-center text-primary text-sm">
+                    View Projects <span className="ml-1">→</span>
                   </div>
-                </Link>
-              )
-            })}
+                </div>
+              </div>
+            </Link>
 
-            <div className="rounded-lg border border-border bg-black bg-opacity-70 backdrop-blur-sm p-6">
-              <h3 className="text-xl font-semibold mb-2">Featured Project: Planner Webapp</h3>
-              <p className="text-gray-300 mb-4">
-                A task management web application built with React that enables users to organize and track daily
-                activities. Features include React Router for navigation, local JSON database for persistent storage,
-                and responsive UI components following modern web development practices.
-              </p>
-              <div className="text-sm text-gray-400">Completed March 2025</div>
-            </div>
+            {/* Game Design */}
+            <Link
+              href="/professional-area/game-design"
+              className="rounded-lg border border-border bg-black bg-opacity-70 backdrop-blur-sm p-4 hover:border-primary transition-colors"
+            >
+              <div className="flex flex-row h-full">
+                <div className="relative w-1/3 h-auto overflow-hidden rounded-lg flex-shrink-0">
+                  <Image
+                    src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/a6bb8867-4eff-423a-8fd0-adeb4702dcb5/Menu+Scene+2.jpg?format=2500w"
+                    alt="Game Design"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex flex-col ml-4 flex-grow">
+                  <h3 className="text-xl font-semibold mb-2 text-primary">Game Design</h3>
+                  <p className="text-gray-300 mb-2 text-sm flex-grow">
+                    Interactive game development projects featuring puzzle mechanics, procedural tools, and
+                    narrative-driven experiences.
+                  </p>
+                  <div className="mt-auto flex items-center text-primary text-sm">
+                    View Projects <span className="ml-1">→</span>
+                  </div>
+                </div>
+              </div>
+            </Link>
 
-            <div className="rounded-lg border border-border bg-black bg-opacity-70 backdrop-blur-sm p-6">
-              <h3 className="text-xl font-semibold mb-2">Featured Project: Roblox Fashion Collaboration</h3>
-              <p className="text-gray-300 mb-4">
-                An official online fashion show event as a collaboration between Parsons Fashion Design and Roblox.
-                Resolved key pipeline issues to convert 20+ apparel designs into in-game assets and showcased designs in
-                a physical exhibition, bridging digital and physical fashion experiences.
-              </p>
-              <div className="text-sm text-gray-400">Jan 2023 - May 2023</div>
-            </div>
+            {/* Full Stack Development */}
+            <Link
+              href="/professional-area/full-stack-development"
+              className="rounded-lg border border-border bg-black bg-opacity-70 backdrop-blur-sm p-4 hover:border-primary transition-colors"
+            >
+              <div className="flex flex-row h-full">
+                <div className="relative w-1/3 h-auto overflow-hidden rounded-lg flex-shrink-0">
+                  <Image
+                    src="https://github.com/reatured/public-assets/blob/main/Web%20Design/DOLLAR%20Chat%20Room/Dollar-chat-room.png?raw=true"
+                    alt="Full Stack Development"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex flex-col ml-4 flex-grow">
+                  <h3 className="text-xl font-semibold mb-2 text-primary">Full Stack Development</h3>
+                  <p className="text-gray-300 mb-2 text-sm flex-grow">
+                    Web applications built with modern technologies like Next.js, React, and various backend solutions.
+                  </p>
+                  <div className="mt-auto flex items-center text-primary text-sm">
+                    View Projects <span className="ml-1">→</span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+
+            {/* Technical Artist */}
+            <Link
+              href="/professional-area/technical-artist"
+              className="rounded-lg border border-border bg-black bg-opacity-70 backdrop-blur-sm p-4 hover:border-primary transition-colors"
+            >
+              <div className="flex flex-row h-full">
+                <div className="relative w-1/3 h-auto overflow-hidden rounded-lg flex-shrink-0 bg-gray-800 flex items-center justify-center">
+                  <div className="text-center p-4">
+                    <div className="text-gray-400 mb-2">Shader Projects</div>
+                    <div className="text-sm text-gray-500">Coming soon</div>
+                  </div>
+                </div>
+                <div className="flex flex-col ml-4 flex-grow">
+                  <h3 className="text-xl font-semibold mb-2 text-primary">Technical Artist</h3>
+                  <p className="text-gray-300 mb-2 text-sm flex-grow">
+                    Custom shader development for real-time graphics applications, featuring advanced techniques for
+                    visual effects.
+                  </p>
+                  <div className="mt-auto flex items-center text-primary text-sm">
+                    View Projects <span className="ml-1">→</span>
+                  </div>
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
       </div>
 
       {/* All Projects Section */}
-      <div className="mt-20">
-        <h2 className="text-3xl font-bold mb-8">All Projects</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {allProjects.map((project) => {
+      <div className="mt-12">
+        <div className="flex items-center justify-between mb-5">
+          <h2 className="text-3xl font-bold">All Projects</h2>
+          <Link
+            href="/projects"
+            className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+          >
+            View All Projects
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {allProjects.slice(0, 6).map((project) => {
             const hasYouTubeVideo =
               project.youtubeId !== undefined && project.youtubeId !== null && project.youtubeId !== ""
 
             return (
               <Link
                 key={project.id}
-                href={`/project/${project.slug}`}
+                href={`/project/${project.slug}?from=home`}
                 className="block bg-black bg-opacity-70 backdrop-blur-sm rounded-lg border border-border hover:border-primary transition-colors overflow-hidden group"
               >
-                <div className="relative w-full h-48 overflow-hidden">
+                <div className="relative w-full h-40 overflow-hidden">
                   {hasYouTubeVideo ? (
                     <div className="absolute inset-0 overflow-hidden">
                       <YouTubeEmbed
@@ -155,11 +217,11 @@ export default async function Home() {
                     />
                   )}
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                  <p className="text-muted-foreground line-clamp-2">{project.description}</p>
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold mb-1.5">{project.title}</h3>
+                  <p className="text-muted-foreground text-sm line-clamp-2">{project.description}</p>
                   {project.software && (
-                    <div className="mt-4 inline-block px-3 py-1 bg-secondary text-secondary-foreground text-xs rounded-full">
+                    <div className="mt-3 inline-block px-2.5 py-0.5 bg-secondary text-secondary-foreground text-xs rounded-full">
                       {project.software}
                     </div>
                   )}

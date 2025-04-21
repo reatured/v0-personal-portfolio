@@ -33,6 +33,15 @@ export type Category = {
   imageRatio?: "square" | "landscape" | "portrait"
 }
 
+// Add this new type at the top with the other type definitions
+export type ProfessionalArea = {
+  name: string
+  slug: string
+  description: string
+  imageUrl: string
+  projectCount: number
+}
+
 // Database functions
 export async function getAllCategories(): Promise<Category[]> {
   try {
@@ -342,5 +351,101 @@ export async function getAllProjects(): Promise<Project[]> {
   } catch (error) {
     console.error(`Error fetching all projects:`, error)
     return []
+  }
+}
+
+// Add these new functions after the existing database functions
+
+export async function getAllProfessionalAreas(): Promise<ProfessionalArea[]> {
+  try {
+    const areas = await executeQuery`
+      SELECT 
+        professional_area as "name",
+        LOWER(REPLACE(REPLACE(professional_area, ' ', '-'), '&', 'and')) as "slug",
+        COUNT(*) as "projectCount"
+      FROM projects
+      WHERE professional_area IS NOT NULL
+      GROUP BY professional_area
+      ORDER BY professional_area
+    `
+
+    // Add descriptions and image URLs
+    return areas.map((area) => {
+      // Default image and description
+      let imageUrl = "/placeholder.svg"
+      let description = `Projects related to ${area.name}`
+
+      // Custom descriptions and images for known areas
+      if (area.name === "3D Design") {
+        imageUrl =
+          "https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/a0fc2f8f-c051-45b2-be66-1af75ae39598/Wnad+Demo+GIF.gif?format=2500w"
+        description = "Projects focused on 3D modeling, animation, and visualization"
+      } else if (area.name === "Game Design") {
+        imageUrl =
+          "https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/a6bb8867-4eff-423a-8fd0-adeb4702dcb5/Menu+Scene+2.jpg?format=2500w"
+        description = "Interactive game development projects"
+      } else if (area.name === "Full Stack Development") {
+        imageUrl =
+          "https://github.com/reatured/public-assets/blob/main/Web%20Design/DOLLAR%20Chat%20Room/Dollar-chat-room.png?raw=true"
+        description = "Web and application development projects"
+      } else if (area.name === "Technical Artist") {
+        imageUrl = "/node-network-shader.png"
+        description = "Projects combining technical skills with artistic vision"
+      }
+
+      return {
+        ...area,
+        imageUrl,
+        description,
+      }
+    })
+  } catch (error) {
+    console.error("Error fetching professional areas:", error)
+    return []
+  }
+}
+
+export async function getProjectsByProfessionalArea(areaSlug: string): Promise<Project[]> {
+  try {
+    // Convert slug back to name format (e.g., "3d-design" to "3D Design")
+    // This is a simple conversion and might need to be adjusted based on your naming conventions
+    const areaName = areaSlug
+      .split("-")
+      .map((word) => (word === "3d" ? "3D" : word.charAt(0).toUpperCase() + word.slice(1)))
+      .join(" ")
+
+    const projects = await executeQuery`
+      SELECT 
+        p.id, 
+        p.subcategory_id as "subcategoryId", 
+        p.title, 
+        p.slug, 
+        p.content, 
+        p.image_url as "imageUrl", 
+        p.software, 
+        p.image_ratio as "imageRatio",
+        p.description,
+        p.youtube_id as "youtubeId",
+        p.professional_area as "professionalArea"
+      FROM projects p
+      WHERE p.professional_area = ${areaName}
+      ORDER BY p.id DESC
+    `
+
+    return projects
+  } catch (error) {
+    console.error(`Error fetching projects for professional area ${areaSlug}:`, error)
+    return []
+  }
+}
+
+export async function getProfessionalAreaBySlug(slug: string): Promise<ProfessionalArea | null> {
+  try {
+    const areas = await getAllProfessionalAreas()
+    const area = areas.find((a) => a.slug === slug)
+    return area || null
+  } catch (error) {
+    console.error(`Error fetching professional area ${slug}:`, error)
+    return null
   }
 }

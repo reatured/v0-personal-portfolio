@@ -97,18 +97,18 @@ export function Sidebar({ categories }: SidebarProps) {
 
           {/* Projects Navigation */}
           <div className="text-xs uppercase text-muted-foreground font-semibold tracking-wider mb-2 px-2">Projects</div>
-          <nav className="space-y-1 overflow-y-auto flex-grow">
+          <nav className="space-y-0.5 overflow-y-auto flex-grow">
             {categories.map((category) => {
               const isCategoryActive = pathname.startsWith(`/${category.slug}`)
 
               return (
-                <div key={category.slug} className="space-y-1 mb-3">
+                <div key={category.slug} className="space-y-0.5 mb-2">
                   {/* Category link */}
                   <a
                     href={`/${category.slug}`}
                     onClick={(e) => handleNavClick(e, `/${category.slug}`, category.name)}
                     className={cn(
-                      "flex items-center justify-between w-full px-2 py-2 text-sm rounded-md",
+                      "flex items-center justify-between w-full px-2 py-1.5 text-sm rounded-md",
                       isCategoryActive ? "bg-accent text-accent-foreground" : "hover:bg-accent/50",
                     )}
                   >
@@ -116,19 +116,32 @@ export function Sidebar({ categories }: SidebarProps) {
                   </a>
 
                   {/* Subcategories with projects */}
-                  <div className="ml-2 space-y-1">
+                  <div className="ml-2 space-y-0.5">
                     <SubcategoryList categorySlug={category.slug} />
                   </div>
                 </div>
               )
             })}
 
-            <div className="mt-2">
+            <div className="mt-1.5">
+              <a
+                href="/projects"
+                onClick={(e) => handleNavClick(e, "/projects", "projects")}
+                className={cn(
+                  "flex items-center px-2 py-1.5 text-sm rounded-md",
+                  pathname === "/projects" ? "bg-accent text-accent-foreground" : "hover:bg-accent/50",
+                )}
+              >
+                <span className="flex-grow">All Projects</span>
+              </a>
+            </div>
+
+            <div className="mt-1.5">
               <a
                 href="/latest"
                 onClick={(e) => handleNavClick(e, "/latest", "latest")}
                 className={cn(
-                  "flex items-center px-2 py-2 text-sm rounded-md",
+                  "flex items-center px-2 py-1.5 text-sm rounded-md",
                   pathname === "/latest" ? "bg-accent text-accent-foreground" : "hover:bg-accent/50",
                 )}
               >
@@ -138,12 +151,12 @@ export function Sidebar({ categories }: SidebarProps) {
           </nav>
 
           {/* Personal Pages at bottom */}
-          <div className="mt-6 pt-6 border-t border-border space-y-1">
+          <div className="mt-4 pt-4 border-t border-border space-y-0.5">
             <a
               href="/about"
               onClick={(e) => handleNavClick(e, "/about", "about")}
               className={cn(
-                "flex items-center gap-2 px-2 py-2 text-sm rounded-md",
+                "flex items-center gap-2 px-2 py-1.5 text-sm rounded-md",
                 pathname === "/about" ? "bg-accent text-accent-foreground" : "hover:bg-accent/50",
               )}
             >
@@ -154,7 +167,7 @@ export function Sidebar({ categories }: SidebarProps) {
               href="/resume"
               onClick={(e) => handleNavClick(e, "/resume", "resume")}
               className={cn(
-                "flex items-center gap-2 px-2 py-2 text-sm rounded-md",
+                "flex items-center gap-2 px-2 py-1.5 text-sm rounded-md",
                 pathname === "/resume" ? "bg-accent text-accent-foreground" : "hover:bg-accent/50",
               )}
             >
@@ -165,7 +178,7 @@ export function Sidebar({ categories }: SidebarProps) {
               href="/contact"
               onClick={(e) => handleNavClick(e, "/contact", "contact")}
               className={cn(
-                "flex items-center gap-2 px-2 py-2 text-sm rounded-md",
+                "flex items-center gap-2 px-2 py-1.5 text-sm rounded-md",
                 pathname === "/contact" ? "bg-accent text-accent-foreground" : "hover:bg-accent/50",
               )}
             >
