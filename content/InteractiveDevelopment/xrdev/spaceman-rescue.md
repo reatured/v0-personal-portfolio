@@ -38,4 +38,3 @@ The movement in the game is based on the direction and amount of force applied t
 
 ## The Making of the Game
 Creating realistic movement mechanics was a challenge that I thoroughly enjoyed. I programmed simulations to accurately reflect how forces act on objects in space. The complexity lies in managing both the push and rotation of the player character, which involves calculations of rotational force and angular speed.
-

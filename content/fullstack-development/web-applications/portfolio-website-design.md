@@ -25,7 +25,7 @@ This document outlines the design principles, architecture decisions, and implem
 
 ### Directory Structure
 
-```
+\`\`\`
 ├── app/                  # Next.js App Router
 │   ├── api/              # API routes
 │   ├── [category]/       # Dynamic category routes
@@ -37,7 +37,7 @@ This document outlines the design principles, architecture decisions, and implem
 ├── lib/                  # Utility functions and helpers
 ├── public/               # Static assets
 └── styles/               # Global styles
-```
+\`\`\`
 
 ### Data Flow
 
@@ -59,7 +59,7 @@ This document outlines the design principles, architecture decisions, and implem
 
 The portfolio uses a relational database with the following schema:
 
-```sql
+\`\`\`sql
 -- Categories table
 CREATE TABLE categories (
   id SERIAL PRIMARY KEY,
@@ -94,7 +94,7 @@ CREATE TABLE projects (
   software TEXT,
   youtube_id VARCHAR(20)
 );
-```
+\`\`\`
 
 ## UI/UX Design
 
