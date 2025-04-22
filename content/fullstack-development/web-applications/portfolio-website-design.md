@@ -1,7 +1,7 @@
 ---
 title: Portfolio Website Design Documentation
 description: Comprehensive documentation of the design principles, architecture, and implementation details of my personal portfolio website.
-imageUrl: https://hebbkx1anhila5yf.public.blob.vercel-storage.com/portfolio-documentation-cover-image-query=modern%20portfolio%20website%20design%20documentation%20with%20code%20and%20wireframes
+imageUrl: https://youtu.be/K2Sl52Ab4tg?si=x7T5CAaZWd7YGaDL
 imageRatio: landscape
 software: Next.js, Tailwind CSS, Neon Database
 ---
@@ -25,8 +25,7 @@ This document outlines the design principles, architecture decisions, and implem
 
 ### Directory Structure
 
-\`\`\`
-/
+```
 ├── app/                  # Next.js App Router
 │   ├── api/              # API routes
 │   ├── [category]/       # Dynamic category routes
@@ -38,7 +37,7 @@ This document outlines the design principles, architecture decisions, and implem
 ├── lib/                  # Utility functions and helpers
 ├── public/               # Static assets
 └── styles/               # Global styles
-\`\`\`
+```
 
 ### Data Flow
 
@@ -60,7 +59,7 @@ This document outlines the design principles, architecture decisions, and implem
 
 The portfolio uses a relational database with the following schema:
 
-\`\`\`sql
+```sql
 -- Categories table
 CREATE TABLE categories (
   id SERIAL PRIMARY KEY,
@@ -95,7 +94,7 @@ CREATE TABLE projects (
   software TEXT,
   youtube_id VARCHAR(20)
 );
-\`\`\`
+```
 
 ## UI/UX Design
 
