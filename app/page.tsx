@@ -18,7 +18,7 @@ export default async function Home() {
           <div className="flex items-center justify-between">
             <div className="text-xs font-semibold uppercase tracking-wider text-gray-400">About Me</div>
           </div>
-          <div className="bg-black bg-opacity-70 backdrop-blur-sm p-5 rounded-lg max-w-xl">
+          <div className="bg-black bg-opacity-70 backdrop-blur-sm p-5 rounded-lg max-w-2xl">
             <p className="text-gray-300">
               I am an experienced software engineer specializing in Unity3D and C# with a strong background in
               developing real-time 3D graphics, cross-platform applications, and XR (AR/VR) experiences. I'm passionate

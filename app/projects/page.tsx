@@ -2,9 +2,14 @@ import Image from "next/image"
 import Link from "next/link"
 import { getAllProjects } from "@/lib/db"
 import { YouTubeEmbed } from "@/components/youtube-embed"
+import { FeaturedProject } from "@/components/featured-project"
 
 export default async function ProjectsPage() {
   const projects = await getAllProjects()
+
+  // Split into featured and regular projects
+  const featuredProject = projects[0]
+  const regularProjects = projects.slice(1)
 
   return (
     <div className="container mx-auto py-8 px-4">
@@ -32,8 +37,15 @@ export default async function ProjectsPage() {
         </Link>
       </div>
 
+      {/* Featured Project */}
+      {featuredProject && (
+        <div className="mb-8">
+          <FeaturedProject project={featuredProject} />
+        </div>
+      )}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {projects.map((project) => {
+        {regularProjects.map((project) => {
           const hasYouTubeVideo =
             project.youtubeId !== undefined && project.youtubeId !== null && project.youtubeId !== ""
 
