@@ -50,7 +50,7 @@ A modern, real-time messaging platform inspired by the anime "Durarara!!" featur
 - Edge functions
 
 ## Database Schema
-```sql
+\`\`\`sql
 CREATE TABLE users (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   username TEXT UNIQUE NOT NULL,
@@ -74,7 +74,7 @@ CREATE TABLE messages (
   content TEXT NOT NULL,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
-```
+\`\`\`
 
 ## Performance Optimization
 - Code splitting

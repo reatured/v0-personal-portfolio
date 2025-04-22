@@ -79,26 +79,29 @@ export function FlexibleProjectShowcase({ projectSlug }: ProjectShowcaseProps) {
 
   return (
     <>
-      {/* Project Title */}
-      <h1 className="text-3xl font-bold mb-8">{project.title}</h1>
+      {/* Main content with semi-transparent background */}
+      <div className="bg-black bg-opacity-30 backdrop-blur-sm rounded-lg mb-16">
+        {/* Project Title */}
+        <h1 className="text-3xl font-bold mb-8">{project.title}</h1>
 
-      {/* Project Image */}
-      <div className="relative w-full h-[500px] mb-8 overflow-hidden rounded-lg">
-        <Image
-          src={project.imageUrl || "/placeholder.svg"}
-          alt={project.title}
-          fill
-          className={`object-cover ${project.imageRatio === "portrait" ? "object-top" : "object-center"}`}
-          priority
-        />
+        {/* Project Image */}
+        <div className="relative w-full h-[500px] mb-8 overflow-hidden rounded-lg">
+          <Image
+            src={project.imageUrl || "/placeholder.svg"}
+            alt={project.title}
+            fill
+            className={`object-cover ${project.imageRatio === "portrait" ? "object-top" : "object-center"}`}
+            priority
+          />
+        </div>
+
+        {/* Project Content */}
+        <div className="prose prose-invert max-w-none">
+          <MarkdownRenderer content={content} />
+        </div>
       </div>
 
-      {/* Project Content */}
-      <div className="prose prose-invert max-w-none">
-        <MarkdownRenderer content={content} />
-      </div>
-
-      {/* Related Projects */}
+      {/* Related Projects - Always shown at the bottom */}
       {relatedProjects.length > 0 && (
         <div className="mt-16">
           <h2 className="text-2xl font-bold mb-6">Related Projects</h2>
