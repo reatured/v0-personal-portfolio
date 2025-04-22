@@ -65,7 +65,7 @@ export default async function ProfessionalAreaPage({ params }: { params: { slug:
                         videoId={project.youtubeId as string}
                         title={project.title}
                         className="absolute top-0 left-0 h-full w-full pt-0"
-                        autoplay={false}
+                        autoplay={true}
                       />
                     </div>
                   ) : (
