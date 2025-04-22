@@ -135,19 +135,6 @@ export function Sidebar({ categories }: SidebarProps) {
                 <span className="flex-grow">All Projects</span>
               </a>
             </div>
-
-            <div className="mt-1.5">
-              <a
-                href="/latest"
-                onClick={(e) => handleNavClick(e, "/latest", "latest")}
-                className={cn(
-                  "flex items-center px-2 py-1.5 text-sm rounded-md",
-                  pathname === "/latest" ? "bg-accent text-accent-foreground" : "hover:bg-accent/50",
-                )}
-              >
-                <span className="flex-grow">Latest</span>
-              </a>
-            </div>
           </nav>
 
           {/* Personal Pages at bottom */}
