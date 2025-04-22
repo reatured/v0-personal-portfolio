@@ -10,7 +10,7 @@ export default async function Home() {
 
   return (
     <div className="container mx-auto py-8 px-4">
-      <h1 className="text-4xl font-bold mb-6">Welcome to My Portfolio</h1>
+      <h1 className="text-4xl font-bold mb-6">Personal Portfolio</h1>
 
       <div className="grid grid-cols-1 gap-6">
         {/* About Me Section */}

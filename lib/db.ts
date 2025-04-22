@@ -389,7 +389,7 @@ export async function getAllProfessionalAreas(): Promise<ProfessionalArea[]> {
           "https://github.com/reatured/public-assets/blob/main/Web%20Design/DOLLAR%20Chat%20Room/Dollar-chat-room.png?raw=true"
         description = "Web and application development projects"
       } else if (area.name === "Technical Artist") {
-        imageUrl = "/node-network-shader.png"
+        imageUrl = "https://youtu.be/wuo36b5VgEY?si=pHcqx1tOGmuLiseM"
         description = "Projects combining technical skills with artistic vision"
       }
 
