@@ -8,6 +8,28 @@ import type { Project, Category, Subcategory } from "@/lib/db"
 import { RelatedProjectCard } from "@/components/related-project-card"
 import { MarkdownRenderer } from "@/components/markdown-renderer"
 import Image from "next/image"
+import { YouTubeEmbed } from "@/components/youtube-embed"
+
+// Helper function to extract YouTube video ID from various YouTube URL formats
+function extractYouTubeId(url: string): string {
+  if (!url) return ""
+
+  // Handle youtu.be format
+  if (url.includes("youtu.be")) {
+    const parts = url.split("/")
+    return parts[parts.length - 1].split("?")[0]
+  }
+
+  // Handle youtube.com/watch?v= format
+  const match = url.match(/[?&]v=([^&]+)/)
+  if (match) return match[1]
+
+  // Handle youtube.com/embed/ format
+  const embedMatch = url.match(/embed\/([^/?]+)/)
+  if (embedMatch) return embedMatch[1]
+
+  return ""
+}
 
 interface ProjectShowcaseProps {
   projectSlug: string
@@ -86,13 +108,24 @@ export function FlexibleProjectShowcase({ projectSlug }: ProjectShowcaseProps) {
 
         {/* Project Image */}
         <div className="relative w-full h-[500px] mb-8 overflow-hidden rounded-lg">
-          <Image
-            src={project.imageUrl || "/placeholder.svg"}
-            alt={project.title}
-            fill
-            className={`object-cover ${project.imageRatio === "portrait" ? "object-top" : "object-center"}`}
-            priority
-          />
+          {project.imageUrl && project.imageUrl.includes("youtu") ? (
+            // Extract YouTube video ID from URL
+            <YouTubeEmbed
+              videoId={extractYouTubeId(project.imageUrl)}
+              title={project.title}
+              className="absolute top-0 left-0 h-full w-full pt-0"
+              autoplay={true}
+              loop={true}
+            />
+          ) : (
+            <Image
+              src={project.imageUrl || "/placeholder.svg"}
+              alt={project.title}
+              fill
+              className={`object-cover ${project.imageRatio === "portrait" ? "object-top" : "object-center"}`}
+              priority
+            />
+          )}
         </div>
 
         {/* Project Content */}
