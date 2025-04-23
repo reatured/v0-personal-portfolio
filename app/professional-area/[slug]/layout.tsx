@@ -1,10 +1,10 @@
-import type React from "react"
+import type { ReactNode } from "react"
 import Link from "next/link"
 
 export default function ProfessionalAreaLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: ReactNode
 }) {
   return (
     <div className="container mx-auto py-12 px-4">

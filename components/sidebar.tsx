@@ -45,7 +45,7 @@ export function Sidebar({ categories }: SidebarProps) {
       document.removeEventListener("click", handleDocumentClick)
       document.removeEventListener("closeMobileMenu", handleCloseMobileMenu)
     }
-  }, [isOpen]) // Only depend on isOpen state
+  }, [isOpen])
 
   // Track navigation clicks and handle client-side navigation
   const handleNavClick = React.useCallback(

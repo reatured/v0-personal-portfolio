@@ -1,4 +1,4 @@
-import type React from "react"
+import type { ReactNode } from "react"
 import { Suspense } from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: ReactNode
 }>) {
   const categories = await getAllCategories()
 
@@ -61,5 +61,3 @@ export default async function RootLayout({
     </html>
   )
 }
-
-import "./globals.css"

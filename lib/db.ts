@@ -11,7 +11,7 @@ export type Project = {
   software?: string
   imageRatio?: "square" | "landscape" | "portrait"
   description: string
-  youtubeId?: string // Add this field
+  youtubeId?: string
 }
 
 export type Subcategory = {
@@ -33,7 +33,6 @@ export type Category = {
   imageRatio?: "square" | "landscape" | "portrait"
 }
 
-// Add this new type at the top with the other type definitions
 export type ProfessionalArea = {
   name: string
   slug: string
@@ -42,7 +41,10 @@ export type ProfessionalArea = {
   projectCount: number
 }
 
-// Database functions
+/**
+ * Fetches all categories from the database
+ * @returns Array of Category objects
+ */
 export async function getAllCategories(): Promise<Category[]> {
   try {
     const categories = await executeQuery`
@@ -63,6 +65,11 @@ export async function getAllCategories(): Promise<Category[]> {
   }
 }
 
+/**
+ * Fetches all subcategories for a specific category
+ * @param categorySlug - The slug of the category
+ * @returns Array of Subcategory objects
+ */
 export async function getSubcategoriesByCategory(categorySlug: string): Promise<Subcategory[]> {
   try {
     const subcategories = await executeQuery`
@@ -86,6 +93,11 @@ export async function getSubcategoriesByCategory(categorySlug: string): Promise<
   }
 }
 
+/**
+ * Fetches all projects for a specific subcategory
+ * @param subcategorySlug - The slug of the subcategory
+ * @returns Array of Project objects
+ */
 export async function getProjectsBySubcategory(subcategorySlug: string): Promise<Project[]> {
   try {
     const projects = await executeQuery`
@@ -112,6 +124,11 @@ export async function getProjectsBySubcategory(subcategorySlug: string): Promise
   }
 }
 
+/**
+ * Fetches a category by its slug
+ * @param slug - The slug of the category
+ * @returns Category object or null if not found
+ */
 export async function getCategoryBySlug(slug: string): Promise<Category | null> {
   try {
     const categories = await executeQuery`
@@ -133,6 +150,11 @@ export async function getCategoryBySlug(slug: string): Promise<Category | null> 
   }
 }
 
+/**
+ * Fetches a subcategory by its slug
+ * @param slug - The slug of the subcategory
+ * @returns Subcategory object or null if not found
+ */
 export async function getSubcategoryBySlug(slug: string): Promise<Subcategory | null> {
   try {
     const subcategories = await executeQuery`
@@ -155,6 +177,11 @@ export async function getSubcategoryBySlug(slug: string): Promise<Subcategory | 
   }
 }
 
+/**
+ * Fetches a project by its slug
+ * @param slug - The slug of the project
+ * @returns Project object or null if not found
+ */
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
   try {
     const projects = await executeQuery`
@@ -180,6 +207,11 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
   }
 }
 
+/**
+ * Fetches the category for a specific subcategory
+ * @param subcategoryId - The ID of the subcategory
+ * @returns Category object or null if not found
+ */
 export async function getCategoryForSubcategory(subcategoryId: number): Promise<Category | null> {
   try {
     const categories = await executeQuery`
@@ -202,6 +234,11 @@ export async function getCategoryForSubcategory(subcategoryId: number): Promise<
   }
 }
 
+/**
+ * Fetches the subcategory for a specific project
+ * @param projectId - The ID of the project
+ * @returns Subcategory object or null if not found
+ */
 export async function getSubcategoryForProject(projectId: number): Promise<Subcategory | null> {
   try {
     const subcategories = await executeQuery`
@@ -225,6 +262,11 @@ export async function getSubcategoryForProject(projectId: number): Promise<Subca
   }
 }
 
+/**
+ * Fetches breadcrumbs (category, subcategory, project) for a specific project
+ * @param projectSlug - The slug of the project
+ * @returns Object containing category, subcategory, and project, or null if not found
+ */
 export async function getBreadcrumbsForProject(projectSlug: string) {
   try {
     const project = await getProjectBySlug(projectSlug)
@@ -247,6 +289,11 @@ export async function getBreadcrumbsForProject(projectSlug: string) {
   }
 }
 
+/**
+ * Fetches the latest projects
+ * @param limit - Maximum number of projects to return
+ * @returns Array of Project objects
+ */
 export async function getLatestProjects(limit = 3): Promise<Project[]> {
   try {
     const projects = await executeQuery`
@@ -272,6 +319,12 @@ export async function getLatestProjects(limit = 3): Promise<Project[]> {
   }
 }
 
+/**
+ * Fetches top projects for a specific subcategory
+ * @param subcategoryId - The ID of the subcategory
+ * @param limit - Maximum number of projects to return
+ * @returns Array of Project objects
+ */
 export async function getTopProjectsBySubcategory(subcategoryId: number, limit = 3): Promise<Project[]> {
   try {
     const projects = await executeQuery`
@@ -298,6 +351,13 @@ export async function getTopProjectsBySubcategory(subcategoryId: number, limit =
   }
 }
 
+/**
+ * Fetches related projects for a specific project
+ * @param currentProjectId - The ID of the current project
+ * @param subcategoryId - The ID of the subcategory
+ * @param limit - Maximum number of projects to return
+ * @returns Array of Project objects
+ */
 export async function getRelatedProjects(
   currentProjectId: number,
   subcategoryId: number,
@@ -330,6 +390,10 @@ export async function getRelatedProjects(
   }
 }
 
+/**
+ * Fetches all projects
+ * @returns Array of Project objects
+ */
 export async function getAllProjects(): Promise<Project[]> {
   try {
     const projects = await executeQuery`
@@ -354,8 +418,10 @@ export async function getAllProjects(): Promise<Project[]> {
   }
 }
 
-// Add these new functions after the existing database functions
-
+/**
+ * Fetches all professional areas with project counts
+ * @returns Array of ProfessionalArea objects
+ */
 export async function getAllProfessionalAreas(): Promise<ProfessionalArea[]> {
   try {
     const areas = await executeQuery`
@@ -405,10 +471,14 @@ export async function getAllProfessionalAreas(): Promise<ProfessionalArea[]> {
   }
 }
 
+/**
+ * Fetches projects for a specific professional area
+ * @param areaSlug - The slug of the professional area
+ * @returns Array of Project objects
+ */
 export async function getProjectsByProfessionalArea(areaSlug: string): Promise<Project[]> {
   try {
     // Convert slug back to name format (e.g., "3d-design" to "3D Design")
-    // This is a simple conversion and might need to be adjusted based on your naming conventions
     const areaName = areaSlug
       .split("-")
       .map((word) => (word === "3d" ? "3D" : word.charAt(0).toUpperCase() + word.slice(1)))
@@ -439,6 +509,11 @@ export async function getProjectsByProfessionalArea(areaSlug: string): Promise<P
   }
 }
 
+/**
+ * Fetches a professional area by its slug
+ * @param slug - The slug of the professional area
+ * @returns ProfessionalArea object or null if not found
+ */
 export async function getProfessionalAreaBySlug(slug: string): Promise<ProfessionalArea | null> {
   try {
     const areas = await getAllProfessionalAreas()

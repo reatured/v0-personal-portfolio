@@ -1,7 +1,7 @@
-import type React from "react"
+import type { ReactNode } from "react"
 
 interface ImageGrid2ColumnProps {
-  children: React.ReactNode
+  children: ReactNode
   className?: string
 }
 

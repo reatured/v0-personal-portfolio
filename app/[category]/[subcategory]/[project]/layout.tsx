@@ -1,4 +1,4 @@
-import type React from "react"
+import type { ReactNode } from "react"
 import { getBreadcrumbsForProject, getProjectsBySubcategory } from "@/lib/db"
 import { notFound } from "next/navigation"
 import { TabGroup } from "@/components/tab-group"
@@ -8,7 +8,7 @@ export default async function ProjectLayout({
   children,
   params,
 }: {
-  children: React.ReactNode
+  children: ReactNode
   params: { category: string; subcategory: string; project: string }
 }) {
   const breadcrumbs = await getBreadcrumbsForProject(params.project)

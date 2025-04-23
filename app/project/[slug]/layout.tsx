@@ -1,4 +1,4 @@
-import type React from "react"
+import type { ReactNode } from "react"
 import { getBreadcrumbsForProject } from "@/lib/db"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
@@ -7,7 +7,7 @@ export default async function DirectProjectLayout({
   children,
   params,
 }: {
-  children: React.ReactNode
+  children: ReactNode
   params: { slug: string }
 }) {
   const breadcrumbs = await getBreadcrumbsForProject(params.slug)

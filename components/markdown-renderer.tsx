@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react"
-import type React from "react"
+import type { ReactNode } from "react"
 
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
@@ -12,19 +12,19 @@ interface MarkdownRendererProps {
 }
 
 // Update the ImageGrid2Column component to use a 2-column grid layout on desktop
-function ImageGrid1Column({ className, children }: { className?: string; children: React.ReactNode }) {
+function ImageGrid1Column({ className, children }: { className?: string; children: ReactNode }) {
   return <div className={`grid grid-cols-1 sm:grid-cols-1 gap-2 ${className || ""}`}>{children}</div>
 }
 
-function ImageGrid2Column({ className, children }: { className?: string; children: React.ReactNode }) {
+function ImageGrid2Column({ className, children }: { className?: string; children: ReactNode }) {
   return <div className={`grid grid-cols-1 sm:grid-cols-2 gap-2 ${className || ""}`}>{children}</div>
 }
 
-function ImageGrid3Column({ className, children }: { className?: string; children: React.ReactNode }) {
+function ImageGrid3Column({ className, children }: { className?: string; children: ReactNode }) {
   return <div className={`grid grid-cols-1 sm:grid-cols-3 gap-2 ${className || ""}`}>{children}</div>
 }
 
-function ImageGrid4Column({ className, children }: { className?: string; children: React.ReactNode }) {
+function ImageGrid4Column({ className, children }: { className?: string; children: ReactNode }) {
   return <div className={`grid grid-cols-1 sm:grid-cols-4 gap-2 ${className || ""}`}>{children}</div>
 }
 

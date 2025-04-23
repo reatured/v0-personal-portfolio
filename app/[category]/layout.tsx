@@ -1,4 +1,4 @@
-import type React from "react"
+import type { ReactNode } from "react"
 import { getCategoryBySlug } from "@/lib/db"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
@@ -7,7 +7,7 @@ export default async function CategoryLayout({
   children,
   params,
 }: {
-  children: React.ReactNode
+  children: ReactNode
   params: { category: string }
 }) {
   const category = await getCategoryBySlug(params.category)

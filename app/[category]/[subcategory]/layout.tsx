@@ -1,4 +1,4 @@
-import type React from "react"
+import type { ReactNode } from "react"
 import { getCategoryBySlug, getSubcategoriesByCategory } from "@/lib/db"
 import { notFound } from "next/navigation"
 import { TabGroup } from "@/components/tab-group"
@@ -7,7 +7,7 @@ export default async function SubcategoryLayout({
   children,
   params,
 }: {
-  children: React.ReactNode
+  children: ReactNode
   params: { category: string; subcategory: string }
 }) {
   const category = await getCategoryBySlug(params.category)

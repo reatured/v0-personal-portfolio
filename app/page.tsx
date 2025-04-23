@@ -1,8 +1,6 @@
-import Image from "next/image"
 import Link from "next/link"
-import { getLatestProjects } from "@/lib/db"
-import { getAllProjects } from "@/lib/db"
-import { YouTubeEmbed } from "@/components/youtube-embed"
+import { getLatestProjects, getAllProjects } from "@/lib/db"
+import { ProjectCard } from "@/components/project-card"
 
 export default async function Home() {
   const latestProjects = await getLatestProjects(3)
@@ -18,7 +16,7 @@ export default async function Home() {
           <div className="flex items-center justify-between">
             <div className="text-xs font-semibold uppercase tracking-wider text-gray-400">About Me</div>
           </div>
-          <div className="bg-black bg-opacity-70 backdrop-blur-sm p-5 rounded-lg max-w-2xl">
+          <div className="card-base p-5 max-w-2xl">
             <p className="text-gray-300">
               I am an experienced software engineer specializing in Unity3D and C# with a strong background in
               developing real-time 3D graphics, cross-platform applications, and XR (AR/VR) experiences. I'm passionate
@@ -53,18 +51,16 @@ export default async function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* 3D Design */}
-            <Link
-              href="/professional-area/3d-design"
-              className="rounded-lg border border-border bg-black bg-opacity-70 backdrop-blur-sm p-4 hover:border-primary transition-colors"
-            >
+            <Link href="/professional-area/3d-design" className="card-base card-hover p-4">
               <div className="flex flex-row h-full">
                 <div className="relative w-1/3 h-auto overflow-hidden rounded-lg flex-shrink-0">
-                  <YouTubeEmbed
-                    videoId="TXhAasKKn2Y"
+                  <iframe
+                    src="https://www.youtube.com/embed/TXhAasKKn2Y?autoplay=1&mute=1&loop=1&playlist=TXhAasKKn2Y&controls=0"
                     title="3D Design"
                     className="absolute top-0 left-0 h-full w-full pt-0"
-                    autoplay={true}
-                  />
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
                 </div>
                 <div className="flex flex-col ml-4 flex-grow">
                   <h3 className="text-xl font-semibold mb-2 text-primary">3D Design</h3>
@@ -80,17 +76,13 @@ export default async function Home() {
             </Link>
 
             {/* Game Design */}
-            <Link
-              href="/professional-area/game-design"
-              className="rounded-lg border border-border bg-black bg-opacity-70 backdrop-blur-sm p-4 hover:border-primary transition-colors"
-            >
+            <Link href="/professional-area/game-design" className="card-base card-hover p-4">
               <div className="flex flex-row h-full">
                 <div className="relative w-1/3 h-auto overflow-hidden rounded-lg flex-shrink-0">
-                  <Image
+                  <img
                     src="https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/a6bb8867-4eff-423a-8fd0-adeb4702dcb5/Menu+Scene+2.jpg?format=2500w"
                     alt="Game Design"
-                    fill
-                    className="object-cover"
+                    className="object-cover w-full h-full"
                   />
                 </div>
                 <div className="flex flex-col ml-4 flex-grow">
@@ -107,17 +99,13 @@ export default async function Home() {
             </Link>
 
             {/* Full Stack Development */}
-            <Link
-              href="/professional-area/full-stack-development"
-              className="rounded-lg border border-border bg-black bg-opacity-70 backdrop-blur-sm p-4 hover:border-primary transition-colors"
-            >
+            <Link href="/professional-area/full-stack-development" className="card-base card-hover p-4">
               <div className="flex flex-row h-full">
                 <div className="relative w-1/3 h-auto overflow-hidden rounded-lg flex-shrink-0">
-                  <Image
+                  <img
                     src="https://github.com/reatured/public-assets/blob/main/Web%20Design/DOLLAR%20Chat%20Room/Dollar-chat-room.png?raw=true"
                     alt="Full Stack Development"
-                    fill
-                    className="object-cover"
+                    className="object-cover w-full h-full"
                   />
                 </div>
                 <div className="flex flex-col ml-4 flex-grow">
@@ -133,10 +121,7 @@ export default async function Home() {
             </Link>
 
             {/* Technical Artist */}
-            <Link
-              href="/professional-area/technical-artist"
-              className="rounded-lg border border-border bg-black bg-opacity-70 backdrop-blur-sm p-4 hover:border-primary transition-colors"
-            >
+            <Link href="/professional-area/technical-artist" className="card-base card-hover p-4">
               <div className="flex flex-row h-full">
                 <div className="relative w-1/3 h-auto overflow-hidden rounded-lg flex-shrink-0 bg-gray-800 flex items-center justify-center">
                   <div className="text-center p-4">
@@ -163,7 +148,7 @@ export default async function Home() {
       {/* All Projects Section */}
       <div className="mt-12">
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-3xl font-bold">All Projects</h2>
+          <h2 className="section-title">All Projects</h2>
           <Link
             href="/projects"
             className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
@@ -185,50 +170,20 @@ export default async function Home() {
             </svg>
           </Link>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {allProjects.slice(0, 6).map((project) => {
-            const hasYouTubeVideo =
-              project.youtubeId !== undefined && project.youtubeId !== null && project.youtubeId !== ""
-
-            return (
-              <Link
-                key={project.id}
-                href={`/project/${project.slug}?from=home`}
-                className="block bg-black bg-opacity-70 backdrop-blur-sm rounded-lg border border-border hover:border-primary transition-colors overflow-hidden group"
-              >
-                <div className="relative w-full h-40 overflow-hidden">
-                  {hasYouTubeVideo ? (
-                    <div className="absolute inset-0 overflow-hidden">
-                      <YouTubeEmbed
-                        videoId={project.youtubeId as string}
-                        title={project.title}
-                        className="absolute top-0 left-0 h-full w-full pt-0"
-                        autoplay={true}
-                      />
-                    </div>
-                  ) : (
-                    <Image
-                      src={project.imageUrl || "/placeholder.svg"}
-                      alt={project.title}
-                      fill
-                      className={`object-cover transition-transform group-hover:scale-105 ${
-                        project.imageRatio === "portrait" ? "object-top" : "object-center"
-                      }`}
-                    />
-                  )}
-                </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold mb-1.5">{project.title}</h3>
-                  <p className="text-muted-foreground text-sm line-clamp-2">{project.description}</p>
-                  {project.software && (
-                    <div className="mt-3 inline-block px-2.5 py-0.5 bg-secondary text-secondary-foreground text-xs rounded-full">
-                      {project.software}
-                    </div>
-                  )}
-                </div>
-              </Link>
-            )
-          })}
+        <div className="grid-responsive">
+          {allProjects.slice(0, 6).map((project) => (
+            <ProjectCard
+              key={project.id}
+              title={project.title}
+              description={project.description}
+              imageUrl={project.imageUrl}
+              youtubeId={project.youtubeId}
+              imageRatio={project.imageRatio}
+              software={project.software}
+              href={`/project/${project.slug}?from=home`}
+              size="medium"
+            />
+          ))}
         </div>
       </div>
     </div>

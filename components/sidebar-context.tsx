@@ -1,6 +1,6 @@
 "use client"
 
-import type React from "react"
+import type { ReactNode } from "react"
 import { createContext, useContext, useState, useCallback } from "react"
 import type { Project } from "@/lib/db"
 
@@ -13,7 +13,7 @@ type SidebarContextType = {
 
 const SidebarContext = createContext<SidebarContextType | undefined>(undefined)
 
-export function SidebarProvider({ children }: { children: React.ReactNode }) {
+export function SidebarProvider({ children }: { children: ReactNode }) {
   const [expandedSubcategories, setExpandedSubcategories] = useState<Record<number, boolean>>({})
   const [subcategoryProjects, setSubcategoryProjects] = useState<Record<number, Project[]>>({})
   const [isSubcategoryLoading, setIsSubcategoryLoading] = useState<Record<number, boolean>>({})

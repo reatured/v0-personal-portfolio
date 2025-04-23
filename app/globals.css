@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import component styles */
+@import "../styles/components.css";
+
 /* ===== Base Styles ===== */
 @layer base {
   :root {
