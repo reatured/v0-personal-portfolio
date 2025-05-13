@@ -28,22 +28,22 @@ Getting the fur to look realistic was challenging. I had to carefully adjust the
 - Cycles renderer
 <div class="image-grid-1column">
     <img 
-      src="https://github.com/reatured/public-assets/blob/main/3d-design/project3-teddybear/BearImage54.png?raw=true" 
+      src="https://jmxcp80fkrvvffbg.public.blob.vercel-storage.com/TeddyBear/BearImage54.png" 
       alt="Bear"
       class=""  
     />
     <img 
-      src="https://github.com/reatured/public-assets/blob/main/3d-design/project3-teddybear/BearImage77.png?raw=true" 
+      src="https://jmxcp80fkrvvffbg.public.blob.vercel-storage.com/TeddyBear/BearImage77.png" 
       alt="Bear"
       class=""  
     />
     <img 
-      src="https://github.com/reatured/public-assets/blob/main/3d-design/project3-teddybear/BearImage67.png?raw=true" 
+      src="https://jmxcp80fkrvvffbg.public.blob.vercel-storage.com/TeddyBear/BearImage67.png" 
       alt="Bear"
       class=""  
     />
     <img 
-      src="https://github.com/reatured/public-assets/blob/main/3d-design/project3-teddybear/BearImage84.png?raw=true" 
+      src="https://jmxcp80fkrvvffbg.public.blob.vercel-storage.com/TeddyBear/BearImage84.png" 
       alt="Bear"
       class=""  
     />
