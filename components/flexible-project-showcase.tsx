@@ -108,10 +108,9 @@ export function FlexibleProjectShowcase({ projectSlug }: ProjectShowcaseProps) {
 
         {/* Project Image */}
         <div className="relative w-full h-[500px] mb-8 overflow-hidden rounded-lg">
-          {project.imageUrl && project.imageUrl.includes("youtu") ? (
-            // Extract YouTube video ID from URL
+          {project.youtubeId ? (
             <YouTubeEmbed
-              videoId={extractYouTubeId(project.imageUrl)}
+              videoId={project.youtubeId}
               title={project.title}
               className="absolute top-0 left-0 h-full w-full pt-0"
               autoplay={true}

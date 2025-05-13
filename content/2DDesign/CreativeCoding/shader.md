@@ -20,6 +20,12 @@ This page showcases a variety of interactive shader projects developed using Sha
   <iframe width="100%" height="360" frameborder="0" src="https://www.shadertoy.com/embed/wlfBRN?gui=false&t=10&paused=false&muted=false" allowfullscreen></iframe>
   <h2> Simple Lights</h2>
   <iframe width="100%" height="360" frameborder="0" src="https://www.shadertoy.com/embed/WlXfz4?gui=false&t=10&paused=false&muted=false" allowfullscreen></iframe>
+  <h2> Moving Triangle</h2>
+  <iframe width="100%" height="360" frameborder="0" src="https://www.shadertoy.com/embed/WllBzr?gui=true&t=10&paused=true&muted=false" allowfullscreen></iframe>
+  <h2> Noise Effect</h2>
+  <iframe width="100%" height="360" frameborder="0" src="https://www.shadertoy.com/embed/3t2cDd?gui=true&t=10&paused=true&muted=false" allowfullscreen></iframe>
+  <h2> Distance Pattern</h2>
+  <iframe width="100%" height="360" frameborder="0" src="https://www.shadertoy.com/embed/3l2cWd?gui=true&t=10&paused=true&muted=false" allowfullscreen></iframe>
 </div>
 
 ## Design Process
