@@ -123,11 +123,14 @@ export default async function Home() {
             {/* Technical Artist */}
             <Link href="/professional-area/technical-artist" className="card-base card-hover p-4">
               <div className="flex flex-row h-full">
-                <div className="relative w-1/3 h-auto overflow-hidden rounded-lg flex-shrink-0 bg-gray-800 flex items-center justify-center">
-                  <div className="text-center p-4">
-                    <div className="text-gray-400 mb-2">Shader Projects</div>
-                    <div className="text-sm text-gray-500">Coming soon</div>
-                  </div>
+                <div className="relative w-1/3 h-auto overflow-hidden rounded-lg flex-shrink-0">
+                  <iframe
+                    src="https://www.youtube.com/embed/wuo36b5VgEY?autoplay=1&mute=1&loop=1&playlist=wuo36b5VgEY&controls=0"
+                    title="Technical Artist"
+                    className="absolute top-0 left-0 h-full w-full pt-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
                 </div>
                 <div className="flex flex-col ml-4 flex-grow">
                   <h3 className="text-xl font-semibold mb-2 text-primary">Technical Artist</h3>
