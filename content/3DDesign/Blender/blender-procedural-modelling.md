@@ -1,7 +1,7 @@
 ---
 title: Procedural Modelling
 description: An advanced exploration of procedural modeling techniques using Blender's node-based system to create complex shapes and patterns.
-imageUrl: https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/7ab94758-9d5a-4a27-ba56-ec09d5d1a733/rendered1.png?format=750w
+youtubeId: tA67s2gjSZM
 imageRatio: square
 software: Blender
 ---

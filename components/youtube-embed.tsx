@@ -8,6 +8,7 @@ interface YouTubeEmbedProps {
   className?: string
   autoplay?: boolean
   startAt?: number
+  loop?: boolean
 }
 
 export function YouTubeEmbed({
@@ -16,6 +17,7 @@ export function YouTubeEmbed({
   className = "",
   autoplay = false,
   startAt = 0,
+  loop = false,
 }: YouTubeEmbedProps) {
   const [isClient, setIsClient] = useState(false)
 
@@ -37,8 +39,7 @@ export function YouTubeEmbed({
     playsinline: "1", // Play inline on mobile devices
     vq: "small", // Set video quality to low
     mute: "1", // Always mute by default
-    loop: "1", // Loop the video
-    playlist: videoId, // Required for looping a single video
+    ...(loop && { loop: "1", playlist: videoId }), // Required for looping a single video
   }).toString()
 
   // Only render the iframe on the client side to avoid hydration errors

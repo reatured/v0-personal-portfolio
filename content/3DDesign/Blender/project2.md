@@ -1,7 +1,7 @@
 ---
 title: Cartoon Shader
 description: A creative exploration of toon shading techniques in Blender, showcasing custom shader development for stylized 3D models.
-imageUrl: https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/a0fc2f8f-c051-45b2-be66-1af75ae39598/Wnad+Demo+GIF.gif?format=2500w
+youtubeId: tA67s2gjSZM
 imageRatio: square
 software: Blender
 ---

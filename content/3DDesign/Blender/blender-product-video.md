@@ -1,7 +1,7 @@
 ---
-title: Procedural Modelling
-description: An advanced exploration of procedural modeling techniques using Blender's node-based system to create complex shapes and patterns.
-imageUrl: https://images.squarespace-cdn.com/content/v1/5df7337598a1771a4a73ef26/7ab94758-9d5a-4a27-ba56-ec09d5d1a733/rendered1.png?format=750w
+title: Door Stop Product Video and Modelling
+description: This project showcases the creation of a product video using Blender, highlighting the capabilities of the software in creating engaging animations and visualizations.
+youtubeId: tA67s2gjSZM
 imageRatio: square
 software: Blender
 ---
@@ -28,23 +28,20 @@ This project explores the power of Blender's geometry nodes to create complex sh
 
 <div class="image-grid-1column">
     <img 
-      src="https://github.com/reatured/public-assets/blob/main/3d-design/project4-proceduralmodelling/rendered18.png?raw=true" 
-      alt="Printed Posters"
+      src="https://jmxcp80fkrvvffbg.public.blob.vercel-storage.com/Door%20Stop%20Photos/Door%20Stop%20Rendering%20File.blend0431-l5DmdsXxOUMXJMk6L4GB8OUnSbWyMF.png" 
+      alt=""
       class=""  
     />
-    <img 
-      src="https://github.com/reatured/public-assets/blob/main/3d-design/project4-proceduralmodelling/rendered28.png?raw=true" 
-      alt="Printed Posters"
+      <img 
+      src="https://jmxcp80fkrvvffbg.public.blob.vercel-storage.com/Door%20Stop%20Photos/Screen%20Recording%202025-04-25%20at%2012.33.46%E2%80%AFPM-mBm0qTkROjsGnDE0JfQGE8k0RREfkj.gif" 
+      alt=""
       class=""  
     />
-    <img 
-      src="https://github.com/reatured/public-assets/blob/main/3d-design/project4-proceduralmodelling/rendered38.png?raw=true" 
-      alt="Printed Posters"
+    <video 
+      src="https://jmxcp80fkrvvffbg.public.blob.vercel-storage.com/Door%20Stop%20Photos/Screen%20Recording%202025-04-23%20at%2010.28.33%E2%80%AFPM-OhIDpZEkmxCk93XeaoIfdE7V7MCLyw.mov" 
+      alt=""
       class=""  
+      controls
     />
-    <img 
-      src="https://github.com/reatured/public-assets/blob/main/3d-design/project4-proceduralmodelling/rendered4.png?raw=true" 
-      alt="Printed Posters"
-      class=""  
-    />
+   
 </div>

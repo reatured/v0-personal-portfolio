@@ -1,7 +1,7 @@
 ---
 title: Shader Projects
 description: A collection of interactive shader projects created using Shadertoy. Explore various visual effects and techniques implemented in GLSL.
-imageUrl: https://youtu.be/wuo36b5VgEY
+youtubeId: wuo36b5VgEY
 imageRatio: square
 software: Shadertoy
 ---
