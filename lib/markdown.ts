@@ -1,7 +1,7 @@
 import fs from "fs"
 import path from "path"
 import matter from "gray-matter"
-import type { Project } from "./db"
+import type { LocalProject } from "./local-projects"
 
 // Type for frontmatter data
 export interface ProjectFrontmatter {
@@ -13,6 +13,7 @@ export interface ProjectFrontmatter {
   date?: string
   template?: string
   featured?: boolean
+  youtubeId?: string
 }
 
 // Function to get project content from file system
@@ -44,7 +45,7 @@ export async function writeProjectMarkdown(
   categorySlug: string,
   subcategorySlug: string,
   projectSlug: string,
-  project: Project,
+  project: LocalProject,
 ) {
   // Create directory structure if it doesn't exist
   const dirPath = path.join(process.cwd(), "content", categorySlug, subcategorySlug)
@@ -62,6 +63,7 @@ export async function writeProjectMarkdown(
       imageUrl: project.imageUrl,
       imageRatio: project.imageRatio,
       software: project.software,
+      youtubeId: project.youtubeId,
     }
 
     // Extract content without the title (which will be in frontmatter)

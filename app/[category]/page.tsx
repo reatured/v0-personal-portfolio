@@ -1,87 +1,93 @@
-import { getCategoryBySlug, getSubcategoriesByCategory, getTopProjectsBySubcategory } from "@/lib/db"
 import Link from "next/link"
 import Image from "next/image"
 import { notFound } from "next/navigation"
-import { DatabaseError } from "@/components/database-error"
+import { getAllLocalCategories, getLocalSubcategoriesByCategory } from "@/lib/local-projects"
 
 export default async function CategoryPage({ params }: { params: { category: string } }) {
   try {
-    const category = await getCategoryBySlug(params.category)
+    const categorySlug = params.category
+
+    // Get all categories to check if this one exists
+    const categories = await getAllLocalCategories()
+    const category = categories.find(c => c.slug === categorySlug)
 
     if (!category) {
       notFound()
     }
 
-    // Use the helper function to get subcategories
-    const subcategories = await getSubcategoriesByCategory(params.category)
-
-    // Fetch top projects for each subcategory
-    const subcategoriesWithProjects = await Promise.all(
-      subcategories.map(async (subcategory) => {
-        const projects = await getTopProjectsBySubcategory(subcategory.id, 3)
-        return { ...subcategory, projects }
-      }),
-    )
+    // Get subcategories for this category
+    const subcategories = await getLocalSubcategoriesByCategory(categorySlug)
 
     return (
-      <div className="container mx-auto py-12 px-4">
-        <h1 className="text-3xl font-bold mb-6">{category.name}</h1>
-        <p className="text-xl mb-12">{category.description}</p>
+      <div className="container mx-auto py-8 px-4">
+        <div className="mb-6">
+          <Link
+            href="/"
+            className="flex items-center gap-2 px-4 py-2 bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/80 transition-colors mb-4"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m12 19-7-7 7-7" />
+              <path d="M19 12H5" />
+            </svg>
+            Back to Home
+          </Link>
 
-        <div className="space-y-16">
-          {subcategoriesWithProjects.map((subcategory) => (
-            <section key={subcategory.slug} className="space-y-6">
-              <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-semibold">{subcategory.name}</h2>
-                <Link href={`/${params.category}/${subcategory.slug}`} className="text-sm text-primary hover:underline">
-                  View all
-                </Link>
-              </div>
+          <div>
+            <h1 className="text-3xl font-bold mt-6">{category.name}</h1>
+            <p className="text-lg mt-4">{category.description}</p>
 
-              <p className="text-muted-foreground">{subcategory.description}</p>
-
-              {subcategory.projects.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {subcategory.projects.map((project) => (
-                    <Link
-                      key={project.id}
-                      href={`/${params.category}/${subcategory.slug}/${project.slug}`}
-                      className="block bg-card rounded-lg border border-border hover:border-primary transition-colors overflow-hidden group"
-                    >
-                      <div className="relative w-full h-48 overflow-hidden">
+            {subcategories.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                {subcategories.map((subcategory) => (
+                  <Link
+                    key={subcategory.slug}
+                    href={`/${categorySlug}/${subcategory.slug}`}
+                    className="block bg-black bg-opacity-70 backdrop-blur-sm rounded-lg border border-border hover:border-primary transition-colors overflow-hidden group"
+                  >
+                    <div className="relative w-full h-48 overflow-hidden">
+                      {subcategory.imageUrl ? (
                         <Image
-                          src={project.imageUrl || "/placeholder.svg"}
-                          alt={project.title}
+                          src={subcategory.imageUrl}
+                          alt={subcategory.name}
                           fill
                           className={`object-cover transition-transform group-hover:scale-105 ${
-                            project.imageRatio === "portrait" ? "object-top" : "object-center"
+                            subcategory.imageRatio === "portrait" ? "object-top" : "object-center"
                           }`}
                         />
-                      </div>
-                      <div className="p-6">
-                        <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                        <p className="text-muted-foreground line-clamp-2">{project.description}</p>
-                        {project.software && (
-                          <div className="mt-4 inline-block px-3 py-1 bg-secondary text-secondary-foreground text-xs rounded-full">
-                            {project.software}
-                          </div>
-                        )}
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-6 bg-card rounded-lg border border-border">
-                  <p className="text-muted-foreground">No projects found in this subcategory yet.</p>
-                </div>
-              )}
-            </section>
-          ))}
+                      ) : (
+                        <div className="w-full h-full bg-muted/20 flex items-center justify-center">
+                          <span className="text-muted-foreground">{subcategory.name.charAt(0)}</span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-6">
+                      <h3 className="text-xl font-semibold mb-2">{subcategory.name}</h3>
+                      <p className="text-muted-foreground line-clamp-2">{subcategory.description}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <p className="text-lg text-muted-foreground">No subcategories found in this category.</p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     )
   } catch (error) {
     console.error("Error in category page:", error)
-    return <DatabaseError message="Unable to load category data due to a database connection issue." />
+    notFound()
   }
 }

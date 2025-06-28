@@ -1,7 +1,7 @@
-import { getSubcategoriesByCategory } from "@/lib/db"
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
+import { getLocalSubcategoriesByCategory } from "@/lib/local-projects"
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const categorySlug = searchParams.get("categorySlug")
 
@@ -10,13 +10,10 @@ export async function GET(request: Request) {
   }
 
   try {
-    const subcategories = await getSubcategoriesByCategory(categorySlug)
-
-    // Ensure we're returning a proper JSON response
+    const subcategories = await getLocalSubcategoriesByCategory(categorySlug)
     return NextResponse.json(subcategories)
   } catch (error) {
     console.error("Error fetching subcategories:", error)
-    // Return a proper error response
     return NextResponse.json({ error: "Failed to fetch subcategories" }, { status: 500 })
   }
 }

@@ -4,11 +4,11 @@ import type React from "react"
 
 import Image from "next/image"
 import Link from "next/link"
-import type { Project } from "@/lib/db"
+import type { LocalProject } from "@/lib/local-projects"
 import { YouTubeEmbed } from "./youtube-embed"
 
 interface RelatedProjectCardProps {
-  project: Project
+  project: LocalProject
   categorySlug: string
   subcategorySlug: string
   onClick?: (

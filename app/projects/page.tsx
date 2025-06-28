@@ -1,9 +1,9 @@
 import Link from "next/link"
-import { getAllProjects } from "@/lib/db"
+import { getAllLocalProjects } from "@/lib/local-projects"
 import { ProjectCard } from "@/components/project-card"
 
 export default async function ProjectsPage() {
-  const projects = await getAllProjects()
+  const projects = await getAllLocalProjects()
 
   // Split into featured and regular projects
   const featuredProject = projects[0]

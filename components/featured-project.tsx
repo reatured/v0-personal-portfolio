@@ -1,10 +1,10 @@
 import Image from "next/image"
 import Link from "next/link"
-import type { Project } from "@/lib/db"
+import type { LocalProject } from "@/lib/local-projects"
 import { YouTubeEmbed } from "./youtube-embed"
 
 interface FeaturedProjectProps {
-  project: Project
+  project: LocalProject
 }
 
 export function FeaturedProject({ project }: FeaturedProjectProps) {

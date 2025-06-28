@@ -5,7 +5,7 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import { Sidebar } from "@/components/sidebar"
 import { ThemeProvider } from "@/components/theme-provider"
-import { getAllCategories } from "@/lib/db"
+import { getAllLocalCategories } from "@/lib/local-projects"
 import { Analytics } from "@vercel/analytics/react"
 import { SkipToContent } from "@/components/skip-to-content"
 import { SidebarProvider } from "@/components/sidebar-context"
@@ -24,7 +24,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: ReactNode
 }>) {
-  const categories = await getAllCategories()
+  const categories = await getAllLocalCategories()
 
   return (
     <html lang="en" suppressHydrationWarning className="dark">

@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import type { Project, Category, Subcategory } from "@/lib/db"
+import type { LocalProject, LocalCategory, LocalSubcategory } from "@/lib/local-projects"
 import { RelatedProjectCard } from "@/components/related-project-card"
 import { MarkdownRenderer } from "@/components/markdown-renderer"
 import Image from "next/image"
@@ -36,10 +36,10 @@ interface ProjectShowcaseProps {
 }
 
 interface ProjectData {
-  project: Project
-  category: Category
-  subcategory: Subcategory
-  relatedProjects: Project[]
+  project: LocalProject
+  category: LocalCategory
+  subcategory: LocalSubcategory
+  relatedProjects: LocalProject[]
   fileContent?: string | null
 }
 

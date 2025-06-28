@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server"
-import { getBreadcrumbsForProject, getRelatedProjects } from "@/lib/db"
-import { getProjectMarkdown } from "@/lib/markdown"
+import { findLocalProjectBySlug, getLocalProjectsBySubcategory } from "@/lib/local-projects"
 
 export async function GET(request: Request, { params }: { params: { slug: string } }) {
   const slug = params.slug
@@ -10,27 +9,39 @@ export async function GET(request: Request, { params }: { params: { slug: string
   }
 
   try {
-    // Get project data with category and subcategory info
-    const breadcrumbs = await getBreadcrumbsForProject(slug)
+    // Get project data from local files
+    const project = await findLocalProjectBySlug(slug)
 
-    if (!breadcrumbs) {
+    if (!project) {
       return NextResponse.json({ error: "Project not found" }, { status: 404 })
     }
 
-    const { project, category, subcategory } = breadcrumbs
-
     // Get related projects from the same subcategory
-    const relatedProjects = await getRelatedProjects(project.id, subcategory.id, 3)
+    const relatedProjects = await getLocalProjectsBySubcategory(project.categorySlug, project.subcategorySlug)
+    // Filter out the current project and limit to 3
+    const filteredRelatedProjects = relatedProjects
+      .filter(p => p.slug !== project.slug)
+      .slice(0, 3)
 
-    // Try to get content from file system
-    const { exists, content: fileContent } = await getProjectMarkdown(category.slug, subcategory.slug, slug)
+    // Create category and subcategory objects
+    const category = {
+      slug: project.categorySlug,
+      name: project.categorySlug.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
+      description: `${project.categorySlug} projects`,
+    }
+
+    const subcategory = {
+      slug: project.subcategorySlug,
+      name: project.subcategorySlug.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()),
+      description: `${project.subcategorySlug} projects`,
+    }
 
     return NextResponse.json({
       project,
       category,
       subcategory,
-      relatedProjects,
-      fileContent: exists ? fileContent : null,
+      relatedProjects: filteredRelatedProjects,
+      fileContent: project.content,
     })
   } catch (error) {
     console.error("Error fetching project:", error)
